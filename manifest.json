@@ -1,0 +1,21 @@
+{
+  "name": "CDE 糖尿病衛教師筆試全真備考系統",
+  "short_name": "CDE 備考",
+  "description": "中華民國糖尿病衛教學會 2026 核心教材 30 章 ＋ 共照網官方考古真題（1,025 題庫）",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
