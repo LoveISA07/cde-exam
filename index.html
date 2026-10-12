@@ -1256,7 +1256,6 @@ Minimum version required to store current data is: `+i+`.
       <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
         <button class="btn btn-primary btn-sm" id="comm-tab-issues" onclick="switchCommunityAdminTab('ISSUES')">🚩 待處理問題回報 (<span id="modal-issue-tab-count">0</span>)</button>
         <button class="btn btn-outline btn-sm" id="comm-tab-feed" onclick="switchCommunityAdminTab('FEED')">💬 最新討論串與共筆動態</button>
-        <button class="btn btn-outline btn-sm" id="comm-tab-webhook" onclick="switchCommunityAdminTab('WEBHOOK')">⚙️ 管理者即時通知設定 (Email / Google表單連動)</button>
       </div>
 
       <div id="community-admin-body"></div>
@@ -3476,10 +3475,12 @@ Minimum version required to store current data is: `+i+`.
       alert(`✓ 感謝您的回報！\n\n本題（${qid}）已列入首頁「🔔 討論動態 ＆ 🚩 問題回報看板」並同步貼至本題討論串，方便管理者檢視與考友回覆！`);
     }
 
+    const ADMIN_NOTIFICATION_EMAIL = 'milkisa@gmail.com';
+
     function sendWebhookNotification(eventType, qid, author, content) {
-      if (!adminWebhookUrl || !adminWebhookUrl.startsWith('http')) return;
       const q = QUESTION_MAP.get(qid) || {};
       const payload = {
+        _subject: `🚨 [CDE題庫回報 - ${eventType}] ${qid}`,
         eventType: eventType,
         questionId: qid,
         questionStem: q.stem || '',
@@ -3488,12 +3489,19 @@ Minimum version required to store current data is: `+i+`.
         timestamp: new Date().toISOString()
       };
       try {
-        fetch(adminWebhookUrl, {
+        fetch(`https://formsubmit.co/ajax/${ADMIN_NOTIFICATION_EMAIL}`, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
         }).catch(() => {});
+        if (adminWebhookUrl && adminWebhookUrl.startsWith('http')) {
+          fetch(adminWebhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          }).catch(() => {});
+        }
       } catch (e) {}
     }
 
@@ -3727,7 +3735,7 @@ Minimum version required to store current data is: `+i+`.
 
     function switchCommunityAdminTab(tab) {
       currentAdminTab = tab;
-      ['issues', 'feed', 'webhook'].forEach(t => {
+      ['issues', 'feed'].forEach(t => {
         const btn = document.getElementById(`comm-tab-${t}`);
         if (btn) {
           btn.className = (t.toUpperCase() === tab) ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
@@ -3746,7 +3754,7 @@ Minimum version required to store current data is: `+i+`.
             <div style="text-align: center; padding: 32px 16px; background: var(--slate-50); border-radius: var(--radius-md); border: 1px dashed var(--slate-300);">
               <div style="font-size: 2rem; margin-bottom: 8px;">✅</div>
               <div style="font-weight: 800; color: var(--slate-800); margin-bottom: 4px;">目前沒有待處理的「🚩 題目有問題」回報</div>
-              <div style="font-size: 0.86rem; color: var(--slate-500);">當任何考生在題目下方點擊「🚩 題目有問題回報」時，回報紀錄會立即顯示於此處，並可綁定 Google 試算表 / Email 自動通知您！</div>
+              <div style="font-size: 0.86rem; color: var(--slate-500);">當考生在題目下方點擊「🚩 題目有問題回報」時，回報紀錄會顯示於此處並於後台自動發送通知。</div>
             </div>
           `;
           return;
@@ -3777,7 +3785,7 @@ Minimum version required to store current data is: `+i+`.
             </div>
           `;
         }).join('');
-      } else if (currentAdminTab === 'FEED') {
+      } else {
         let feedItems = [];
         Object.keys(discussionsMap).forEach(qid => {
           (discussionsMap[qid] || []).forEach(t => {
@@ -3810,41 +3818,6 @@ Minimum version required to store current data is: `+i+`.
             </div>
           `;
         }).join('');
-      } else {
-        body.innerHTML = `
-          <div style="background: #f8fafc; border: 1.5px solid var(--slate-200); border-radius: var(--radius-md); padding: 16px;">
-            <div style="font-weight: 800; color: var(--slate-900); font-size: 1rem; margin-bottom: 8px;">
-              🔔 當有人按下「🚩 題目有問題」或留言時，我該怎麼收到即時通知？
-            </div>
-            <p style="font-size: 0.88rem; color: var(--slate-600); line-height: 1.6; margin-bottom: 12px;">
-              1. <strong>內建看板集中檢視</strong>：所有回報都會自動匯集於本視窗的「🚩 待處理問題回報」分頁。<br>
-              2. <strong>跨平台即時 Email / Google 試算表通知（選填綁定）</strong>：因為 GitHub Pages 為純靜態網頁，若您希望任何考生在手機上按下「🚩 題目有問題」時<strong>立刻寄信到您的信箱並寫入 Google 試算表</strong>，只需在 Google 雲端硬碟建立一個免費的 Google Apps Script 網頁應用程式，並將網址貼在下方即可！
-            </p>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 0.84rem; font-weight: 800; color: var(--slate-700); margin-bottom: 4px;">
-                🔗 綁定 Google Apps Script / Webhook 接收網址：
-              </label>
-              <div style="display: flex; gap: 8px;">
-                <input type="text" id="webhook-url-input" value="${escapeHtml(adminWebhookUrl)}" placeholder="https://script.google.com/macros/s/.../exec" style="flex: 1; padding: 8px 12px; border: 1.5px solid var(--slate-300); border-radius: 6px; font-size: 0.86rem;">
-                <button class="btn btn-primary btn-sm" onclick="saveWebhookUrl()">💾 儲存設定</button>
-              </div>
-            </div>
-            <details style="font-size: 0.82rem; color: var(--slate-600); background: white; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--slate-200);">
-              <summary style="font-weight: 800; cursor: pointer; color: var(--primary);">📋 點此展開「1 分鐘設定 Google 試算表自動寄信通知」程式碼範本</summary>
-              <pre style="background: #1e293b; color: #f8fafc; padding: 10px; border-radius: 6px; overflow-x: auto; margin-top: 8px; font-size: 0.78rem;">function doPost(e) {
-  var data = JSON.parse(e.postData.contents);
-  SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().appendRow([
-    new Date(), data.eventType, data.questionId, data.author, data.content, data.questionStem
-  ]);
-  if (data.eventType === 'ISSUE_REPORT') {
-    MailApp.sendEmail("您的信箱@gmail.com", "🚨 [CDE題庫問題回報] " + data.questionId,
-      "題號：" + data.questionId + "\n題幹：" + data.questionStem + "\n回報者：" + data.author + "\n內容：" + data.content);
-  }
-  return ContentService.createTextOutput("OK");
-}</pre>
-            </details>
-          </div>
-        `;
       }
     }
 
@@ -3853,13 +3826,6 @@ Minimum version required to store current data is: `+i+`.
       reportedIssuesList[idx].status = (reportedIssuesList[idx].status === 'RESOLVED') ? 'OPEN' : 'RESOLVED';
       saveCommunityAndBookmarkState();
       renderCommunityAdminBody();
-    }
-
-    function saveWebhookUrl() {
-      const inp = document.getElementById('webhook-url-input');
-      adminWebhookUrl = inp ? inp.value.trim() : '';
-      saveCommunityAndBookmarkState();
-      alert("✓ 已儲存管理者通知 Webhook 網址！");
     }
 
     // Initialize Dashboard on Page Load
