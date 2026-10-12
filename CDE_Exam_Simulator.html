@@ -2877,39 +2877,520 @@ Minimum version required to store current data is: `+i+`.
 
     // Pre-seeded High-Yield Shared Collaborative Notes & Discussions
     const DEFAULT_SHARED_NOTES = {
-            "CDE-EXAM-0950": [
-                {
-                    author: "系統管理員 (2026 核心課本勘誤與解析)",
-                    role: "跨職類考題解析",
-                    time: "2026-04-12",
-                    likes: 28,
-                    text: "💡 【2026 核心課本出處：第1章第10節、第2章表2-3 ＆ 第8章第3節】
-1️⃣ 為什麼選 (D) Pioglitazone：核心課本第1章明載「Metformin 為目前唯一具充分證據之預防用藥」（第2章表2-3 DPP 研究：Metformin 1700 mg/d 在 3 年內降低 31% 罹患 T2DM 風險）；第8章第3節明載「ACE 研究結果發現具心血管病史的 IGT 病人使用 Acarbose 可減少進展至糖尿病的機會」；第2章第5節則將「羅氏鮮（Orlistat）」列為台灣衛福部食藥署（TFDA）核可之減重藥物以延緩糖尿病前期進展。全本核心課本並未將 Pioglitazone 列為預防糖尿病用藥，故依核心課本標準答案選 (D) Pioglitazone！"
-                }
-            ],
-            "CDE-EXAM-0696": [
-                {
-                    author: "臨床藥師共筆",
-                    role: "藥師",
-                    time: "2026-04-12",
-                    likes: 34,
-                    text: "💊 【2026 核心課本第8章第3節：SU 與 Glinide 類為何不可併用？】
-1️⃣ 核心課本原文：「避免併用相同或高度重疊機轉的藥物（例如：磺醯脲素與 meglitinides 同屬促胰島素分泌劑不建議併用；DPP-4 抑制劑與 GLP-1 受體致效劑同屬腸泌素路徑亦不建議併用）。」
-2️⃣ 機轉重疊：兩者皆結合胰島 β 細胞膜上的 SUR1 受體（結合位點不同），關閉 ATP 敏感性鉀離子通道（K_ATP），引發去極化與 Ca²⁺ 內流而促使胰島素分泌。併用無加成效果，反而大幅增加嚴重低血糖與體重增加風險！
-3️⃣ 課本必考 Glinide 特性：屬「快速/短效促胰島素分泌劑」，主降餐後血糖（有用餐才服藥，不吃不服）。Repaglinide 經 CYP2C8/3A4 代謝（禁忌與 Gemfibrozil 併用、避免與 Clopidogrel 併用）；Mitiglinide 經 UGT1A9/1A3 葡萄糖醛酸化代謝（少交互作用）；Nateglinide 經 CYP2C9/3A4 代謝。"
-                }
-            ],
-            "CDE-EXAM-0906": [
-                {
-                    author: "系統管理員 (2026 核心課本原文勘誤)",
-                    role: "跨職類考題解析",
-                    time: "2026-04-12",
-                    likes: 22,
-                    text: "📖 【2026 核心課本第14章第2節原文逐字對照】
-課本原文：「流行病學研究分析收縮壓每下降 10 mmHg，就可減少任何糖尿病風險 12%、減少糖尿病相關死亡 15%、減少心肌梗塞 11%、減少小血管併發症 13%。」
-因此 (A) 12%、(B) 15%、(D) 13% 皆與課本原文完全相符，唯獨 (C) 寫「心肌梗塞 21%」是錯的（課本原文為減少心肌梗塞 11%），故本題正確答案已依核心課本修正為 (C)！"
-                }
-            ]
+      "CDE-EXAM-0950": [
+            {
+                  "id": "note-seed-950",
+                  "author": "林醫師 (2026 核心課本原文解析)",
+                  "date": "2026-10-11",
+                  "content": "【第620題 核心課本出處：第1章第10節、第2章表2-3 ＆ 第8章第3節】：(1) Metformin：課本第1章明載為目前唯一具充分證據之預防用藥（DPP研究降低31%風險）；(2) Acarbose：課本第8章明載 ACE 研究證實具心血管病史之 IGT 病人使用 Acarbose 可減少進展至糖尿病的機會；(3) Orlistat：課本第2章列為 TFDA 核可減重藥物以延緩糖尿病前期進展；(4) Pioglitazone：全本核心課本未列為預防糖尿病用藥，故選 (D)！",
+                  "upvotes": 28
+            }
+      ],
+      "CDE-EXAM-0696": [
+            {
+                  "id": "note-seed-696",
+                  "author": "臨床藥師 (2026 核心課本第8章共筆)",
+                  "date": "2026-10-11",
+                  "content": "【第315題 SU 與 Glinide 為何不宜併用？】：核心課本第8章第3節明載「避免併用相同或高度重疊機轉的藥物（例如：磺醯脲素與 meglitinides 同屬促胰島素分泌劑不建議併用）」。兩者皆結合胰島 β 細胞膜上 SUR1 受體、關閉 ATP 敏感性鉀離子通道（K_ATP）促胰島素分泌，併用無加成效果且大幅增加嚴重低血糖風險！",
+                  "upvotes": 34
+            }
+      ],
+      "CDE-EXAM-0906": [
+            {
+                  "id": "note-seed-906",
+                  "author": "系統管理員 (2026 核心課本第14章勘誤)",
+                  "date": "2026-10-11",
+                  "content": "【第567題 課本第14章第2節逐字原文】：「流行病學研究分析收縮壓每下降 10 mmHg，就可減少任何糖尿病風險 12%、減少糖尿病相關死亡 15%、減少心肌梗塞 11%、減少小血管併發症 13%。」因此 (C) 寫心肌梗塞 21% 為錯誤敘述（應為 11%），本題正解為 (C)！",
+                  "upvotes": 22
+            }
+      ],
+      "CDE-EXAM-0686": [
+            {
+                  "id": "note-seed-686",
+                  "author": "陳藥師 (CDE考友共筆)",
+                  "date": "2026-10-10",
+                  "content": "【第302題 酮體形成症狀口訣】：脂肪分解產生酮體（Acetone丙酮、Acetoacetate、β-HB），會造成「食慾喪失（厭食噁心，絕對不是食慾增加！）」、「呼吸有腐爛水果味（丙酮味）」與「尿酮陽性」！",
+                  "upvotes": 19
+            }
+      ],
+      "CDE-EXAM-1025": [
+            {
+                  "id": "note-seed-1025",
+                  "author": "張營養師 (CDE考友共筆)",
+                  "date": "2026-10-09",
+                  "content": "【第729題 零醣食物秒殺口訣】：豬血、鴨血屬於「豆魚蛋肉類（低脂蛋白質）」，含醣量為 0 公克！冬粉是綠豆澱粉（全穀雜糧主食，1把=30g醣），玉米筍是蔬菜類（每碗約5g醣）。",
+                  "upvotes": 24
+            }
+      ]
+};
+
+    const DEFAULT_DISCUSSIONS = {
+      "CDE-EXAM-0950": [
+            {
+                  "id": "disc-seed-950",
+                  "author": "備考護理師小芸",
+                  "date": "2026-10-11 20:15",
+                  "content": "請問這題（第 620 題）答案為什麼是 D (Pioglitazone)？課本裡面哪一章有寫到其他三個藥可以預防糖尿病呢？",
+                  "replies": [
+                        {
+                              "author": "教學組長・2026核心課本解答",
+                              "date": "2026-10-11 20:22",
+                              "content": "根據《2026 糖尿病衛教學會核心課本》：(1) Metformin 在第1章第10節與第2章表2-3（DPP研究降低31%風險）明載為唯一具充分證據之預防用藥；(2) Acarbose 在第8章第3節（AGI段落）明載 ACE 研究發現具心血管病史的 IGT 病人使用 Acarbose 可減少進展至糖尿病的機會；(3) Orlistat 在第2章第5節列為 TFDA 核可減重藥以延緩糖尿病前期進展。唯有 (D) Pioglitazone 在核心課本中未列為預防糖尿病用藥，故選 (D)！"
+                        }
+                  ]
+            }
+      ]
+};
+
+    let bookmarkedIdsSet = new Set();
+    let privateNotesMap = {};
+    let sharedNotesMap = {};
+    let discussionsMap = {};
+    let reportedIssuesList = [];
+    let adminWebhookUrl = '';
+    let userNickname = '';
+
+    function loadCommunityAndBookmarkState() {
+      try {
+        const rawB = localStorage.getItem(STORAGE_BOOKMARKS_KEY);
+        bookmarkedIdsSet = rawB ? new Set(JSON.parse(rawB)) : new Set();
+
+        const rawPN = localStorage.getItem(STORAGE_PRIVATE_NOTES_KEY);
+        privateNotesMap = rawPN ? JSON.parse(rawPN) : {};
+
+        const rawSN = localStorage.getItem(STORAGE_SHARED_NOTES_KEY);
+        sharedNotesMap = rawSN ? JSON.parse(rawSN) : JSON.parse(JSON.stringify(DEFAULT_SHARED_NOTES));
+        // Ensure seed notes exist
+        Object.keys(DEFAULT_SHARED_NOTES).forEach(k => {
+          if (!sharedNotesMap[k] || sharedNotesMap[k].length === 0) {
+            sharedNotesMap[k] = JSON.parse(JSON.stringify(DEFAULT_SHARED_NOTES[k]));
+          }
+        });
+
+        const rawD = localStorage.getItem(STORAGE_DISCUSSIONS_KEY);
+        discussionsMap = rawD ? JSON.parse(rawD) : JSON.parse(JSON.stringify(DEFAULT_DISCUSSIONS));
+        Object.keys(DEFAULT_DISCUSSIONS).forEach(k => {
+          if (!discussionsMap[k] || discussionsMap[k].length === 0) {
+            discussionsMap[k] = JSON.parse(JSON.stringify(DEFAULT_DISCUSSIONS[k]));
+          }
+        });
+
+        const rawI = localStorage.getItem(STORAGE_ISSUES_KEY);
+        reportedIssuesList = rawI ? JSON.parse(rawI) : [];
+
+        adminWebhookUrl = localStorage.getItem(STORAGE_WEBHOOK_URL_KEY) || '';
+        userNickname = localStorage.getItem(STORAGE_NICKNAME_KEY) || '熱心考友';
+      } catch (e) {
+        console.error("Failed to load community state", e);
+      }
+      updateSpecialistBadges();
+      populateBrowserSelects();
+    }
+
+    function saveCommunityAndBookmarkState() {
+      try {
+        localStorage.setItem(STORAGE_BOOKMARKS_KEY, JSON.stringify(Array.from(bookmarkedIdsSet)));
+        localStorage.setItem(STORAGE_PRIVATE_NOTES_KEY, JSON.stringify(privateNotesMap));
+        localStorage.setItem(STORAGE_SHARED_NOTES_KEY, JSON.stringify(sharedNotesMap));
+        localStorage.setItem(STORAGE_DISCUSSIONS_KEY, JSON.stringify(discussionsMap));
+        localStorage.setItem(STORAGE_ISSUES_KEY, JSON.stringify(reportedIssuesList));
+        localStorage.setItem(STORAGE_WEBHOOK_URL_KEY, adminWebhookUrl);
+        localStorage.setItem(STORAGE_NICKNAME_KEY, userNickname);
+      } catch (e) {
+        console.error("Failed to save community state", e);
+      }
+      updateSpecialistBadges();
+    }
+
+    function updateSpecialistBadges() {
+      const bCount = bookmarkedIdsSet.size;
+      const wCount = persistentMistakes.length;
+      const openIssuesCount = reportedIssuesList.filter(x => x.status !== 'RESOLVED').length;
+
+      let commQIds = new Set([...Object.keys(sharedNotesMap), ...Object.keys(discussionsMap), ...Object.keys(privateNotesMap)]);
+      const commCount = Array.from(commQIds).filter(id =>
+        (sharedNotesMap[id] && sharedNotesMap[id].length > 0) ||
+        (discussionsMap[id] && discussionsMap[id].length > 0) ||
+        (privateNotesMap[id] && privateNotesMap[id].trim() !== '')
+      ).length;
+
+      const elTopB = document.getElementById('top-bookmark-count');
+      if (elTopB) elTopB.innerText = bCount;
+      const elHubB = document.getElementById('hub-star-count');
+      if (elHubB) elHubB.innerText = bCount;
+      const elHubW = document.getElementById('hub-wrong-count');
+      if (elHubW) elHubW.innerText = wCount;
+      const elHubC = document.getElementById('hub-comm-count');
+      if (elHubC) elHubC.innerText = commCount;
+      const elTopI = document.getElementById('top-issue-count');
+      if (elTopI) elTopI.innerText = openIssuesCount;
+      const elModalI = document.getElementById('modal-issue-tab-count');
+      if (elModalI) elModalI.innerText = openIssuesCount;
+    }
+
+    function isBookmarked(qid) {
+      return bookmarkedIdsSet.has(qid);
+    }
+
+    function toggleBookmark(qid) {
+      if (bookmarkedIdsSet.has(qid)) {
+        bookmarkedIdsSet.delete(qid);
+      } else {
+        bookmarkedIdsSet.add(qid);
+      }
+      saveCommunityAndBookmarkState();
+
+      // Update any visible star buttons for this qid
+      document.querySelectorAll(`[data-star-qid="${qid}"], #exam-star-${qid}`).forEach(btn => {
+        if (bookmarkedIdsSet.has(qid)) {
+          btn.classList.add('starred');
+          btn.innerHTML = '★ 已收藏';
+        } else {
+          btn.classList.remove('starred');
+          btn.innerHTML = '☆ 收藏題目';
+        }
+      });
+    }
+
+    function startBookmarkDrill() {
+      if (bookmarkedIdsSet.size === 0) {
+        alert("⭐ 您的收藏題目夾目前是空的！\n您可以在測驗中、詳解下方或題庫瀏覽時點擊「☆ 收藏題目」將重點題加入收藏夾。");
+        return;
+      }
+      const chosen = QUESTIONS_DATA.filter(q => bookmarkedIdsSet.has(q.id));
+      startUniversalDrill(shuffleArray(chosen), `⭐ 收藏題目專屬特訓（共 ${chosen.length} 題）`, false);
+    }
+
+    // ==================== 15 CLINICAL CONCEPTS DRILL & BROWSER ====================
+    let conceptListExpanded = false;
+
+    function toggleConceptList() {
+      conceptListExpanded = !conceptListExpanded;
+      const container = document.getElementById('concept-list-container');
+      const btn = document.getElementById('btn-toggle-concepts');
+      if (container) container.style.display = conceptListExpanded ? 'block' : 'none';
+      if (btn) btn.innerText = conceptListExpanded ? '收合 15 大臨床概念特訓 ▲' : '展開 15 大臨床概念特訓 ▼';
+      if (conceptListExpanded) renderConceptCards();
+    }
+
+    function renderConceptCards() {
+      const grid = document.getElementById('concept-cards-grid');
+      if (!grid) return;
+
+      let html = '';
+      ALL_15_CONCEPTS.forEach(concept => {
+        const matchingQs = QUESTIONS_DATA.filter(q => (q.concept_tags || []).includes(concept));
+        const total = matchingQs.length;
+        const practiced = matchingQs.filter(q => practicedIdsSet.has(q.id)).length;
+        const pct = total > 0 ? Math.round((practiced / total) * 100) : 0;
+
+        html += `
+          <div class="concept-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span class="badge" style="background: #f3e8ff; color: #6d28d9; font-weight: 800;">跨章節核心概念</span>
+                <span style="font-size: 0.78rem; color: var(--slate-500); font-weight: 700;">共 ${total} 題</span>
+              </div>
+              <div style="font-size: 0.96rem; font-weight: 800; color: var(--slate-900); margin-bottom: 8px; line-height: 1.4;">
+                ${concept}
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--slate-500); margin-bottom: 4px;">
+                <span>已精練 ${practiced} / ${total} 題</span>
+                <span style="font-weight: 700; color: #6d28d9;">${pct}%</span>
+              </div>
+              <div style="height: 6px; background: var(--slate-200); border-radius: 9999px; overflow: hidden; margin-bottom: 12px;">
+                <div style="height: 100%; width: ${pct}%; background: linear-gradient(90deg, #8b5cf6, #6d28d9);"></div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn btn-outline" style="flex: 1; padding: 6px 8px; font-size: 0.76rem; font-weight: 700; border-radius: var(--radius-sm);" onclick="startConceptDrill('${concept}', 15)">
+                ⚡ 抽 15 題快刷
+              </button>
+              <button class="btn btn-outline" style="flex: 1; padding: 6px 8px; font-size: 0.76rem; font-weight: 700; border-radius: var(--radius-sm);" onclick="startConceptDrill('${concept}', 'all')">
+                🔥 全刷 (${total}題)
+              </button>
+              <button class="btn btn-primary" style="flex: 1; padding: 6px 8px; font-size: 0.76rem; font-weight: 800; border-radius: var(--radius-sm); background: #7c3aed; border-color: #6d28d9;" onclick="openStudyBrowser('ALL', 'ALL', '${concept}')">
+                📖 瀏覽共筆
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function startConceptDrill(conceptName, count) {
+      const matchingQs = QUESTIONS_DATA.filter(q => (q.concept_tags || []).includes(conceptName));
+      if (matchingQs.length === 0) {
+        alert("找不到此概念的題目！");
+        return;
+      }
+      const shuffled = shuffleArray(matchingQs);
+      const chosen = (count === 'all' || count >= matchingQs.length) ? shuffled : shuffled.slice(0, count);
+      startUniversalDrill(chosen, `${conceptName}（${chosen.length} 題概念特訓）`, false);
+    }
+
+    // ==================== UNIFIED PER-QUESTION INTERACTIVE FOOTER ====================
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderQuestionInteractiveFooter(qid) {
+      const q = QUESTION_MAP.get(qid);
+      if (!q) return '';
+
+      const starred = isBookmarked(qid);
+      const conceptPillsHtml = (q.concept_tags || []).map(tag => `
+        <span class="concept-pill" onclick="openStudyBrowser('ALL', 'ALL', '${tag}')" title="點擊撈出此概念所有相關題目">
+          ${tag}
+        </span>
+      `).join('');
+
+      // 1. Similar Questions (相似題目串聯)
+      const simIds = q.similar_ids || [];
+      const simItemsHtml = simIds.map(sid => {
+        const sq = QUESTION_MAP.get(sid);
+        if (!sq) return '';
+        return `
+          <div class="similar-item" onclick="toggleSimilarPreview('${qid}', '${sid}')">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <div style="font-size: 0.86rem; font-weight: 700; color: var(--slate-800); line-height: 1.4;">
+                <span class="badge badge-primary" style="font-size: 0.72rem; padding: 2px 6px; margin-right: 4px;">${sq.id}</span>
+                ${sq.stem}
+              </div>
+              <span style="font-size: 0.78rem; color: var(--primary); font-weight: 800; white-space: nowrap;">展開對照 ▼</span>
+            </div>
+            <div id="sim-preview-${qid}-${sid}" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--slate-300); font-size: 0.85rem; color: var(--slate-700);" onclick="event.stopPropagation()">
+              <div style="margin-bottom: 6px; font-weight: 700; color: var(--slate-800);">選項：${sq.options.join(' ｜ ')}</div>
+              <div style="margin-bottom: 6px; color: #15803d; font-weight: 800;">✓ 正確答案：${sq.answer}</div>
+              <div style="background: white; padding: 10px; border-radius: 6px; border: 1px solid var(--slate-200); line-height: 1.6;">${sq.explanation}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 2. Shared Notes & Private Note (考友共筆 & 個人筆記)
+      const sNotes = (sharedNotesMap[qid] || []).slice().sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
+      const pNote = privateNotesMap[qid] || '';
+
+      let notesListHtml = '';
+      if (pNote.trim() !== '') {
+        notesListHtml += `
+          <div class="note-card-item" style="background: #fefce8; border-color: #fde047;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #854d0e; font-weight: 800; margin-bottom: 4px;">
+              <span>🔒 我的個人私密筆記（僅此裝置可見）</span>
+              <button style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:0.75rem;" onclick="deletePrivateNote('${qid}')">刪除</button>
+            </div>
+            <div style="white-space: pre-wrap; color: var(--slate-800);">${escapeHtml(pNote)}</div>
+          </div>
+        `;
+      }
+      if (sNotes.length === 0 && pNote.trim() === '') {
+        notesListHtml = `<div style="font-size: 0.82rem; color: var(--slate-500); margin-bottom: 8px;">尚無考友共筆，歡迎成為第一位分享本題記憶口訣或重點的考友！</div>`;
+      } else {
+        sNotes.forEach((n, nIdx) => {
+          notesListHtml += `
+            <div class="note-card-item">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 0.78rem; font-weight: 800; color: #15803d;">🌐 ${escapeHtml(n.author)} <span style="font-weight: normal; color: var(--slate-400);">・${escapeHtml(n.date)}</span></span>
+                <button type="button" class="upvote-btn" onclick="upvoteSharedNote('${qid}', '${n.id}')">👍 實用 (${n.upvotes || 0})</button>
+              </div>
+              <div style="white-space: pre-wrap; color: var(--slate-800);">${escapeHtml(n.content)}</div>
+            </div>
+          `;
+        });
+      }
+
+      // 3. Discussions with Next-Line Replies (討論串 & 下一行回覆)
+      const threads = discussionsMap[qid] || [];
+      let discListHtml = '';
+      if (threads.length === 0) {
+        discListHtml = `<div style="font-size: 0.82rem; color: var(--slate-500); margin-bottom: 8px;">對本題答案或題解有疑問嗎？歡迎在下方留言發問，其他考友可在下一行直接回覆您！</div>`;
+      } else {
+        threads.forEach((t, tIdx) => {
+          const repliesHtml = (t.replies || []).map(r => `
+            <div class="disc-reply-item">
+              <div style="font-weight: 800; color: #1e40af; font-size: 0.76rem; margin-bottom: 2px;">
+                ↳ ↩️ ${escapeHtml(r.author)} <span style="font-weight: normal; color: var(--slate-400);">・${escapeHtml(r.date)}</span>
+              </div>
+              <div style="white-space: pre-wrap;">${escapeHtml(r.content)}</div>
+            </div>
+          `).join('');
+
+          discListHtml += `
+            <div class="disc-thread-item">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 0.78rem; font-weight: 800; color: #1d4ed8;">💬 ${escapeHtml(t.author)} <span style="font-weight: normal; color: var(--slate-400);">・${escapeHtml(t.date)}</span></span>
+                <button type="button" style="background: none; border: none; color: #2563eb; font-size: 0.78rem; font-weight: 800; cursor: pointer;" onclick="toggleReplyBox('${qid}', ${tIdx})">
+                  ↩️ 在下一行回覆
+                </button>
+              </div>
+              <div style="white-space: pre-wrap; color: var(--slate-800);">${escapeHtml(t.content)}</div>
+              ${repliesHtml}
+              <div id="reply-box-${qid}-${tIdx}" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #bfdbfe;">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <input type="text" id="reply-input-${qid}-${tIdx}" placeholder="↳ 在下一行回覆 ${escapeHtml(t.author)} 的問題..." style="flex: 1; padding: 6px 10px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 0.84rem;">
+                  <button type="button" class="btn btn-primary btn-sm" style="padding: 5px 12px; font-size: 0.8rem;" onclick="submitThreadReply('${qid}', ${tIdx})">送出回覆</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      return `
+        <div class="q-interactive-footer" id="q-footer-${qid}">
+          <!-- Row 1: Concept Tags + Star + Flag Issue -->
+          <div class="q-footer-bar">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+              <span style="font-size: 0.8rem; font-weight: 800; color: var(--slate-500);">🎯 核心概念：</span>
+              ${conceptPillsHtml}
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button type="button" class="btn-star ${starred ? 'starred' : ''}" data-star-qid="${qid}" onclick="toggleBookmark('${qid}')">
+                ${starred ? '★ 已收藏' : '☆ 收藏題目'}
+              </button>
+              <button type="button" class="btn-flag-issue" onclick="toggleIssueForm('${qid}')">
+                🚩 題目有問題回報
+              </button>
+            </div>
+          </div>
+
+          <!-- Inline Issue Report Box (Hidden by default) -->
+          <div id="issue-form-${qid}" style="display: none; background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 14px;">
+            <div style="font-weight: 800; color: #991b1b; font-size: 0.9rem; margin-bottom: 8px;">
+              🚩 回報本題（${qid}）有問題（送出後將立即列入首頁「待處理問題看板」並通知管理者）
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+              <select id="issue-type-${qid}" style="padding: 6px 10px; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.85rem; background: white;">
+                <option value="題解看不懂 / 需要補充說明">❓ 題解看不懂 / 需要補充說明</option>
+                <option value="答案疑似有誤 / 與新指引不同">⚠️ 答案疑似有誤 / 與最新指引不同</option>
+                <option value="題幹或選項文字缺漏">📝 題幹或選項文字缺漏</option>
+              </select>
+              <input type="text" id="issue-author-${qid}" value="${escapeHtml(userNickname)}" placeholder="您的稱呼（選填）" style="width: 150px; padding: 6px 10px; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.85rem; background: white;">
+            </div>
+            <textarea id="issue-desc-${qid}" rows="2" placeholder="請簡述您覺得有疑問的地方（例如：為何答案是 D？或某選項數值疑問）..." style="width: 100%; padding: 8px 10px; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.86rem; margin-bottom: 8px;"></textarea>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="toggleIssueForm('${qid}')">取消</button>
+              <button type="button" class="btn btn-sm" style="background: #dc2626; color: white; font-weight: 800;" onclick="submitQuestionIssue('${qid}')">🚀 送出問題回報（同步貼至討論串）</button>
+            </div>
+          </div>
+
+          <!-- Row 2: Similar Questions Linking -->
+          ${simItemsHtml ? `
+            <div class="similar-box">
+              <div style="font-size: 0.86rem; font-weight: 800; color: var(--slate-700);">
+                🔗 延伸相似題目串聯（同概念考古題與教材題一鍵展開對照）：
+              </div>
+              ${simItemsHtml}
+            </div>
+          ` : ''}
+
+          <!-- Row 3: Shared Notes & Discussions -->
+          <div class="community-grid">
+            <!-- Left: Collaborative & Private Notes -->
+            <div class="shared-note-box">
+              <div style="font-weight: 800; color: #166534; font-size: 0.92rem; margin-bottom: 8px;">
+                📘 考友共筆精華 ＆ 🔒 個人筆記
+              </div>
+              <div id="notes-list-${qid}">
+                ${notesListHtml}
+              </div>
+              <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #86efac;">
+                <textarea id="note-input-${qid}" rows="2" placeholder="✍️ 撰寫本題口訣、解題筆記..." style="width: 100%; padding: 7px 10px; border: 1px solid #86efac; border-radius: 6px; font-size: 0.84rem; margin-bottom: 6px; background: white;"></textarea>
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <select id="note-visibility-${qid}" style="padding: 4px 8px; border: 1px solid #86efac; border-radius: 6px; font-size: 0.78rem; background: white; color: #166534; font-weight: 700;">
+                    <option value="SHARED">🌐 公開至「考友共筆」（造福其他考生）</option>
+                    <option value="PRIVATE">🔒 僅存為「個人私密筆記」（只存在此裝置）</option>
+                  </select>
+                  <button type="button" class="btn btn-sm" style="background: #16a34a; color: white; font-weight: 800; padding: 5px 12px; font-size: 0.8rem;" onclick="submitQuestionNote('${qid}')">
+                    💾 儲存筆記
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Discussion Board with Next-Line Reply -->
+            <div class="discussion-box">
+              <div style="font-weight: 800; color: #1e40af; font-size: 0.92rem; margin-bottom: 8px;">
+                💬 考友討論串（開放提問・支援下一行回覆）
+              </div>
+              <div id="disc-list-${qid}">
+                ${discListHtml}
+              </div>
+              <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #93c5fd;">
+                <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+                  <input type="text" id="disc-author-${qid}" value="${escapeHtml(userNickname)}" placeholder="您的暱稱" style="width: 110px; padding: 6px 8px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 0.8rem; background: white;">
+                  <input type="text" id="disc-input-${qid}" placeholder="❓ 題解看不懂或想討論？在此輸入問題..." style="flex: 1; padding: 6px 10px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 0.84rem; background: white;" onkeydown="if(event.key==='Enter') submitNewDiscussion('${qid}')">
+                  <button type="button" class="btn btn-primary btn-sm" style="padding: 5px 12px; font-size: 0.8rem; font-weight: 800;" onclick="submitNewDiscussion('${qid}')">
+                    留言
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshQuestionFooterDOM(qid) {
+      const el = document.getElementById(`q-footer-${qid}`);
+      if (el) {
+        el.outerHTML = renderQuestionInteractiveFooter(qid);
+      }
+    }
+
+    function toggleSimilarPreview(qid, sid) {
+      const box = document.getElementById(`sim-preview-${qid}-${sid}`);
+      if (box) {
+        box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+      }
+    }
+
+    function toggleIssueForm(qid) {
+      const box = document.getElementById(`issue-form-${qid}`);
+      if (box) {
+        box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+      }
+    }
+
+    function toggleReplyBox(qid, tIdx) {
+      const box = document.getElementById(`reply-box-${qid}-${tIdx}`);
+      if (box) {
+        box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+        const inp = document.getElementById(`reply-input-${qid}-${tIdx}`);
+        if (inp && box.style.display === 'block') inp.focus();
+      }
+    }
+
+    function submitQuestionNote(qid) {
+      const inp = document.getElementById(`note-input-${qid}`);
+      const vis = document.getElementById(`note-visibility-${qid}`);
+      if (!inp || !inp.value.trim()) {
+        alert("請先輸入筆記內容！");
+        return;
+      }
+      const content = inp.value.trim();
+      const mode = vis ? vis.value : 'SHARED';
+
+      if (mode === 'PRIVATE') {
+        privateNotesMap[qid] = content;
+        saveCommunityAndBookmarkState();
+        refreshQuestionFooterDOM(qid);
+      } else {
+        const nick = prompt("請確認發布於「考友共筆」的顯示暱稱：", userNickname || "熱心考友") || "熱心考友";
+        userNickname = nick.trim();
+        if (!sharedNotesMap[qid]) sharedNotesMap[qid] = [];
+        const newNote = {
+          id: 'note-' + Date.now(),
+          author: userNickname,
+          date: new Date().toISOString().slice(0, 10),
+          content: content,
+          upvotes: 1
         };
         sharedNotesMap[qid].unshift(newNote);
         saveCommunityAndBookmarkState();
