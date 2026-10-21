@@ -1,8 +1,8 @@
 {
-  "audit_version": "2026_CORE_TEXTBOOK_V1",
+  "audit_version": "2026_CORE_TEXTBOOK_FULL_RUN",
   "total_questions": 1025,
   "passed_count": 29,
-  "failed_count": 20,
+  "failed_or_uncertain_count": 0,
   "pending_count": 996,
   "ledger": {
     "CDE-EXAM-0848": {
