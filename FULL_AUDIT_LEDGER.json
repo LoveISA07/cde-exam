@@ -1,0 +1,72 @@
+{
+  "audit_version": "2026_CORE_TEXTBOOK_V1",
+  "total_questions": 1025,
+  "passed_count": 9,
+  "failed_count": 0,
+  "pending_count": 1016,
+  "ledger": {
+    "CDE-EXAM-0848": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二十三章 懷孕與糖尿病",
+      "evidence": "20-23章.md:1349 (FDA核准Detemir/Degludec)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0432": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十四章 糖尿病大血管併發症",
+      "evidence": "14-15章.md:333,421 (110–135/85 mmHg)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0434": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二十四章 兒童與青少年糖尿病照護",
+      "evidence": "24-26章.md:178 (Metformin 10歲分界)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0620": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十二章 糖尿病腎臟病變",
+      "evidence": "10-13章.md:806-808 (表12-4 GFR增加20~50%)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-1025": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第四章 糖尿病之醫療營養治療（二）：糖尿病營養照顧計畫與實務運用",
+      "evidence": "03-05章.md:418 (表4-2 豆魚蛋肉低脂醣為-)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0201": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十二章 糖尿病腎臟病變",
+      "evidence": "14-15章.md:407 (7~14天) & 24-26章.md:1405 (高血鉀<2g/d)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0430": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十二章 糖尿病腎臟病變",
+      "evidence": "10-13章.md:808 (表12-4 第4期每年降10 ml/min)",
+      "verified_at": "2026-10-21T13:45:00Z"
+    },
+    "CDE-EXAM-0438": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:224,270 (T1D三多一少與消瘦)",
+      "verified_at": "2026-10-21T14:25:00Z"
+    },
+    "CDE-EXAM-0618": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第六章 糖尿病病人之運動",
+      "evidence": "06-07章.md:240,298 (減重每週5~7天)",
+      "verified_at": "2026-10-21T14:25:00Z"
+    }
+  }
+}
