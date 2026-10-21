@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.23` (2026-10-21 17:33:47)
+- **Commit**: `5c7850a`
+- **說明**: Deploy CDE Audit Reviewer interactive web app (reviewer.html) for reviewing 278 uncertain questions with checkmarks and comments
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.23
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.22` (2026-10-21 16:54:32)
 - **Commit**: `b591ec3`
 - **說明**: Expand full stem, all 4 options with answer key, full explanations and memory cores for all 268 UNCERTAIN and 10 DISCREPANCY questions in AUDIT_DISCREPANCIES.md
