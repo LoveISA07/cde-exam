@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.21` (2026-10-21 16:03:50)
+- **Commit**: `6babf97`
+- **說明**: Complete 1025 questions full textbook audit: 747 PASS (72.9%), 278 UNCERTAIN/DISCREPANCY logged to ledger and markdown report, fixed explanation detachments in 0930/0656 and DSMES 5 key times in 0246/0268
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.21
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.20` (2026-10-21 15:59:41)
 - **Commit**: `68a78de`
 - **說明**: Fix 6 flawed questions: 0616/0690/0905 duplicate options, 0207 residual urine threshold, 0203 typo, and 0535 Finland T1D incidence to textbook 52.2
