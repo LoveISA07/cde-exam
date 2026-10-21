@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.25` (2026-10-21 18:13:25)
+- **Commit**: `6e6a290`
+- **說明**: Update reviewer.html with clear visual auto-save reassurance badge
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.25
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.24` (2026-10-21 17:34:17)
 - **Commit**: `d37313a`
 - **說明**: Deploy CDE_Audit_Reviewer.html and reviewer.html interactive adjudication app
