@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.22` (2026-10-21 16:54:32)
+- **Commit**: `b591ec3`
+- **說明**: Expand full stem, all 4 options with answer key, full explanations and memory cores for all 268 UNCERTAIN and 10 DISCREPANCY questions in AUDIT_DISCREPANCIES.md
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.22
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.21` (2026-10-21 16:03:50)
 - **Commit**: `6babf97`
 - **說明**: Complete 1025 questions full textbook audit: 747 PASS (72.9%), 278 UNCERTAIN/DISCREPANCY logged to ledger and markdown report, fixed explanation detachments in 0930/0656 and DSMES 5 key times in 0246/0268
