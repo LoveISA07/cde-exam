@@ -1,9 +1,9 @@
 {
   "audit_version": "2026_CORE_TEXTBOOK_FULL_RUN",
   "total_questions": 1025,
-  "passed_count": 29,
+  "passed_count": 47,
   "failed_or_uncertain_count": 0,
-  "pending_count": 996,
+  "pending_count": 978,
   "ledger": {
     "CDE-EXAM-0848": {
       "status": "PASS",
@@ -207,6 +207,132 @@
       "chapter": "第一章 糖尿病的疾病生理學及流行病學",
       "evidence": "01-02章.md:136 胰島素抑制糖原與脂肪分解",
       "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0178": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1237-1239,1241 (DSPN最常見佔50~75%、起於趾端向上擴展之襪子-手套感覺、疼痛夜間特別明顯；B為近端肌萎縮症/C為單一神經/D後柱皆非DSPN，答案A唯一正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0179": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1272,1281 (所有病人每年接受單股尼龍纖維測試觸覺壓覺並評估足部潰瘍截肢風險；表13-4明列10公克單股纖維壓覺)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0180": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1341-1349 (副交感先受損心跳增加常固定100~120次、深呼吸/運動心跳變異可用來診斷、姿勢性低血壓為CAN表徵；答案B正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0181": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1331 (胃輕癱治療：轉介營養師指導低脂肪、低纖維、少量多餐進食方式；A大餐/B高粗纖維/D冰碳酸飲料皆與胃排空遲緩原則相悖)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0185": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1291 (藥物治療通常以pregabalin和duloxetine為第一線用藥，答案D唯一正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0203": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1272,1281 (10g單絲評估觸覺壓覺與潰瘍截肢風險，答案C保護性感覺喪失正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0204": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1272,1239-1241 (以128Hz音叉測試振動感覺；大纖維神經主管振動與本體感覺，答案B正確；小纖維主溫痛覺故A錯，測時須閉眼故C錯)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0205": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1341-1349 (CAN典型：靜止心搏過速、心律變異降低、姿勢性低血壓、無痛性心肌缺氧梗塞/猝死；D變異度顯著增加非CAN表徵，答案D正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0206": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1331 (低脂肪、低纖維、少量多餐，答案A正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0208": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1291 (pregabalin與duloxetine為第一線，答案B正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0209": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1387 (顱神經病變最常侵犯第三對與第六對腦神經；第三對麻痺眼瞼明顯下垂但瞳孔則無影響、數週後逐漸好轉，答案B正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0210": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1365 (最常見表現是下肢無汗而軀幹與臉部代償性過度出汗、味覺性出汗，答案B與課本一致)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0211": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1309,1321-1323 (性功能障礙列於自律神經病變；評估需血管風險如血壓血脂內皮受損，答案A血管+神經雙機轉與課本方向一致)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0498": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1197,1201,1237-1239,1355 (髓鞘失為主要病理、AGE路徑引起內皮發炎氧化壓力→C『AGE保護髓鞘』為錯誤敘述，答案C正確；A/B敘述見課本)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0594": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1181,1239,1305-1309 (影響周邊/中樞、瀰漫/局部；運動神經受犯造成肌力減低；自律神經病變表13-5，答案D以上皆是正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0633": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1241 (小纖維神經病變：灼熱感、觸電感、無法察覺溫度變化→燙傷不覺，答案A小纖維正確；大纖維主振動本體感覺)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0663": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1233 (非典型/局部神經病變常急性發生，症狀常是自限性self-limited，答案C正確；A慢性B進行性D常造成功能損傷皆為瀰漫型特徵)",
+      "verified_at": "2026-10-21T07:14:48Z"
+    },
+    "CDE-EXAM-0713": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十三章 糖尿病神經病變",
+      "evidence": "10-13章.md:1331 (治療：低脂肪、低纖維、少量多餐；嚴重需空腸造口術管灌；必須多檢查餐前餐後血糖—A/C/D皆課本原文，B高纖維為錯誤敘述，答案B正確)",
+      "verified_at": "2026-10-21T07:14:48Z"
     }
   }
 }
