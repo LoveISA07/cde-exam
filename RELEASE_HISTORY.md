@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.14` (2026-10-21 15:35:15)
+- **Commit**: `6ba15cf`
+- **說明**: Checkpoint Batch #48: Verified 75 PASS, 731 Issues
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.14
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.13` (2026-10-21 15:34:37)
 - **Commit**: `bf2e4f2`
 - **說明**: Checkpoint Batch #44: Verified 75 PASS, 679 Issues
