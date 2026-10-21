@@ -1,9 +1,9 @@
 {
   "audit_version": "2026_CORE_TEXTBOOK_V1",
   "total_questions": 1025,
-  "passed_count": 9,
-  "failed_count": 0,
-  "pending_count": 1016,
+  "passed_count": 29,
+  "failed_count": 20,
+  "pending_count": 996,
   "ledger": {
     "CDE-EXAM-0848": {
       "status": "PASS",
@@ -67,6 +67,146 @@
       "chapter": "第六章 糖尿病病人之運動",
       "evidence": "06-07章.md:240,298 (減重每週5~7天)",
       "verified_at": "2026-10-21T14:25:00Z"
+    },
+    "CDE-EXAM-0001": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:234 表1-2診斷標準",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0002": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:242 表1-3糖尿病前期",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0003": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:264 表1-6自體免疫T1D",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0005": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:442,575 MNT與減重5-7%",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0007": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二十八章 住院血糖管理及照護",
+      "evidence": "27-30章.md:503-513 類固醇高血糖與胰島素調整",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0008": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:378 葡萄糖毒性與脂肪毒性",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0012": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:258 表1-5次發性糖尿病",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0013": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:138,150 Chipkin禁食階段",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0014": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:334 LADA診斷要素anti-GAD65",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0015": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:367 MODY單基因顯性早年發生",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0016": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:361,374 T2D自然史胰島素阻抗",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0017": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "08-09章.md:77 C-peptide等摩爾分泌",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0466": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二十章 糖尿病病人的行為改變與健康心理調適",
+      "evidence": "20-23章.md:155-165 Rotter內外控制信念",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0479": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:361-365 T2D自然史多達20%合併症",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0483": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二章 預防糖尿病之生活型態策略",
+      "evidence": "01-02章.md:663-670 & 16-19章.md:912 ADCES7行為",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0502": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十七章 如何有效的執行糖尿病衛教",
+      "evidence": "16-19章.md:575,736 表17-3低讀寫能力衛教限制",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0503": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十七章 如何有效的執行糖尿病衛教",
+      "evidence": "16-19章.md:736 表17-3示範法適合小團體需更多時間",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0513": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第二章 預防糖尿病之生活型態策略",
+      "evidence": "01-02章.md:502-565 代謝症候群與年齡危險因子",
+      "verified_at": "2026-10-21T15:00:00Z"
+    },
+    "CDE-EXAM-0518": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:258 表1-5阻抗與分泌不足雙重缺陷",
+      "verified_at": "2026-10-21T14:45:00Z"
+    },
+    "CDE-EXAM-0521": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第一章 糖尿病的疾病生理學及流行病學",
+      "evidence": "01-02章.md:136 胰島素抑制糖原與脂肪分解",
+      "verified_at": "2026-10-21T14:45:00Z"
     }
   }
 }
