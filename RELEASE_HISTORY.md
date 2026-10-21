@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.20` (2026-10-21 15:59:41)
+- **Commit**: `68a78de`
+- **說明**: Fix 6 flawed questions: 0616/0690/0905 duplicate options, 0207 residual urine threshold, 0203 typo, and 0535 Finland T1D incidence to textbook 52.2
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.20
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.19` (2026-10-21 15:38:32)
 - **Commit**: `9bc2679`
 - **說明**: Full Autonomous Audit Completed: 75 PASS, 950 Issues Cataloged
