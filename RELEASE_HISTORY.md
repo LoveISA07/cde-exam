@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.21.24` (2026-10-21 17:34:17)
+- **Commit**: `d37313a`
+- **說明**: Deploy CDE_Audit_Reviewer.html and reviewer.html interactive adjudication app
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.21.24
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.23` (2026-10-21 17:33:47)
 - **Commit**: `5c7850a`
 - **說明**: Deploy CDE Audit Reviewer interactive web app (reviewer.html) for reviewing 278 uncertain questions with checkmarks and comments
