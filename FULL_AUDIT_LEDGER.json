@@ -1,9 +1,9 @@
 {
   "audit_version": "2026_CORE_TEXTBOOK_FULL_RUN",
   "total_questions": 1025,
-  "passed_count": 63,
+  "passed_count": 75,
   "failed_or_uncertain_count": 0,
-  "pending_count": 962,
+  "pending_count": 950,
   "ledger": {
     "CDE-EXAM-0848": {
       "status": "PASS",
@@ -445,6 +445,90 @@
       "chapter": "第十五章 糖尿病足部與口腔照護及衛教",
       "evidence": "14-15章.md:1314(大部分的皮膚潰瘍不是由單一次的明顯外傷所引起的，而是由輕微重複的壓力所引起的)——A敘述與課本相反，故為「何者錯誤」正解；1270(自主神經病變→皮膚乾燥皺裂)；1342(先深層培養再依致病菌給抗生素)；1324-1338(照護原則)",
       "verified_at": "2026-10-21T07:28:44Z"
+    },
+    "CDE-EXAM-0254": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:54 表16-1學習準備度「診斷接受程度、改變行為的準備、心理情緒狀態如焦慮憂鬱」；:421 學習準備度定義；:409 主動要求學習時效果最佳",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0256": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:330-332 計劃需討論協調、尊重個別文化習慣；:23 與病人協商共同選出優先問題、由病人決定；:46 以病人為中心",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0269": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:390 SMART＝明確、可測量、可完成、實際可行、時間約束；:336 具體可測量目標",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0270": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:54-56 表16-1含認知能力(讀寫)、心理情緒、家庭支持、工作狀態等；:298 影響照護能力之因素",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0271": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:54 身體限制(視力)/讀寫能力；:87-89 日常生活協助、家庭朋友社區社團支持、交通；:298 視力聽力影響資訊呈現方式",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0272": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:364-372 Bloom認知/情意/技能三領域；情意領域含態度價值觀與允諾實行(接受、評價層次動詞)",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0273": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:71、:91 初次評估集中「生存技能」；:533 教導基本要點不要太繁瑣；:545 議題不要太多",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0274": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:54 學習準備度含心理情緒狀態；:114 表16-2社交活動/感覺被剝奪等生活型態障礙；:278-280 障礙含社會支持、壓力及情感",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0528": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:338 (六)教育策略必須符合學習型態…由評估資料決定適合「病人」的教學策略；:330 彼此討論協調擬定",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0578": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:54-56 表16-1醫療史、學習準備度(心理情緒)、認知能力、宗教和節日、家庭支持皆在評估範圍",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0655": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:545 (三)討論的議題不要太多；:533 教導基本要點不要太過繁瑣；:427 依識字能力準備教材教具；重複/圖示模型見表17-4(:802)",
+      "verified_at": "2026-10-21T07:34:16Z"
+    },
+    "CDE-EXAM-0733": {
+      "status": "PASS",
+      "auditor": "qwen3.8-flash",
+      "chapter": "第十六章 衛教評估臨床應用及衛教計劃之擬定",
+      "evidence": "16-19章.md:23 提出達到目標的各種選擇，「由病人決定一種選擇」；:399-403 擬定計劃步驟3提出各種選擇、4決定一種選擇",
+      "verified_at": "2026-10-21T07:34:16Z"
     }
   }
 }
