@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.22.1` (2026-10-22 09:45:12)
+- **Commit**: `55c1ce0`
+- **說明**: Add cross-device sync code, JSON import/export, and bake-to-web features for computer and phone seamless switching
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.22.1
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.21.25` (2026-10-21 18:13:25)
 - **Commit**: `6e6a290`
 - **說明**: Update reviewer.html with clear visual auto-save reassurance badge
