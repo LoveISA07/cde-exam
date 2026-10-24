@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.10.24.1` (2026-10-24 15:50:36)
+- **Commit**: `9d72604`
+- **說明**: Add legal copyright disclaimer and fair-use notice footer to all simulator, auditor, and reviewer pages
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.10.24.1
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.22.2` (2026-10-22 10:05:24)
 - **Commit**: `8e5c5ed`
 - **說明**: Deploy floating cloud save button (FAB) with automatic cross-device sync on page refresh
