@@ -441,8 +441,84 @@
         width: 100%;
         justify-content: center;
       }
+      .switch-label { font-size: 0.82rem; }
+      .drill-toggle-pill { font-size: 0.72rem; padding: 3px 8px; }
     }
   
+    /* Modern Switch Toggle & Drill Preference Styles */
+    .switch-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .switch-input {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--slate-300);
+      outline: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.25s ease;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .switch-input:checked {
+      background: #16a34a;
+    }
+    .switch-input.switch-danger:checked {
+      background: #dc2626;
+    }
+    .switch-input::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      transition: transform 0.25s ease;
+    }
+    .switch-input:checked::before {
+      transform: translateX(18px);
+    }
+
+    /* Drill Header Toggle Pill */
+    .drill-toggle-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid var(--slate-200);
+      background: var(--slate-100);
+      color: var(--slate-600);
+      transition: all 0.2s ease;
+    }
+    .drill-toggle-pill.active {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+    .drill-toggle-pill.active.warning {
+      background: #fef2f2;
+      color: #991b1b;
+      border-color: #fecaca;
+    }
+
     /* ==================== 5 CORE FEATURES ENHANCEMENTS ==================== */
     .role-pill-btn {
       padding: 8px 18px;
@@ -868,6 +944,37 @@ Minimum version required to store current data is: `+i+`.
         </div>
       </div>
 
+      <!-- ==================== FEATURE: 快刷節奏與自動跳題開關設定 (Auto-Advance Settings) ==================== -->
+      <div class="card" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1.5px solid #cbd5e1; border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.4rem;">⚡</span>
+            <div>
+              <div style="font-weight: 800; color: var(--slate-900); font-size: 1rem; display: flex; align-items: center; gap: 6px;">
+                快刷節奏與自動跳題開關
+                <span class="badge" style="background: #e0f2fe; color: #0369a1; font-size: 0.72rem; padding: 1px 6px;">即時生效</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--slate-500); margin-top: 1px;">
+                適用於：10題通勤快刷、20題每日特訓、30章節專項、歷史錯題消滅、收藏題特訓
+              </div>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+            <!-- 開關 1: 答對自動跳題 -->
+            <label class="switch-label" title="選對答案後 0.38 秒自動切入下一題，單手快刷無須手動按下一題">
+              <input type="checkbox" id="pref-auto-advance" class="switch-input" checked onchange="setDrillPreference('autoAdvance', this.checked)">
+              <span>⚡ 答對自動跳題 (0.38s)</span>
+            </label>
+            <!-- 開關 2: 答錯先看解析 -->
+            <label class="switch-label" title="答錯時停住並展開臨床解析與速記口訣；關閉時為盲刷模式，答錯僅短暫紅框提示即自動跳題">
+              <input type="checkbox" id="pref-pause-wrong" class="switch-input switch-danger" checked onchange="setDrillPreference('pauseWrong', this.checked)">
+              <span>📖 答錯先看解析</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <!-- ==================== FEATURE 2 & 3: 核心刷題模式矩陣 ==================== -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
         <!-- Mode A: Commute 10-Q Quiz -->
@@ -1174,14 +1281,19 @@ Minimum version required to store current data is: `+i+`.
   <div id="screen-mistake-drill" class="screen">
     <div class="sticky-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
       <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-        <span style="font-weight: 800; color: #0284c7; font-size: 1.15rem;" id="drill-header-title">⚡ 通勤極速快刷（10 題）</span>
-        <span style="font-size: 0.88rem; color: var(--slate-500);" id="drill-progress-info">第 1 / 10 題</span>
-        <label style="font-size: 0.78rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 4px 10px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; border: 1px solid #bbf7d0;">
-          <input type="checkbox" id="drill-auto-advance-toggle" checked style="accent-color: #16a34a;"> ⚡ 答對秒跳下一題
-        </label>
+        <span style="font-weight: 800; color: #0284c7; font-size: 1.1rem;" id="drill-header-title">⚡ 通勤極速快刷（10 題）</span>
+        <span style="font-size: 0.85rem; color: var(--slate-500);" id="drill-progress-info">第 1 / 10 題</span>
       </div>
-      <div>
-        <button class="btn btn-outline" style="padding: 6px 14px; font-size: 0.85rem;" onclick="exitDrill()">
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <label class="drill-toggle-pill active" id="pill-auto-advance" title="選對答案後 0.38 秒自動切入下一題">
+          <input type="checkbox" id="drill-auto-advance-toggle" checked onchange="setDrillPreference('autoAdvance', this.checked)" style="accent-color: #16a34a; cursor: pointer;">
+          <span>⚡ 答對自動跳題</span>
+        </label>
+        <label class="drill-toggle-pill active warning" id="pill-pause-wrong" title="答錯時停住看解析；若關閉則高速狂刷">
+          <input type="checkbox" id="drill-pause-wrong-toggle" checked onchange="setDrillPreference('pauseWrong', this.checked)" style="accent-color: #dc2626; cursor: pointer;">
+          <span>📖 答錯看解析</span>
+        </label>
+        <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.82rem;" onclick="exitDrill()">
           🚪 返回主控台
         </button>
       </div>
@@ -36449,6 +36561,99 @@ Minimum version required to store current data is: `+i+`.
       startUniversalDrill(chosen, `🔥 歷史錯題消滅挑戰（共 ${chosen.length} 題）`, true);
     }
 
+    // ==================== PRACTICE PREFERENCES (快刷做題節奏與自動跳題偏好) ====================
+    const PREF_AUTO_ADVANCE_KEY = 'CDE_PREF_AUTO_ADVANCE_CORRECT';
+    const PREF_PAUSE_WRONG_KEY = 'CDE_PREF_PAUSE_ON_WRONG';
+
+    let prefAutoAdvance = true; // 預設開啟：答對 0.38 秒自動跳下一題
+    let prefPauseWrong = true;   // 預設開啟：答錯停下展示 2026 核心解析
+
+    function loadPracticePreferences() {
+      const savedAdv = localStorage.getItem(PREF_AUTO_ADVANCE_KEY);
+      prefAutoAdvance = (savedAdv === null) ? true : (savedAdv === 'true');
+
+      const savedPause = localStorage.getItem(PREF_PAUSE_WRONG_KEY);
+      prefPauseWrong = (savedPause === null) ? true : (savedPause === 'true');
+
+      syncPreferenceUI();
+    }
+
+    function setDrillPreference(key, value) {
+      if (key === 'autoAdvance') {
+        prefAutoAdvance = Boolean(value);
+        localStorage.setItem(PREF_AUTO_ADVANCE_KEY, prefAutoAdvance.toString());
+        showToast(prefAutoAdvance ? '⚡ 已開啟「答對自動跳題」（0.38 秒秒切）' : '⏸️ 已關閉「答對自動跳題」（答對停住看詳解）');
+      } else if (key === 'pauseWrong') {
+        prefPauseWrong = Boolean(value);
+        localStorage.setItem(PREF_PAUSE_WRONG_KEY, prefPauseWrong.toString());
+        showToast(prefPauseWrong ? '📖 已開啟「答錯先看解析」（扎實複習）' : '⏩ 已開啟「答錯直接跳題」（高速衝刺模式）');
+      }
+      syncPreferenceUI();
+    }
+
+    function syncPreferenceUI() {
+      // 1. Landing Page Toggles
+      const homeAdv = document.getElementById('pref-auto-advance');
+      if (homeAdv) homeAdv.checked = prefAutoAdvance;
+
+      const homePause = document.getElementById('pref-pause-wrong');
+      if (homePause) homePause.checked = prefPauseWrong;
+
+      // 2. Drill Screen Toggles
+      const drillAdv = document.getElementById('drill-auto-advance-toggle');
+      if (drillAdv) drillAdv.checked = prefAutoAdvance;
+      const pillAdv = document.getElementById('pill-auto-advance');
+      if (pillAdv) {
+        if (prefAutoAdvance) pillAdv.classList.add('active');
+        else pillAdv.classList.remove('active');
+      }
+
+      const drillPause = document.getElementById('drill-pause-wrong-toggle');
+      if (drillPause) drillPause.checked = prefPauseWrong;
+      const pillPause = document.getElementById('pill-pause-wrong');
+      if (pillPause) {
+        if (prefPauseWrong) {
+          pillPause.classList.add('active');
+          pillPause.classList.add('warning');
+        } else {
+          pillPause.classList.remove('active');
+          pillPause.classList.remove('warning');
+        }
+      }
+    }
+
+    function showToast(msg) {
+      let toast = document.getElementById('cde-global-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'cde-global-toast';
+        toast.style.position = 'fixed';
+        toast.style.bottom = '24px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.background = 'rgba(15, 23, 42, 0.92)';
+        toast.style.backdropFilter = 'blur(6px)';
+        toast.style.color = '#ffffff';
+        toast.style.padding = '10px 22px';
+        toast.style.borderRadius = '9999px';
+        toast.style.fontSize = '0.88rem';
+        toast.style.fontWeight = '700';
+        toast.style.zIndex = '99999';
+        toast.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.35)';
+        toast.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        toast.style.pointerEvents = 'none';
+        document.body.appendChild(toast);
+      }
+      toast.innerText = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(window.__cdeToastTimeout);
+      window.__cdeToastTimeout = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(10px)';
+      }, 2200);
+    }
+
     function startUniversalDrill(questions, title, isMistakeMode) {
       currentDrillQuestions = questions;
       currentDrillTitle = title;
@@ -36460,6 +36665,7 @@ Minimum version required to store current data is: `+i+`.
       const headerTitle = document.getElementById('drill-header-title');
       if (headerTitle) headerTitle.innerText = currentDrillTitle;
 
+      syncPreferenceUI();
       showScreen('screen-mistake-drill');
       renderDrillQuestion();
     }
@@ -36593,9 +36799,8 @@ Minimum version required to store current data is: `+i+`.
           feedbackBanner.innerHTML += '（已自錯題本中消滅）';
         }
 
-        // 答對極速自動跳下一題（若開關開啟）
-        const autoAdv = document.getElementById('drill-auto-advance-toggle');
-        if (autoAdv && autoAdv.checked) {
+        // 答對極速自動跳下一題（依據 prefAutoAdvance 開關）
+        if (prefAutoAdvance) {
           setTimeout(() => {
             nextDrillQuestion();
           }, 380);
@@ -36620,6 +36825,13 @@ Minimum version required to store current data is: `+i+`.
         }
         saveDashboardState();
         feedbackBanner.innerHTML += '（已自動收錄進歷史錯題本）';
+
+        // 答錯自動跳題判斷（若關閉「答錯先看解析」，則為極速衝刺模式，停留 800ms 讓考生瞥一眼正解後自動跳題）
+        if (!prefPauseWrong) {
+          setTimeout(() => {
+            nextDrillQuestion();
+          }, 800);
+        }
       }
 
       feedbackBox.style.display = 'block';
@@ -38051,6 +38263,7 @@ Minimum version required to store current data is: `+i+`.
     // Initialize Dashboard on Page Load
     loadDashboardState();
     loadCommunityAndBookmarkState();
+    loadPracticePreferences();
     checkIncomingSync();
     window.addEventListener('hashchange', checkIncomingSync);
 
