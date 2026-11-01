@@ -457,6 +457,117 @@
       .drill-toggle-pill { font-size: 0.72rem; padding: 3px 8px; }
     }
   
+
+    /* Sleek Dark Top Navbar (iPAS Style) */
+    .app-top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .nav-brand .brand-icon {
+      font-size: 1.25rem;
+    }
+    .nav-brand .brand-title {
+      color: #f8fafc;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+    }
+    .nav-brand .brand-badge {
+      background: #4f46e5;
+      color: #e0e7ff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+    .nav-actions::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.07);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      padding: 6px 11px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .nav-btn.nav-btn-admin {
+      background: rgba(30, 58, 138, 0.45);
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+    .nav-btn.nav-btn-admin:hover {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .nav-pill-badge {
+      background: #334155;
+      color: #f1f5f9;
+      font-size: 0.7rem;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+    .nav-pill-badge.badge-danger {
+      background: #dc2626;
+      color: #ffffff;
+    }
+    .nav-pill-badge.badge-warning {
+      background: #d97706;
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container { padding: 6px 10px; }
+      .nav-brand .brand-title { font-size: 0.95rem; }
+      .nav-btn { padding: 5px 9px; font-size: 0.78rem; gap: 4px; }
+    }
+
     /* Modern Switch Toggle & Drill Preference Styles */
     .switch-label {
       display: inline-flex;
@@ -808,32 +919,58 @@ Minimum version required to store current data is: `+i+`.
 
   <!-- ==================== 1. LANDING SCREEN (全真模考主控台) ==================== -->
   <div id="screen-landing" class="screen active">
-    <div class="container" style="max-width: 860px; padding-top: 24px; padding-bottom: 60px;">
-      
-      <!-- Top Title Header -->
-      <div style="text-align: center; margin-bottom: 18px;">
-        <span class="badge badge-primary" style="margin-bottom: 8px; font-size: 0.9rem; padding: 6px 14px;">2026 最新核心教材標準・共照網官方考古題與核心教材精粹 1,025 題庫 (Release v4.0 專科共筆旗艦版)</span>
-        <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--slate-900); margin-bottom: 6px;">
-          🩺 糖尿病共同照護網（CDE）筆試備考系統
-        </h1>
-        <p style="color: var(--slate-500); font-size: 0.95rem; margin-bottom: 12px;">100% 黃金詳解・特定概念靶向刷題・錯題與收藏搜尋・考友共筆與討論串</p>
-        <!-- Top Quick Action Bar -->
-        <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-          <button class="btn" style="background: #ecfdf5; border: 1.5px solid #10b981; color: #047857; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="copyPermanentShareUrl()">
-            🔗 分享永久網址（永不失效）
+    <!-- Top Sleek Navbar (As in reference image) -->
+    <nav class="app-top-nav">
+      <div class="nav-container">
+        <div class="nav-brand" onclick="showScreen('screen-landing')" title="返回主頁面">
+          <span class="brand-icon">🩺</span>
+          <span class="brand-title">CDE 筆試自學題庫</span>
+          <span class="brand-badge">2026 核心標準</span>
+        </div>
+        <div class="nav-actions">
+          <button class="nav-btn" onclick="copyPermanentShareUrl()" title="複製永不失效的官方分享網址">
+            <span>📱</span> 手機開題
           </button>
-          <button class="btn" style="background: #fffbeb; border: 1.5px solid #f59e0b; color: #b45309; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="openStudyBrowser('BOOKMARK')">
-            ⭐ 收藏題目夾 (<span id="top-bookmark-count">0</span> 題)
+          <button class="nav-btn" onclick="openChaptersModal()" title="30 章節單元精準突破">
+            <span>📚</span> 30 章節
           </button>
-          <button class="btn" style="background: #eff6ff; border: 1.5px solid #3b82f6; color: #1d4ed8; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="openStudyBrowser('ALL')">
-            🔍 題庫/錯題搜尋與免作答瀏覽
+          <button class="nav-btn" onclick="openConceptsModal()" title="15 大高頻臨床概念特訓">
+            <span>🧬</span> 15 概念
           </button>
-          <button class="btn" style="background: #fef2f2; border: 1.5px solid #ef4444; color: #b91c1c; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="openCommunityAdminModal()">
-            🔔 討論動態 ＆ 🚩 問題回報 (<span id="top-issue-count">0</span>)
+          <button class="nav-btn" onclick="openFullExamModal()" title="全真 100 題模擬測驗">
+            <span>🏆</span> 模擬考
+          </button>
+          <button class="nav-btn" onclick="openStudyBrowser('ALL')" title="全題庫關鍵字搜尋與免作答瀏覽">
+            <span>🔍</span> 題庫搜尋
+          </button>
+          <button class="nav-btn" onclick="openStudyBrowser('BOOKMARK')" title="我的收藏題目夾">
+            <span>⭐</span> 收藏本 <span class="nav-pill-badge" id="nav-star-badge">0</span>
+          </button>
+          <button class="nav-btn" onclick="openMistakesModal()" title="歷史錯題消滅挑戰">
+            <span>📝</span> 錯題本 <span class="nav-pill-badge badge-danger" id="nav-wrong-badge">0</span>
+          </button>
+          <button class="nav-btn" onclick="openSyncModal()" title="跨裝置 6 碼免登入秒同步">
+            <span>📲</span> 跨端同步
+          </button>
+          <button class="nav-btn nav-btn-admin" onclick="openCommunityAdminModal()" title="管理後台：討論動態 ＆ 題目問題回報中心">
+            <span>🛡️</span> 管理後台
           </button>
         </div>
       </div>
+    </nav>
 
+    <div class="container" style="max-width: 860px; padding-top: 20px; padding-bottom: 60px;">
+      
+      <!-- Top Title Header -->
+      <div style="text-align: center; margin-bottom: 18px;">
+        <span class="badge badge-primary" style="margin-bottom: 6px; font-size: 0.86rem; padding: 4px 14px;">2026 最新核心教材標準 1,025 題庫 (專科共筆旗艦版)</span>
+        <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--slate-900); margin-bottom: 4px;">
+          🩺 糖尿病共同照護網（CDE）筆試備考系統
+        </h1>
+        <p style="color: var(--slate-500); font-size: 0.92rem;">臨床黃金詳解・跨章節靶向特訓・極速快刷自動跳題・考友共筆研討</p>
+      </div>
+
+      <!-- 1. D-DAY 考期衝刺看板 -->
       <!-- ==================== FEATURE 1: D-DAY 考期衝刺看板 ==================== -->
       <div class="card" style="border: 2px solid var(--primary); background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%); box-shadow: var(--shadow-md); margin-bottom: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
@@ -889,76 +1026,7 @@ Minimum version required to store current data is: `+i+`.
         </div>
       </div>
 
-      <!-- ==================== FEATURE 4A: 全題庫搜尋、錯題搜尋、收藏題目與共筆瀏覽中心 ==================== -->
-      <div class="card" style="border: 2px solid #2563eb; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); box-shadow: var(--shadow-sm); margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.5rem;">🔍</span>
-            <div>
-              <h2 style="font-size: 1.25rem; font-weight: 800; color: #1e40af; margin-bottom: 2px;">
-                全題庫關鍵字搜尋・錯題搜尋・⭐ 收藏題目與共筆瀏覽中心
-              </h2>
-              <div style="font-size: 0.85rem; color: var(--slate-500);">
-                支援以關鍵字、藥名或題號（如：620、Pioglitazone、白蛋白尿）檢索全部題目、歷史錯題、收藏夾與考友共筆
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Search Input Bar -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-          <input type="text" id="landing-search-input" placeholder="🔎 輸入關鍵字、藥名或考古題號（例：620、Pioglitazone、酮體、尼龍線、豬血）..." style="flex: 1; min-width: 240px; padding: 10px 14px; border: 1.5px solid var(--slate-300); border-radius: 9999px; font-size: 0.95rem; outline: none;" onkeydown="if(event.key==='Enter') triggerLandingSearch()">
-          <button class="btn btn-primary" style="border-radius: 9999px; padding: 10px 22px; font-weight: 800;" onclick="triggerLandingSearch()">
-            🔍 搜尋並展開詳解
-          </button>
-        </div>
-
-        <!-- Quick Filter Pills -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-          <button class="btn btn-outline btn-sm" style="border-radius: 9999px; font-weight: 700;" onclick="openStudyBrowser('ALL')">
-            📖 免作答瀏覽全題庫 (1,025題)
-          </button>
-          <button class="btn btn-outline btn-sm" style="border-radius: 9999px; font-weight: 700; color: #dc2626; border-color: #fca5a5; background: #fef2f2;" onclick="openStudyBrowser('WRONG')">
-            ❌ 錯題搜尋與回顧 (<span id="hub-wrong-count">0</span>題)
-          </button>
-          <button class="btn btn-outline btn-sm" style="border-radius: 9999px; font-weight: 700; color: #b45309; border-color: #fcd34d; background: #fffbeb;" onclick="openStudyBrowser('BOOKMARK')">
-            ⭐ 收藏題目回顧 (<span id="hub-star-count">0</span>題)
-          </button>
-          <button class="btn btn-outline btn-sm" style="border-radius: 9999px; font-weight: 700; color: #059669; border-color: #6ee7b7; background: #ecfdf5;" onclick="startBookmarkDrill()">
-            🎯 收藏題目直接刷題測驗
-          </button>
-          <button class="btn btn-outline btn-sm" style="border-radius: 9999px; font-weight: 700; color: #4f46e5; border-color: #c7d2fe; background: #eef2ff;" onclick="openStudyBrowser('NOTES')">
-            📘 有考友共筆/討論題目 (<span id="hub-comm-count">0</span>題)
-          </button>
-        </div>
-      </div>
-
-      <!-- ==================== FEATURE 4B: 特定臨床概念專項突破 (15 大高頻概念撈題特訓) ==================== -->
-      <div class="card" style="border: 2px solid #7c3aed; background: #ffffff; box-shadow: var(--shadow-sm); margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.5rem;">🧬</span>
-            <div>
-              <h2 style="font-size: 1.25rem; font-weight: 800; color: #5b21b6; margin-bottom: 2px;">
-                特定臨床概念專項突破（跨章節同概念題目一次撈出反覆練習）
-              </h2>
-              <div style="font-size: 0.85rem; color: var(--slate-500);">
-                打破章節界線！將散落在全書 30 章與歷屆考古題中的「同一臨床概念」全數撈出集中刷題或對照閱讀
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-outline" style="font-size: 0.85rem; font-weight: 700; padding: 6px 16px; border-radius: 9999px; color: #6d28d9; border-color: #7c3aed;" onclick="toggleConceptList()" id="btn-toggle-concepts">
-            展開 15 大臨床概念特訓 ▼
-          </button>
-        </div>
-
-        <div id="concept-list-container" style="display: none; max-height: 540px; overflow-y: auto; padding: 10px 4px; margin-top: 12px; border-top: 1px dashed var(--slate-200);">
-          <div class="concept-grid" id="concept-cards-grid">
-            <!-- Rendered by renderConceptCards() -->
-          </div>
-        </div>
-      </div>
-
+      <!-- 2. 快刷節奏與自動跳題開關設定 -->
       <!-- ==================== FEATURE: 快刷節奏與自動跳題開關設定 (Auto-Advance Settings) ==================== -->
       <div class="card" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1.5px solid #cbd5e1; border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 18px; box-shadow: var(--shadow-sm);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
@@ -990,6 +1058,7 @@ Minimum version required to store current data is: `+i+`.
         </div>
       </div>
 
+      <!-- 3. 核心刷題模式矩陣 (10 題快刷 & 20 題特訓) -->
       <!-- ==================== FEATURE 2 & 3: 核心刷題模式矩陣 ==================== -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
         <!-- Mode A: Commute 10-Q Quiz -->
@@ -1019,121 +1088,6 @@ Minimum version required to store current data is: `+i+`.
             🎯 開始 20 題特訓
           </button>
         </div>
-      </div>
-
-      <!-- ==================== FEATURE 3: 30 章節單元自選精準突破 ==================== -->
-      <div class="card" style="border: 2px solid #0d9488; background: #ffffff; box-shadow: var(--shadow-sm); margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.5rem;">📚</span>
-            <div>
-              <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f766e; margin-bottom: 2px;">
-                30 章節單元自選精準突破（章節樹狀挑題特訓）
-              </h2>
-              <div style="font-size: 0.85rem; color: var(--slate-500);">
-                依照 2026 核心教材目錄 1~30 章精準自選，針對薄弱章節進行靶向爆破
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-outline" style="font-size: 0.85rem; font-weight: 700; padding: 6px 16px; border-radius: 9999px; color: #0f766e; border-color: #0f766e;" onclick="toggleChapterList()" id="btn-toggle-chapters">
-            展開 30 章節列表 ▼
-          </button>
-        </div>
-
-        <div id="chapter-list-container" style="display: none; max-height: 520px; overflow-y: auto; padding: 10px 4px; margin-top: 14px; border-top: 1px dashed var(--slate-200);">
-          <div class="chapter-grid" id="chapter-cards-grid">
-            <!-- Rendered by renderChapterCards() -->
-          </div>
-        </div>
-      </div>
-
-      <!-- ==================== OFFICIAL 100-Q FULL EXAM CARD ==================== -->
-      <div class="card" style="border: 2px solid var(--primary); background: #ffffff; box-shadow: var(--shadow-md); margin-bottom: 20px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.5rem;">🏆</span>
-            <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--slate-900);">
-              【全真大考 100 題隨機模擬考試】
-            </h2>
-          </div>
-          <span class="badge badge-primary" style="font-size: 0.85rem; padding: 6px 12px;">標準正式模考</span>
-        </div>
-
-        <p style="font-size: 0.92rem; color: var(--slate-600); line-height: 1.6; margin-bottom: 18px;">
-          系統自 <strong>1,025 題龐大題庫</strong> 中，嚴格依據 <strong>全書 30 個章節進行分層保證抽樣</strong>。保證全書 30 個章節在每一輪測驗中均有 3 ~ 4 題考點，徹底杜絕死角，完整還原大考老師命題情資！
-        </p>
-
-        <!-- 4 Key Exam Metrics -->
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 22px;">
-          <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
-            <div style="font-size: 0.8rem; color: var(--slate-500);">試卷題數</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">100 題</div>
-            <div style="font-size: 0.75rem; color: var(--slate-400);">30 章全覆蓋（每章 3~4 題）</div>
-          </div>
-          <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
-            <div style="font-size: 0.8rem; color: var(--slate-500);">實質作答時間</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">85 分鐘</div>
-            <div style="font-size: 0.75rem; color: var(--slate-400);">預留 15 分鐘劃卡塗改</div>
-          </div>
-          <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
-            <div style="font-size: 0.8rem; color: var(--slate-500);">及格標準</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--success);">60 分 (60%)</div>
-            <div style="font-size: 0.75rem; color: var(--slate-400);">每題 1 分，答錯不倒扣</div>
-          </div>
-          <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
-            <div style="font-size: 0.8rem; color: var(--slate-500);">考場計時</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--slate-700);">無顯示</div>
-            <div style="font-size: 0.75rem; color: var(--slate-400);">自備手錶配速（題庫 1,025 題）</div>
-          </div>
-        </div>
-
-        <!-- Launch Button -->
-        <div style="text-align: center;">
-          <button class="btn btn-primary" style="font-size: 1.15rem; padding: 15px 48px; border-radius: 9999px; box-shadow: var(--shadow-md); width: 100%; max-width: 440px;" onclick="startExam()">
-            開始 100 題模擬測驗
-          </button>
-        </div>
-      </div>
-
-      <!-- ==================== FEATURE 5: 歷史錯題消滅營 ==================== -->
-      <div class="card" style="margin-bottom: 20px; border: 2px solid #f97316; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 2rem;">🔥</span>
-            <div>
-              <h2 style="font-size: 1.25rem; font-weight: 800; color: #9a3412; margin-bottom: 2px;">
-                歷史錯題消滅營（跨次累積專屬錯題本）
-              </h2>
-              <div style="font-size: 0.88rem; color: #c2410c;" id="mistake-stats-text">
-                目前已累積 0 題錯題待精熟
-              </div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;" class="mobile-full-btn-group">
-            <button class="btn" style="background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 0.88rem; font-weight: 800; padding: 8px 18px; border-radius: 9999px; box-shadow: var(--shadow-sm); display: inline-flex; align-items: center; gap: 6px;" onclick="openSyncModal()">
-              📲 6 碼跨裝置同步（手機/電腦秒同步）
-            </button>
-            <button class="btn btn-outline" style="background: white; color: var(--slate-700); font-size: 0.82rem; padding: 8px 14px; border-radius: 9999px;" onclick="openBackupModal()">
-              💾 離線檔案備份
-            </button>
-          </div>
-        </div>
-
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(234, 88, 12, 0.3); display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-          <button id="btn-start-mistake-drill" class="btn btn-primary" style="background: #ea580c; border-color: #c2410c; padding: 12px 32px; font-size: 1.05rem; font-weight: 800; border-radius: 9999px;" onclick="startMistakeDrill()">
-            🎯 開始消滅錯題挑戰 (<span id="drill-count-badge">0</span> 題)
-          </button>
-          <button id="btn-clear-mistakes" class="btn btn-outline" style="background: white; color: var(--slate-600); border-color: var(--slate-300); padding: 10px 18px; font-size: 0.85rem; border-radius: 9999px;" onclick="clearPersistentMistakes()">
-            🗑️ 清空錯題本
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Link to Auditor Handbook -->
-      <div style="text-align: center; margin-bottom: 20px;">
-        <a href="auditor.html" class="btn btn-outline" style="font-size: 0.95rem; padding: 12px 28px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; color: var(--primary); border: 2px solid var(--primary); text-decoration: none; background: white; font-weight: 800; box-shadow: var(--shadow-sm);">
-          📖 開啟全題庫 1,025 題解答與解析檢驗手冊
-        </a>
       </div>
 
     </div>
@@ -1479,15 +1433,7 @@ Minimum version required to store current data is: `+i+`.
           </div>
         </div>
 
-        <div style="text-align: center; margin-top: 10px;">
-          <div style="font-size: 0.82rem; color: var(--slate-500); margin-bottom: 8px;">
-            或用手機直接對準下方極簡 QR Code 掃描（秒級對焦，自動填碼）：
-          </div>
-          <div style="display: flex; justify-content: center; padding: 10px; background: white; border-radius: var(--radius-md); border: 1.5px solid var(--slate-200); width: fit-content; margin: 0 auto 10px; box-shadow: var(--shadow-sm);">
-            <canvas id="sync-qr-canvas" style="display: block; width: 160px; height: 160px;"></canvas>
-          </div>
-          <div style="font-size: 0.75rem; color: var(--slate-400);">代碼產生後 24 小時內均可在另一台裝置輸入同步</div>
-        </div>
+
       </div>
 
       <!-- 面板 2: 接收進度（輸入 6 碼） -->
@@ -1508,50 +1454,8 @@ Minimum version required to store current data is: `+i+`.
         </div>
       </div>
 
-      <!-- 底端折疊：進階離線檔案備份 -->
-      <div style="margin-top: 14px; border-top: 1px dashed var(--slate-200); padding-top: 10px; text-align: center;">
-        <button class="btn btn-outline btn-sm" style="font-size: 0.78rem; border: none; color: var(--slate-500); padding: 4px 8px;" onclick="toggleAdvancedBackup()">
-          ⚙️ 進階：本機 JSON 檔案備份與還原 ▼
-        </button>
-        <div id="advanced-backup-box" style="display: none; margin-top: 10px; background: var(--slate-50); padding: 12px; border-radius: 8px; border: 1px solid var(--slate-200);">
-          <div style="font-size: 0.8rem; color: var(--slate-600); margin-bottom: 8px;">適合離線保存備份檔案至個人電腦或 Google 雲端硬碟：</div>
-          <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-outline btn-sm" onclick="exportProgressFile()">📤 下載備份 (JSON)</button>
-            <label class="btn btn-outline btn-sm" style="cursor: pointer;">
-              📥 匯入備份 (JSON)
-              <input type="file" accept=".json" style="display: none;" onchange="importProgressFile(event)">
-            </label>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>
-
-  <!-- ==================== BACKUP / RESTORE MODAL ==================== -->
-  <div class="modal-backdrop" id="modal-backup" onclick="if(event.target===this) closeBackupModal()">
-    <div class="modal-card" style="max-width: 500px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--slate-900);">💾 學習進度備份與還原</h3>
-        <button style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--slate-400);" onclick="closeBackupModal()">✕</button>
-      </div>
-      <div style="font-size: 0.9rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 20px;">
-        您可以將本機的歷史錯題記錄下載為檔案存放在 Google 雲端硬碟，或在任何新瀏覽器中選取檔案一秒還原。
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 12px;">
-        <button class="btn btn-primary" style="padding: 12px; justify-content: center; font-size: 0.95rem;" onclick="exportProgressFile()">
-          📤 匯出備份檔案 (cde_study_progress.json)
-        </button>
-        <label class="btn btn-outline" style="padding: 12px; justify-content: center; font-size: 0.95rem; cursor: pointer; text-align: center;">
-          📥 選取檔案還原進度
-          <input type="file" id="import-file-input" accept=".json" style="display: none;" onchange="importProgressFile(event)">
-        </label>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ==================== LEGAL DISCLAIMER FOOTER ==================== -->
+    </div><!-- ==================== LEGAL DISCLAIMER FOOTER ==================== -->
   <footer class="app-legal-footer" style="background: #ffffff; border-top: 1px solid var(--slate-200); padding: 28px 20px; margin-top: 60px; text-align: center; color: var(--slate-500); font-size: 0.82rem; line-height: 1.65;">
     <div style="max-width: 860px; margin: 0 auto;">
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
@@ -35597,6 +35501,7 @@ Minimum version required to store current data is: `+i+`.
 
     // Start Exam Function
     function startExam() {
+      closeFullExamModal();
       currentQuestions = sampleQuestions();
       userAnswers = {};
       currentPage = 1;
@@ -36538,6 +36443,7 @@ Minimum version required to store current data is: `+i+`.
     }
 
     function startChapterDrill(chapterName, count) {
+      closeChaptersModal();
       const chQuestions = QUESTIONS_DATA.filter(q => {
         const ch = (q.chapter === '第七章 監測') ? '第七章 血糖監測' : q.chapter;
         return ch === chapterName;
@@ -36559,6 +36465,7 @@ Minimum version required to store current data is: `+i+`.
     }
 
     function startMistakeDrill() {
+      closeMistakesModal();
       if (persistentMistakes.length === 0) {
         alert("目前錯題本沒有任何題目！");
         return;
@@ -36942,6 +36849,15 @@ Minimum version required to store current data is: `+i+`.
           : `目前錯題本是空的！大考或快刷時答錯的題目會自動存入這裡`;
       }
       if (drillCountBadge) drillCountBadge.innerText = count;
+      const navWrongBadge = document.getElementById('nav-wrong-badge');
+      if (navWrongBadge) navWrongBadge.innerText = count;
+      const modalMistakeCount = document.getElementById('modal-mistake-count');
+      if (modalMistakeCount) modalMistakeCount.innerText = `${count} 題`;
+      const modalBtnDrill = document.getElementById('modal-btn-start-drill');
+      if (modalBtnDrill) {
+        modalBtnDrill.disabled = (count === 0);
+        modalBtnDrill.style.opacity = (count === 0) ? '0.5' : '1';
+      }
       if (btnStartDrill) {
         btnStartDrill.disabled = (count === 0);
         btnStartDrill.style.opacity = (count === 0) ? '0.5' : '1';
@@ -37077,12 +36993,7 @@ Minimum version required to store current data is: `+i+`.
           }
           currentSyncUrl = getBaseAppUrl() + '#sync_code=' + code;
 
-          // 繪製極簡高對比 QR Code (點陣少、手機秒掃)
-          if (window.QRCodeLib && canvas) {
-            QRCodeLib.toCanvas(canvas, currentSyncUrl, { width: 170, margin: 1 }, function(err) {
-              if (err) console.error("QR Code Error", err);
-            });
-          }
+// QR Code removed as requested
         } else {
           throw new Error('Upload status: ' + res.status);
         }
@@ -37458,6 +37369,10 @@ Minimum version required to store current data is: `+i+`.
 
       const elTopB = document.getElementById('top-bookmark-count');
       if (elTopB) elTopB.innerText = bCount;
+      const elNavB = document.getElementById('nav-star-badge');
+      if (elNavB) elNavB.innerText = bCount;
+      const elNavW = document.getElementById('nav-wrong-badge');
+      if (elNavW) elNavW.innerText = wCount;
       const elHubB = document.getElementById('hub-star-count');
       if (elHubB) elHubB.innerText = bCount;
       const elHubW = document.getElementById('hub-wrong-count');
@@ -37562,6 +37477,7 @@ Minimum version required to store current data is: `+i+`.
     }
 
     function startConceptDrill(conceptName, count) {
+      closeConceptsModal();
       const matchingQs = QUESTIONS_DATA.filter(q => (q.concept_tags || []).includes(conceptName));
       if (matchingQs.length === 0) {
         alert("找不到此概念的題目！");
