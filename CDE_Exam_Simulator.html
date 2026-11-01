@@ -395,12 +395,52 @@
     .screen { display: none; }
     .screen.active { display: block; }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      .container { padding: 12px; }
-      .card { padding: 16px; }
-      .q-stem { font-size: 1rem; }
-      .btn { font-size: 0.95rem; padding: 10px 16px; }
+    /* Responsive & Mobile-First Optimization (同頁免滑動緊湊排版) */
+    @media (max-width: 768px) {
+      .container { padding: 8px 10px; }
+      .card { padding: 14px 12px; margin-bottom: 12px; border-radius: var(--radius-md); }
+      .sticky-bar { padding: 8px 10px; }
+      #exam-page-title, #drill-header-title { font-size: 0.95rem; }
+      #exam-answered-count, #drill-progress-info { font-size: 0.78rem; padding: 2px 6px; }
+
+      /* 做題卡片極致緊湊：題幹 + ABCD 4 個選項一屏完整容納，免上下滑動 */
+      .question-card { padding: 12px 10px; margin-bottom: 10px; }
+      .q-header { margin-bottom: 6px; gap: 4px; }
+      .q-num { font-size: 0.98rem; }
+      .q-stem { font-size: 0.98rem; line-height: 1.48; margin-bottom: 8px; font-weight: 600; }
+      .options-group { gap: 6px; }
+      .option-label {
+        padding: 8px 10px;
+        margin-bottom: 4px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        min-height: 38px;
+      }
+      .drill-opt-btn {
+        padding: 9px 12px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        line-height: 1.42;
+      }
+      .exp-box, .memory-box { padding: 10px 12px; font-size: 0.86rem; line-height: 1.55; }
+
+      /* 按鈕單手好按 */
+      .btn { font-size: 0.9rem; padding: 9px 14px; }
+      .btn-sm { font-size: 0.8rem; padding: 5px 10px; }
+
+      /* 手機端歷史錯題消滅營與同步按鈕群自適應 */
+      .mobile-full-btn-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+      .mobile-full-btn-group button {
+        width: 100%;
+        justify-content: center;
+      }
     }
   
     /* ==================== 5 CORE FEATURES ENHANCEMENTS ==================== */
@@ -947,12 +987,12 @@ Minimum version required to store current data is: `+i+`.
               </div>
             </div>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="btn" style="background: white; border: 1.5px solid #ea580c; color: #ea580c; font-size: 0.85rem; font-weight: 700; padding: 8px 14px; border-radius: 9999px;" onclick="openSyncModal()">
-              📱 手機掃碼同步 (QR Code)
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;" class="mobile-full-btn-group">
+            <button class="btn" style="background: linear-gradient(135deg, #ea580c, #c2410c); color: white; font-size: 0.88rem; font-weight: 800; padding: 8px 18px; border-radius: 9999px; box-shadow: var(--shadow-sm); display: inline-flex; align-items: center; gap: 6px;" onclick="openSyncModal()">
+              📲 6 碼跨裝置同步（手機/電腦秒同步）
             </button>
-            <button class="btn btn-outline" style="background: white; color: var(--slate-700); font-size: 0.85rem; padding: 8px 14px; border-radius: 9999px;" onclick="openBackupModal()">
-              💾 備份/還原
+            <button class="btn btn-outline" style="background: white; color: var(--slate-700); font-size: 0.82rem; padding: 8px 14px; border-radius: 9999px;" onclick="openBackupModal()">
+              💾 離線檔案備份
             </button>
           </div>
         </div>
@@ -1132,10 +1172,13 @@ Minimum version required to store current data is: `+i+`.
 
     <!-- ==================== 5. MISTAKE DRILL SCREEN (消滅錯題挑戰) ==================== -->
   <div id="screen-mistake-drill" class="screen">
-    <div class="sticky-bar" style="display: flex; justify-content: space-between; align-items: center;">
-      <div>
+    <div class="sticky-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
         <span style="font-weight: 800; color: #0284c7; font-size: 1.15rem;" id="drill-header-title">⚡ 通勤極速快刷（10 題）</span>
-        <span style="font-size: 0.88rem; color: var(--slate-500); margin-left: 10px;" id="drill-progress-info">第 1 / 10 題</span>
+        <span style="font-size: 0.88rem; color: var(--slate-500);" id="drill-progress-info">第 1 / 10 題</span>
+        <label style="font-size: 0.78rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 4px 10px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; border: 1px solid #bbf7d0;">
+          <input type="checkbox" id="drill-auto-advance-toggle" checked style="accent-color: #16a34a;"> ⚡ 答對秒跳下一題
+        </label>
       </div>
       <div>
         <button class="btn btn-outline" style="padding: 6px 14px; font-size: 0.85rem;" onclick="exitDrill()">
@@ -1263,32 +1306,96 @@ Minimum version required to store current data is: `+i+`.
     </div>
   </div>
 
-  <!-- ==================== QR CODE SYNC MODAL ==================== -->
+  <!-- ==================== 6-DIGIT CROSS-DEVICE CLOUD SYNC MODAL ==================== -->
   <div class="modal-backdrop" id="modal-sync" onclick="if(event.target===this) closeSyncModal()">
-    <div class="modal-card" style="text-align: center; max-width: 520px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--slate-900);">📱 跨裝置掃碼同步</h3>
-        <button style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--slate-400);" onclick="closeSyncModal()">✕</button>
-      </div>
-      <div style="font-size: 0.9rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 16px;">
-        請用<strong>手機相機</strong>直接對準下方 QR Code 掃描，即可直接在手機瀏覽器打開並<strong>自動繼承電腦上的歷史錯題與學習進度</strong>！
-      </div>
-
-      <div style="display: flex; justify-content: center; padding: 14px; background: white; border-radius: var(--radius-md); border: 2px solid var(--slate-200); width: fit-content; margin: 0 auto 14px; box-shadow: var(--shadow-sm);">
-        <canvas id="sync-qr-canvas" style="display: block;"></canvas>
-      </div>
-
-      <div style="font-size: 0.78rem; color: var(--slate-500); word-break: break-all; margin-bottom: 16px; background: var(--slate-50); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);" id="sync-url-preview">
-        ...
+    <div class="modal-card" style="max-width: 520px; width: 95%; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--slate-200); padding-bottom: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">📲</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--slate-900);">跨裝置 6 碼免登入同步</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">手機 ⇄ 電腦 1 秒無縫對齊錯題本與學習進度</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeSyncModal()">✕</button>
       </div>
 
-      <div style="display: flex; gap: 10px; justify-content: center;">
-        <button class="btn btn-outline" style="padding: 10px 18px;" onclick="copySyncLink()">
-          📋 複製同步網址
+      <!-- Tab 切換 -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; background: var(--slate-100); padding: 4px; border-radius: 9999px;">
+        <button id="tab-sync-send" class="btn btn-sm" style="flex: 1; border-radius: 9999px; font-weight: 800; background: var(--primary); color: white;" onclick="switchSyncTab('SEND')">
+          📤 產生 6 碼（傳送進度）
         </button>
-        <button class="btn btn-primary" style="padding: 10px 24px;" onclick="closeSyncModal()">
-          完成
+        <button id="tab-sync-receive" class="btn btn-sm" style="flex: 1; border-radius: 9999px; font-weight: 800; background: transparent; color: var(--slate-600);" onclick="switchSyncTab('RECEIVE')">
+          📥 輸入 6 碼（接收進度）
         </button>
+      </div>
+
+      <!-- 面板 1: 發送進度（產生 6 碼） -->
+      <div id="panel-sync-send" style="display: block;">
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-md); padding: 16px 14px; margin-bottom: 14px; text-align: center;">
+          <div style="font-size: 0.85rem; color: #166534; font-weight: 700; margin-bottom: 6px;">
+            您的專屬 6 碼同步代碼：
+          </div>
+          <div id="sync-code-display" style="font-family: monospace; font-size: 2.3rem; font-weight: 900; letter-spacing: 8px; color: #15803d; margin: 8px 0; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            ------
+          </div>
+          <div id="sync-status-msg" style="font-size: 0.82rem; color: #15803d; margin-bottom: 12px;">
+            點擊下方按鈕立即產生並加密上傳最新進度
+          </div>
+          <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" style="padding: 8px 18px; border-radius: 9999px;" onclick="generateSyncCode()">
+              🔄 產生最新 6 碼並上傳
+            </button>
+            <button class="btn btn-outline btn-sm" id="btn-copy-code" style="padding: 8px 16px; border-radius: 9999px; background: white;" onclick="copySyncCode()">
+              📋 複製 6 碼代碼
+            </button>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 10px;">
+          <div style="font-size: 0.82rem; color: var(--slate-500); margin-bottom: 8px;">
+            或用手機直接對準下方極簡 QR Code 掃描（秒級對焦，自動填碼）：
+          </div>
+          <div style="display: flex; justify-content: center; padding: 10px; background: white; border-radius: var(--radius-md); border: 1.5px solid var(--slate-200); width: fit-content; margin: 0 auto 10px; box-shadow: var(--shadow-sm);">
+            <canvas id="sync-qr-canvas" style="display: block; width: 160px; height: 160px;"></canvas>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--slate-400);">代碼產生後 24 小時內均可在另一台裝置輸入同步</div>
+        </div>
+      </div>
+
+      <!-- 面板 2: 接收進度（輸入 6 碼） -->
+      <div id="panel-sync-receive" style="display: none;">
+        <div style="background: #eff6ff; border: 1.5px solid #93c5fd; border-radius: var(--radius-md); padding: 20px 14px; text-align: center; margin-bottom: 14px;">
+          <div style="font-size: 0.9rem; color: #1e40af; font-weight: 700; margin-bottom: 10px;">
+            請輸入另一台裝置顯示的 6 碼代碼：
+          </div>
+          <input type="text" id="input-sync-code" maxlength="6" placeholder="例如：E86K29" style="width: 220px; font-family: monospace; font-size: 1.8rem; font-weight: 900; letter-spacing: 5px; text-align: center; text-transform: uppercase; padding: 10px; border: 2px solid var(--primary); border-radius: var(--radius-md); outline: none; margin-bottom: 14px; background: white;" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '')" onkeydown="if(event.key==='Enter') executeReceiveSync()">
+          <div>
+            <button class="btn btn-primary" id="btn-do-receive-sync" style="padding: 11px 32px; font-size: 1rem; font-weight: 800; border-radius: 9999px; box-shadow: var(--shadow-sm);" onclick="executeReceiveSync()">
+              ⚡ 立即載入並同步進度
+            </button>
+          </div>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--slate-500); line-height: 1.6; text-align: left; background: var(--slate-50); padding: 10px 14px; border-radius: 8px;">
+          💡 <strong>無痛同步保護：</strong> 同步將採用「聯集合併」技術，自動補齊兩台裝置的錯題、⭐ 收藏題目與精練題數，您原本裝置上的紀錄<strong>絕對不會被抹除覆蓋</strong>。
+        </div>
+      </div>
+
+      <!-- 底端折疊：進階離線檔案備份 -->
+      <div style="margin-top: 14px; border-top: 1px dashed var(--slate-200); padding-top: 10px; text-align: center;">
+        <button class="btn btn-outline btn-sm" style="font-size: 0.78rem; border: none; color: var(--slate-500); padding: 4px 8px;" onclick="toggleAdvancedBackup()">
+          ⚙️ 進階：本機 JSON 檔案備份與還原 ▼
+        </button>
+        <div id="advanced-backup-box" style="display: none; margin-top: 10px; background: var(--slate-50); padding: 12px; border-radius: 8px; border: 1px solid var(--slate-200);">
+          <div style="font-size: 0.8rem; color: var(--slate-600); margin-bottom: 8px;">適合離線保存備份檔案至個人電腦或 Google 雲端硬碟：</div>
+          <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-outline btn-sm" onclick="exportProgressFile()">📤 下載備份 (JSON)</button>
+            <label class="btn btn-outline btn-sm" style="cursor: pointer;">
+              📥 匯入備份 (JSON)
+              <input type="file" accept=".json" style="display: none;" onchange="importProgressFile(event)">
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -36485,6 +36592,14 @@ Minimum version required to store current data is: `+i+`.
           saveDashboardState();
           feedbackBanner.innerHTML += '（已自錯題本中消滅）';
         }
+
+        // 答對極速自動跳下一題（若開關開啟）
+        const autoAdv = document.getElementById('drill-auto-advance-toggle');
+        if (autoAdv && autoAdv.checked) {
+          setTimeout(() => {
+            nextDrillQuestion();
+          }, 380);
+        }
       } else {
         feedbackBanner.style.background = '#fee2e2';
         feedbackBanner.style.color = '#991b1b';
@@ -36627,48 +36742,243 @@ Minimum version required to store current data is: `+i+`.
       }
     }
 
-    // ==================== QR CODE SYNC & BACKUP ====================
+    // ==================== 6-DIGIT CROSS-DEVICE CLOUD SYNC & BACKUP ====================
+    let current6DigitCode = '';
     let currentSyncUrl = '';
 
     function getBaseAppUrl() {
-      let url = window.location.href.split('#')[0];
+      let url = window.location.href.split('#')[0].split('?')[0];
       if (url.startsWith('file://')) {
         url = PRODUCTION_URL;
       }
       return url;
     }
 
-    function openSyncModal() {
-      const modal = document.getElementById('modal-sync');
-      const canvas = document.getElementById('sync-qr-canvas');
-      const preview = document.getElementById('sync-url-preview');
+    function switchSyncTab(tab) {
+      const sendTab = document.getElementById('tab-sync-send');
+      const receiveTab = document.getElementById('tab-sync-receive');
+      const sendPanel = document.getElementById('panel-sync-send');
+      const receivePanel = document.getElementById('panel-sync-receive');
 
-      // Comprehensive payload
+      if (!sendTab || !receiveTab) return;
+
+      if (tab === 'SEND') {
+        sendTab.style.background = 'var(--primary)';
+        sendTab.style.color = '#ffffff';
+        receiveTab.style.background = 'transparent';
+        receiveTab.style.color = 'var(--slate-600)';
+        sendPanel.style.display = 'block';
+        receivePanel.style.display = 'none';
+      } else {
+        receiveTab.style.background = 'var(--primary)';
+        receiveTab.style.color = '#ffffff';
+        sendTab.style.background = 'transparent';
+        sendTab.style.color = 'var(--slate-600)';
+        receivePanel.style.display = 'block';
+        sendPanel.style.display = 'none';
+        const inp = document.getElementById('input-sync-code');
+        if (inp) setTimeout(() => inp.focus(), 150);
+      }
+    }
+
+    function generateRandom6Code() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = '';
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+
+    async function generateSyncCode() {
+      const codeDisplay = document.getElementById('sync-code-display');
+      const statusMsg = document.getElementById('sync-status-msg');
+      const canvas = document.getElementById('sync-qr-canvas');
+
+      const code = generateRandom6Code();
+      current6DigitCode = code;
+      if (codeDisplay) {
+        codeDisplay.innerText = code.split('').join(' ');
+      }
+      if (statusMsg) {
+        statusMsg.innerHTML = '<span style="color:#0284c7;">⏳ 正在將最新進度加密上傳至雲端中繼...</span>';
+      }
+
       const mistakeIds = persistentMistakes.map(m => m.id);
       const payloadObj = {
+        code: code,
         w: mistakeIds,
+        wm: persistentMistakes,
         b: Array.from(bookmarkedIdsSet),
         p: Array.from(practicedIdsSet),
         c: todayPracticedCount,
         d: todayDateStr,
         g: dailyGoalCount,
+        ed: targetExamDateStr,
         t: Date.now()
       };
 
-      const jsonStr = JSON.stringify(payloadObj);
-      const base64Payload = btoa(unescape(encodeURIComponent(jsonStr)));
-      currentSyncUrl = getBaseAppUrl() + '#sync=' + base64Payload;
+      const topic = `cde_sync_6d_${code}`;
+      const url = `https://ntfy.sh/${topic}`;
 
-      if (preview) preview.innerText = currentSyncUrl;
-
-      // Draw QR Code
-      if (window.QRCodeLib && canvas) {
-        QRCodeLib.toCanvas(canvas, currentSyncUrl, { width: 240, margin: 1 }, function(err) {
-          if (err) console.error("QR Code Error", err);
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(payloadObj)
         });
+
+        if (res.ok) {
+          if (statusMsg) {
+            statusMsg.innerHTML = '✅ <span style="color:#15803d; font-weight:700;">已成功上傳雲端！在另一台裝置輸入這 6 碼即可秒同步！</span>';
+          }
+          currentSyncUrl = getBaseAppUrl() + '#sync_code=' + code;
+
+          // 繪製極簡高對比 QR Code (點陣少、手機秒掃)
+          if (window.QRCodeLib && canvas) {
+            QRCodeLib.toCanvas(canvas, currentSyncUrl, { width: 170, margin: 1 }, function(err) {
+              if (err) console.error("QR Code Error", err);
+            });
+          }
+        } else {
+          throw new Error('Upload status: ' + res.status);
+        }
+      } catch (err) {
+        console.error("Sync upload error:", err);
+        if (statusMsg) {
+          statusMsg.innerHTML = '⚠️ 雲端網路短暫離線，請稍候重試或使用下方檔案備份。';
+        }
+      }
+    }
+
+    function copySyncCode() {
+      if (!current6DigitCode) {
+        alert("請先點擊「產生最新 6 碼」！");
+        return;
+      }
+      navigator.clipboard.writeText(current6DigitCode).then(() => {
+        alert(`✓ 6 碼同步代碼【${current6DigitCode}】已複製到剪貼簿！
+可直接透過 LINE、訊息傳到另一台裝置貼上！`);
+      }).catch(() => {
+        alert(`您的 6 碼代碼是：${current6DigitCode}`);
+      });
+    }
+
+    async function executeReceiveSync(targetCode) {
+      const codeInput = document.getElementById('input-sync-code');
+      const code = (targetCode || (codeInput ? codeInput.value : '')).trim().toUpperCase();
+
+      if (!code || code.length !== 6) {
+        alert("請輸入完整的 6 碼英數代碼！");
+        return;
       }
 
-      if (modal) modal.style.display = 'flex';
+      const btn = document.getElementById('btn-do-receive-sync');
+      if (btn) {
+        btn.innerText = "⏳ 正在自雲端載入進度...";
+        btn.disabled = true;
+      }
+
+      const topic = `cde_sync_6d_${code}`;
+      const url = `https://ntfy.sh/${topic}/json?poll=1`;
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Fetch failed');
+        const textData = await res.text();
+        const lines = textData.trim().split(String.fromCharCode(10)).filter(Boolean);
+
+        if (lines.length === 0) {
+          alert(`❌ 找不到代碼【${code}】的進度資料！
+請確認傳送端裝置是否已按下「產生最新 6 碼」，並於 24 小時內接收。`);
+          if (btn) {
+            btn.innerText = "⚡ 立即載入並同步進度";
+            btn.disabled = false;
+          }
+          return;
+        }
+
+        const lastEnvelope = JSON.parse(lines[lines.length - 1]);
+        const payload = JSON.parse(lastEnvelope.message);
+
+        applyReceivedPayload(payload);
+        closeSyncModal();
+        if (btn) {
+          btn.innerText = "⚡ 立即載入並同步進度";
+          btn.disabled = false;
+        }
+      } catch (err) {
+        console.error("Receive sync error:", err);
+        alert(`❌ 同步失敗或代碼【${code}】無效，請檢查網路連線後重試！`);
+        if (btn) {
+          btn.innerText = "⚡ 立即載入並同步進度";
+          btn.disabled = false;
+        }
+      }
+    }
+
+    function applyReceivedPayload(payload) {
+      if (!payload) return;
+      let syncMsg = [];
+
+      // 1. 同步錯題
+      if (Array.isArray(payload.wm)) {
+        payload.wm.forEach(m => {
+          const ex = persistentMistakes.find(x => x.id === m.id);
+          if (!ex) {
+            persistentMistakes.push(m);
+          } else {
+            ex.wrongCount = Math.max(ex.wrongCount || 1, m.wrongCount || 1);
+          }
+        });
+        syncMsg.push(`錯題本同步 (${persistentMistakes.length} 題)`);
+      } else if (Array.isArray(payload.w)) {
+        payload.w.forEach(id => {
+          if (!persistentMistakes.find(m => m.id === id)) {
+            persistentMistakes.push({
+              id: id,
+              wrongCount: 1,
+              firstWrongAt: new Date().toISOString(),
+              lastWrongAt: new Date().toISOString()
+            });
+          }
+        });
+        syncMsg.push(`錯題本同步 (${persistentMistakes.length} 題)`);
+      }
+
+      // 2. 同步書籤
+      if (Array.isArray(payload.b)) {
+        payload.b.forEach(id => bookmarkedIdsSet.add(id));
+        syncMsg.push(`⭐ 收藏夾同步 (${bookmarkedIdsSet.size} 題)`);
+      }
+
+      // 3. 同步題庫覆蓋率
+      if (Array.isArray(payload.p)) {
+        payload.p.forEach(id => practicedIdsSet.add(id));
+        syncMsg.push(`題庫精練進度 (${practicedIdsSet.size} 題)`);
+      }
+
+      // 4. 同步今日刷題與考期
+      if (payload.g) dailyGoalCount = payload.g;
+      if (payload.c && payload.d === new Date().toISOString().slice(0, 10)) {
+        todayPracticedCount = Math.max(todayPracticedCount, payload.c);
+      }
+      if (payload.ed) targetExamDateStr = payload.ed;
+
+      saveDashboardState();
+      saveCommunityAndBookmarkState();
+      loadDashboardState();
+
+      history.replaceState(null, null, window.location.pathname);
+      alert('🎉 6 碼跨裝置同步成功！\n\n已成功合併進度：\n- ' + syncMsg.join('\n- ') + '\n\n手機與電腦進度已完美對齊！');
+    }
+
+    function openSyncModal() {
+      const modal = document.getElementById('modal-sync');
+      if (modal) {
+        modal.style.display = 'flex';
+        switchSyncTab('SEND');
+        generateSyncCode();
+      }
     }
 
     function closeSyncModal() {
@@ -36677,6 +36987,9 @@ Minimum version required to store current data is: `+i+`.
     }
 
     function copySyncLink() {
+      if (!currentSyncUrl) {
+        currentSyncUrl = getBaseAppUrl();
+      }
       navigator.clipboard.writeText(currentSyncUrl).then(() => {
         alert("✓ 已複製同步網址至剪貼簿！可貼到 LINE 或手機瀏覽器打開！");
       }).catch(() => {
@@ -36684,58 +36997,43 @@ Minimum version required to store current data is: `+i+`.
       });
     }
 
-    // Check URL Hash for incoming sync on page load
+    function toggleAdvancedBackup() {
+      const box = document.getElementById('advanced-backup-box');
+      if (box) {
+        box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+      }
+    }
+
+    // Check URL Hash for incoming sync on page load (6-digit or legacy base64)
     function checkIncomingSync() {
       const hash = window.location.hash;
-      if (hash && hash.startsWith('#sync=')) {
+      if (!hash) return;
+
+      // 1. 新版 6 碼同步代碼
+      if (hash.startsWith('#sync_code=')) {
+        const code = hash.substring(11).trim().toUpperCase();
+        if (code && code.length === 6) {
+          setTimeout(() => {
+            if (confirm(`📲 偵測到來自另一台裝置的 6 碼同步代碼【${code}】！
+是否立即載入並合併最新錯題與學習進度？`)) {
+              executeReceiveSync(code);
+            }
+          }, 300);
+          return;
+        }
+      }
+
+      // 2. 舊版 Base64 同步代碼向下相容
+      if (hash.startsWith('#sync=')) {
         try {
           const base64Payload = hash.substring(6);
           const jsonStr = decodeURIComponent(escape(atob(base64Payload)));
           const payload = JSON.parse(jsonStr);
-
           if (payload) {
-            let syncMsg = [];
-            // Sync mistakes
-            if (Array.isArray(payload.w)) {
-              payload.w.forEach(id => {
-                if (!persistentMistakes.find(m => m.id === id)) {
-                  persistentMistakes.push({
-                    id: id,
-                    wrongCount: 1,
-                    firstWrongAt: new Date().toISOString(),
-                    lastWrongAt: new Date().toISOString()
-                  });
-                }
-              });
-              syncMsg.push(`錯題本同步 (${persistentMistakes.length} 題)`);
-            }
-
-            // Sync bookmarks
-            if (Array.isArray(payload.b)) {
-              payload.b.forEach(id => bookmarkedIdsSet.add(id));
-              syncMsg.push(`收藏題目同步 (${bookmarkedIdsSet.size} 題)`);
-            }
-
-            // Sync practiced
-            if (Array.isArray(payload.p)) {
-              payload.p.forEach(id => practicedIdsSet.add(id));
-              syncMsg.push(`題庫覆蓋率同步 (${practicedIdsSet.size} 題)`);
-            }
-
-            // Sync daily goal
-            if (payload.g) dailyGoalCount = payload.g;
-            if (payload.c && payload.d === new Date().toISOString().slice(0, 10)) {
-              todayPracticedCount = Math.max(todayPracticedCount, payload.c);
-            }
-
-            saveDashboardState();
-            saveCommunityAndBookmarkState();
-            history.replaceState(null, null, ' ');
-            alert(`🎉 跨裝置同步成功！\n\n已成功匯入：\n- ${syncMsg.join('\n- ')}\n\n手機與電腦進度已完美對齊！`);
+            applyReceivedPayload(payload);
           }
         } catch (err) {
           console.error("Failed to parse sync payload", err);
-          alert("同步連結解析失敗或格式不相容！");
         }
       }
     }
