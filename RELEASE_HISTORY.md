@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.01.2` (2026-11-01 09:52:03)
+- **Commit**: `4a476e1`
+- **說明**: Add interactive Auto-Advance toggle switch on landing page and in-drill sticky header with persistence and toast feedback
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.01.2
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.01.1` (2026-11-01 09:46:34)
 - **Commit**: `784f06c`
 - **說明**: Upgrade cross-device sync to 6-digit zero-friction cloud sync and mobile one-screen compact layout
