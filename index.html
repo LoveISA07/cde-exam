@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🩺 糖尿病衛教學會（CDE）筆試 100 題全真模擬考試系統 (2026 最新標準版)</title>
+
+  <!-- 強制瀏覽器獲取最新版，防止手機快取死鎖 (No-Cache Policy) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="canonical" href="https://loveisa07.github.io/cde-exam/">
+
+  <!-- LINE / Facebook / 社群分享預覽卡片 (Open Graph) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🩺 2026 糖尿病衛教學會（CDE）筆試刷題神器">
+  <meta property="og:description" content="1,025 題全真模擬考題、6 碼免登入跨裝置秒同步、同頁免捲動緊湊快刷、答對秒跳下一題、2026 最新核心教材臨床深度解析！">
+  <meta property="og:url" content="https://loveisa07.github.io/cde-exam/">
   <style>
     :root {
       --primary: #2563eb;
@@ -807,6 +819,9 @@ Minimum version required to store current data is: `+i+`.
         <p style="color: var(--slate-500); font-size: 0.95rem; margin-bottom: 12px;">100% 黃金詳解・特定概念靶向刷題・錯題與收藏搜尋・考友共筆與討論串</p>
         <!-- Top Quick Action Bar -->
         <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+          <button class="btn" style="background: #ecfdf5; border: 1.5px solid #10b981; color: #047857; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="copyPermanentShareUrl()">
+            🔗 分享永久網址（永不失效）
+          </button>
           <button class="btn" style="background: #fffbeb; border: 1.5px solid #f59e0b; color: #b45309; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="openStudyBrowser('BOOKMARK')">
             ⭐ 收藏題目夾 (<span id="top-bookmark-count">0</span> 題)
           </button>
@@ -814,7 +829,7 @@ Minimum version required to store current data is: `+i+`.
             🔍 題庫/錯題搜尋與免作答瀏覽
           </button>
           <button class="btn" style="background: #fef2f2; border: 1.5px solid #ef4444; color: #b91c1c; font-size: 0.85rem; font-weight: 800; padding: 7px 14px; border-radius: 9999px;" onclick="openCommunityAdminModal()">
-            🔔 討論動態 ＆ 🚩 問題回報看板 (<span id="top-issue-count">0</span>)
+            🔔 討論動態 ＆ 🚩 問題回報 (<span id="top-issue-count">0</span>)
           </button>
         </div>
       </div>
@@ -1541,6 +1556,10 @@ Minimum version required to store current data is: `+i+`.
     <div style="max-width: 860px; margin: 0 auto;">
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
       <div>本測驗模擬平台由專業醫事人員獨立編寫，旨在提供醫護同仁臨床糖尿病照護知能研討與學術自修使用。試題內容彙整自公開臨床模擬案例與歷屆考生學習回憶。本站所有題解均依我國《著作權法》第 52 條及第 65 條合理引用醫學指引文獻，並依法明示出處。本平台與社團法人中華民國糖尿病衛教學會（TACD）無任何官方商業隸屬或官方授權關係，學會正版教材請逕向官方管道購買。</div>
+      <div style="margin-top: 14px; font-size: 0.78rem; color: var(--slate-400); border-top: 1px dashed var(--slate-200); padding-top: 12px;">
+        系統版本：<span style="font-weight: 700; color: #166534;">v2026.11.01 (最新標準版)</span> ｜ 
+        永久分享網址：<a href="https://loveisa07.github.io/cde-exam/" style="color: var(--primary); text-decoration: underline; font-weight: 600;">https://loveisa07.github.io/cde-exam/</a>（永遠最新・永不失效）
+      </div>
     </div>
   </footer>
 
@@ -36652,6 +36671,19 @@ Minimum version required to store current data is: `+i+`.
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(-50%) translateY(10px)';
       }, 2200);
+    }
+
+    function copyPermanentShareUrl() {
+      const shareUrl = 'https://loveisa07.github.io/cde-exam/';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('🔗 永久分享網址已複製！考友打開永遠都是最新版，永不失效！');
+        }).catch(() => {
+          prompt('請複製以下永久分享網址（任何版本更新皆永遠有效）：', shareUrl);
+        });
+      } else {
+        prompt('請複製以下永久分享網址（任何版本更新皆永遠有效）：', shareUrl);
+      }
     }
 
     function startUniversalDrill(questions, title, isMistakeMode) {
