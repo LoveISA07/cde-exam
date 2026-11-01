@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.01.1` (2026-11-01 09:46:34)
+- **Commit**: `784f06c`
+- **說明**: Upgrade cross-device sync to 6-digit zero-friction cloud sync and mobile one-screen compact layout
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.01.1
+  ```
+---
+
 ### 🏷️ 版本 `v2026.10.24.1` (2026-10-24 15:50:36)
 - **Commit**: `9d72604`
 - **說明**: Add legal copyright disclaimer and fair-use notice footer to all simulator, auditor, and reviewer pages
