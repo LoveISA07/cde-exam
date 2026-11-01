@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.01.4` (2026-11-01 10:28:05)
+- **Commit**: `9d642bb`
+- **說明**: Restructure landing page: add sleek top navbar, clean up main screen to 4 core sections, move chapters/concepts/exam/mistakes to quick modals, clean up sync modal
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.01.4
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.01.3` (2026-11-01 09:54:56)
 - **Commit**: `49a275e`
 - **說明**: Add permanent sharing button, anti-cache headers, and Open Graph social tags
