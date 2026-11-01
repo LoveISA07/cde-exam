@@ -268,17 +268,18 @@
     }
 
     /* Modal */
-    .modal-overlay {
+    .modal-overlay, .modal-backdrop {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.7);
-      z-index: 200;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-    .modal-box {
+    .modal-box, .modal-card {
       background: #ffffff;
       border-radius: var(--radius-lg);
       padding: 24px;
@@ -1455,7 +1456,131 @@ Minimum version required to store current data is: `+i+`.
       </div>
 
       </div>
-    </div><!-- ==================== LEGAL DISCLAIMER FOOTER ==================== -->
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: 30 CHAPTERS DRILL ==================== -->
+  <div class="modal-backdrop" id="modal-chapters" onclick="if(event.target===this) closeChaptersModal()">
+    <div class="modal-card" style="max-width: 860px; width: 95%; max-height: 85vh; display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">📚</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f766e;">30 章節單元自選精準突破</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">依照 2026 核心教材目錄 1~30 章精準挑題，針對弱項章節靶向精練</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeChaptersModal()">✕</button>
+      </div>
+      <div style="overflow-y: auto; flex: 1; padding-right: 4px;">
+        <div class="chapter-grid" id="chapter-cards-grid">
+          <!-- Rendered by renderChapterCards() -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: 15 CLINICAL CONCEPTS ==================== -->
+  <div class="modal-backdrop" id="modal-concepts" onclick="if(event.target===this) closeConceptsModal()">
+    <div class="modal-card" style="max-width: 860px; width: 95%; max-height: 85vh; display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">🧬</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #5b21b6;">15 大高頻臨床概念特訓</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">打破章節界線，將散落全書的「同一臨床概念」集中刷題貫通</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeConceptsModal()">✕</button>
+      </div>
+      <div style="overflow-y: auto; flex: 1; padding-right: 4px;">
+        <div class="concept-grid" id="concept-cards-grid">
+          <!-- Rendered by renderConceptCards() -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: 100-Q FULL EXAM ==================== -->
+  <div class="modal-backdrop" id="modal-full-exam" onclick="if(event.target===this) closeFullExamModal()">
+    <div class="modal-card" style="max-width: 600px; width: 95%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">🏆</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--slate-900);">【全真大考 100 題模擬測驗】</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">比照官方正式大考規格・30 章節全覆蓋分層抽樣</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeFullExamModal()">✕</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px;">
+        <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
+          <div style="font-size: 0.8rem; color: var(--slate-500);">試卷題數</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">100 題</div>
+          <div style="font-size: 0.75rem; color: var(--slate-400);">每章 3~4 題均勻分佈</div>
+        </div>
+        <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
+          <div style="font-size: 0.8rem; color: var(--slate-500);">實質作答時間</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">85 分鐘</div>
+          <div style="font-size: 0.75rem; color: var(--slate-400);">題號導覽答題卡</div>
+        </div>
+        <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
+          <div style="font-size: 0.8rem; color: var(--slate-500);">及格標準</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--success);">60 分 及格</div>
+          <div style="font-size: 0.75rem; color: var(--slate-400);">每題 1 分，答錯不倒扣</div>
+        </div>
+        <div style="background: var(--slate-50); padding: 12px; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--slate-200);">
+          <div style="font-size: 0.8rem; color: var(--slate-500);">題庫題量</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--slate-700);">1,025 題</div>
+          <div style="font-size: 0.75rem; color: var(--slate-400);">2026 核心標準題源</div>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <button class="btn btn-primary" style="font-size: 1.1rem; padding: 13px 40px; border-radius: 9999px; width: 100%; box-shadow: var(--shadow-md);" onclick="closeFullExamModal(); startExam();">
+          🚀 立即開始 100 題模擬測驗
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: MISTAKES CHALLENGE ==================== -->
+  <div class="modal-backdrop" id="modal-mistakes" onclick="if(event.target===this) closeMistakesModal()">
+    <div class="modal-card" style="max-width: 500px; width: 95%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">🔥</span>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #9a3412;">歷史錯題消滅營</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">跨次累積專屬個人錯題本</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeMistakesModal()">✕</button>
+      </div>
+
+      <div style="background: #fff7ed; border: 1.5px solid #fdba74; border-radius: var(--radius-md); padding: 18px; text-align: center; margin-bottom: 18px;">
+        <div style="font-size: 0.9rem; color: #9a3412; font-weight: 700; margin-bottom: 6px;">目前錯題累積數量：</div>
+        <div style="font-size: 2.2rem; font-weight: 900; color: #ea580c; margin-bottom: 4px;" id="modal-mistake-count">0 題</div>
+        <div style="font-size: 0.8rem; color: #c2410c;">快刷或模考時答錯的題目會自動存入，答對即可消滅！</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button id="modal-btn-start-drill" class="btn btn-primary" style="background: #ea580c; border-color: #c2410c; padding: 12px; font-size: 1.05rem; font-weight: 800; border-radius: 9999px;" onclick="closeMistakesModal(); startMistakeDrill();">
+          🎯 開始消滅錯題挑戰
+        </button>
+        <button class="btn btn-outline" style="padding: 10px; font-size: 0.9rem; border-radius: 9999px;" onclick="closeMistakesModal(); openStudyBrowser('WRONG');">
+          🔍 瀏覽錯題解析與共筆
+        </button>
+        <button class="btn btn-outline" style="color: #991b1b; border-color: #fca5a5; padding: 8px; font-size: 0.85rem; border-radius: 9999px;" onclick="clearPersistentMistakes()">
+          🗑️ 清空歷史錯題本
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LEGAL DISCLAIMER FOOTER ==================== -->
   <footer class="app-legal-footer" style="background: #ffffff; border-top: 1px solid var(--slate-200); padding: 28px 20px; margin-top: 60px; text-align: center; color: var(--slate-500); font-size: 0.82rem; line-height: 1.65;">
     <div style="max-width: 860px; margin: 0 auto;">
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
@@ -36485,6 +36610,54 @@ Minimum version required to store current data is: `+i+`.
       }
 
       startUniversalDrill(chosen, `🔥 歷史錯題消滅挑戰（共 ${chosen.length} 題）`, true);
+    }
+
+    // ==================== TOP NAVBAR & MODAL CONTROLLERS ====================
+    function openChaptersModal() {
+      renderChapterCards();
+      const m = document.getElementById('modal-chapters');
+      if (m) m.style.display = 'flex';
+    }
+    function closeChaptersModal() {
+      const m = document.getElementById('modal-chapters');
+      if (m) m.style.display = 'none';
+    }
+
+    function openConceptsModal() {
+      renderConceptCards();
+      const m = document.getElementById('modal-concepts');
+      if (m) m.style.display = 'flex';
+    }
+    function closeConceptsModal() {
+      const m = document.getElementById('modal-concepts');
+      if (m) m.style.display = 'none';
+    }
+
+    function openFullExamModal() {
+      const m = document.getElementById('modal-full-exam');
+      if (m) m.style.display = 'flex';
+    }
+    function closeFullExamModal() {
+      const m = document.getElementById('modal-full-exam');
+      if (m) m.style.display = 'none';
+    }
+
+    function openMistakesModal() {
+      updateMistakeUI();
+      const m = document.getElementById('modal-mistakes');
+      if (m) m.style.display = 'flex';
+    }
+    function closeMistakesModal() {
+      const m = document.getElementById('modal-mistakes');
+      if (m) m.style.display = 'none';
+    }
+
+    // Gatekeeper & UI compatibility
+    function toggleChapterList() {
+      openChaptersModal();
+    }
+    function toggleConceptList() {
+      openConceptsModal();
     }
 
     // ==================== PRACTICE PREFERENCES (快刷做題節奏與自動跳題偏好) ====================
