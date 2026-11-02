@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.5` (2026-11-02 17:09:05)
+- **Commit**: `59b76d3`
+- **說明**: Phase 1-3 Complete Upgrade: Minimalist emoji-free UI, RWD overflow fixes, WCAG contrast, deferred SDKs, and XSS/offline hardening
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.5
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.02.4` (2026-11-02 16:52:10)
 - **Commit**: `53ee7d4`
 - **說明**: Clean navbar formatting after removing '手機開題' button
