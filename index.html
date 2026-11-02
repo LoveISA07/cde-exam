@@ -16,6 +16,11 @@
   <meta property="og:title" content="🩺 2026 糖尿病衛教學會（CDE）筆試刷題神器">
   <meta property="og:description" content="1,025 題全真模擬考題、6 碼免登入跨裝置秒同步、同頁免捲動緊湊快刷、答對秒跳下一題、2026 最新核心教材臨床深度解析！">
   <meta property="og:url" content="https://loveisa07.github.io/cde-exam/">
+  <!-- Firebase SDK v10 (Compat version for zero-build static hosting) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <style>
     :root {
       --primary: #2563eb;
@@ -569,6 +574,53 @@
       .nav-btn { padding: 5px 9px; font-size: 0.78rem; gap: 4px; }
     }
 
+
+    /* Google Auth & User Profile Navbar Styles */
+    .nav-btn-google {
+      background: #ffffff !important;
+      color: #1e293b !important;
+      border: 1px solid #cbd5e1 !important;
+      font-weight: 700 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .nav-btn-google:hover {
+      background: #f8fafc !important;
+      border-color: #94a3b8 !important;
+    }
+    .nav-user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 9999px;
+      padding: 3px 10px 3px 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .nav-user-pill:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #38bdf8;
+    }
+    .nav-user-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #38bdf8;
+    }
+    .nav-user-name {
+      color: #f8fafc;
+      font-size: 0.8rem;
+      font-weight: 700;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     /* Modern Switch Toggle & Drill Preference Styles */
     .switch-label {
       display: inline-flex;
@@ -953,6 +1005,16 @@ Minimum version required to store current data is: `+i+`.
           <button class="nav-btn" onclick="openSyncModal()" title="跨裝置 6 碼免登入秒同步">
             <span>📲</span> 跨端同步
           </button>
+          <!-- Google Auth Button & Profile Pill -->
+          <button class="nav-btn nav-btn-google" id="btn-nav-login" onclick="handleGoogleSignIn()" title="使用 Google 帳號登入，免輸代碼自動跨裝置同步進度">
+            <svg style="width: 14px; height: 14px; vertical-align: -2px;" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.8s.7 5.1 1.9 7.5l3.7-2.9z"/><path fill="#34A853" d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16.5C3.7 20.2 7.5 23.5 12 23.5z"/></svg>
+            <span>Google 登入</span>
+          </button>
+          <div class="nav-user-pill" id="nav-user-profile" style="display: none;" onclick="openUserProfileModal()" title="點擊檢視 Google 會員與雲端備份狀態">
+            <img id="nav-user-avatar" src="" alt="頭像" class="nav-user-avatar">
+            <span id="nav-user-name" class="nav-user-name">考友</span>
+            <span class="nav-pill-badge" style="background: #16a34a; color: white;">已連線</span>
+          </div>
           <button class="nav-btn nav-btn-admin" onclick="openCommunityAdminModal()" title="管理後台：討論動態 ＆ 題目問題回報中心">
             <span>🛡️</span> 管理後台
           </button>
@@ -1575,6 +1637,63 @@ Minimum version required to store current data is: `+i+`.
         </button>
         <button class="btn btn-outline" style="color: #991b1b; border-color: #fca5a5; padding: 8px; font-size: 0.85rem; border-radius: 9999px;" onclick="clearPersistentMistakes()">
           🗑️ 清空歷史錯題本
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GOOGLE USER PROFILE & CLOUD SYNC ==================== -->
+  <div class="modal-backdrop" id="modal-user-profile" onclick="if(event.target===this) closeUserProfileModal()">
+    <div class="modal-card" style="max-width: 480px; width: 95%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">👤</span>
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--slate-900);">Google 會員與雲端備份</h3>
+            <div style="font-size: 0.8rem; color: var(--slate-500);">做題進度已自動綁定您的 Google 帳號</div>
+          </div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeUserProfileModal()">✕</button>
+      </div>
+
+      <!-- User Info Card -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: var(--radius-md); padding: 14px 16px; display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+        <img id="profile-modal-avatar" src="" alt="avatar" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover;">
+        <div style="flex: 1; min-width: 0;">
+          <div id="profile-modal-name" style="font-size: 1.05rem; font-weight: 800; color: var(--slate-900); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">考友</div>
+          <div id="profile-modal-email" style="font-size: 0.82rem; color: var(--slate-500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">user@gmail.com</div>
+          <div style="margin-top: 4px;">
+            <span class="badge" style="background: #dcfce7; color: #15803d; font-size: 0.72rem; padding: 2px 8px; font-weight: 700;">🟢 雲端自動同步中</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sync Stats -->
+      <div style="background: white; border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px; font-size: 0.86rem; line-height: 1.7; color: var(--slate-700);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <span>☁️ 雲端已備份錯題：</span>
+          <strong id="profile-modal-mistakes" style="color: #ea580c;">0 題</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <span>⭐ 雲端已備份收藏：</span>
+          <strong id="profile-modal-bookmarks" style="color: #d97706;">0 題</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <span>📚 題庫已練總數：</span>
+          <strong id="profile-modal-practiced" style="color: #16a34a;">0 題</strong>
+        </div>
+        <div style="border-top: 1px dashed var(--slate-200); margin-top: 8px; padding-top: 6px; font-size: 0.78rem; color: var(--slate-400); text-align: right;" id="profile-modal-last-sync">
+          上次同步：剛剛
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-primary" style="padding: 11px; font-weight: 700; border-radius: 9999px;" onclick="syncCloudProgress(true)">
+          🔄 立即手動同步最新進度
+        </button>
+        <button class="btn btn-outline" style="color: #991b1b; border-color: #fca5a5; padding: 9px; font-size: 0.85rem; border-radius: 9999px;" onclick="handleGoogleSignOut()">
+          🚪 登出 Google 帳號
         </button>
       </div>
     </div>
@@ -36382,6 +36501,7 @@ Minimum version required to store current data is: `+i+`.
         localStorage.setItem(STORAGE_DAILY_GOAL_KEY, dailyGoalCount.toString());
         localStorage.setItem(STORAGE_TODAY_DATE_KEY, todayDateStr);
         localStorage.setItem(STORAGE_TODAY_COUNT_KEY, todayPracticedCount.toString());
+        triggerAutoCloudSync();
       } catch (e) {
         console.error("Failed to save dashboard state", e);
       }
@@ -36658,6 +36778,249 @@ Minimum version required to store current data is: `+i+`.
     }
     function toggleConceptList() {
       openConceptsModal();
+    }
+
+
+    // ==================== FIREBASE AUTH & FIRESTORE CLOUD SYNC ====================
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0giH81fRRzP6S7vkPrvI_tCyImw6iWXQ",
+      authDomain: "cde-exam.firebaseapp.com",
+      projectId: "cde-exam",
+      storageBucket: "cde-exam.firebasestorage.app",
+      messagingSenderId: "741276169509",
+      appId: "1:741276169509:web:fd20bd1bf7c6a5c42d96cc",
+      measurementId: "G-GMV247TGMM"
+    };
+
+    let firebaseApp = null;
+    let firebaseAuth = null;
+    let firestoreDb = null;
+    let currentAuthUser = null;
+    let lastCloudSyncTimeStr = '尚未同步';
+    let cloudSyncDebounceTimer = null;
+
+    function initFirebase() {
+      try {
+        if (window.firebase && !firebaseApp) {
+          firebaseApp = firebase.initializeApp(firebaseConfig);
+          firebaseAuth = firebase.auth();
+          firestoreDb = firebase.firestore();
+
+          // Listen to Auth State
+          firebaseAuth.onAuthStateChanged((user) => {
+            if (user) {
+              handleUserSignedIn(user);
+            } else {
+              handleUserSignedOut();
+            }
+          });
+        }
+      } catch (e) {
+        console.warn("Firebase initialization deferred or error:", e);
+      }
+    }
+
+    function handleGoogleSignIn() {
+      if (!window.firebase || !firebaseAuth) {
+        alert("Firebase 模組載入中，請稍候 3 秒後重試！");
+        return;
+      }
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+
+      firebaseAuth.signInWithPopup(provider)
+        .then((result) => {
+          showToast(`🎉 歡迎回來，${result.user.displayName || '考友'}！正在同步雲端進度...`);
+        })
+        .catch((error) => {
+          console.error("Google Sign-In Error:", error);
+          if (error.code === 'auth/unauthorized-domain') {
+            alert("【網域授權提醒】Firebase 安全機制需授權此網址！\n請至 Firebase 控制台 -> Authentication -> 設定 -> 已授權網域，新增目前的網域（例如 loveisa07.github.io）即可正常登入！");
+          } else if (error.code === 'auth/popup-closed-by-user') {
+            // User closed popup, do nothing
+          } else {
+            alert("Google 登入失敗：" + error.message);
+          }
+        });
+    }
+
+    function handleGoogleSignOut() {
+      if (!firebaseAuth) return;
+      if (confirm("確定要登出 Google 帳號嗎？\n（您的進度已安全保存在本地與雲端，登出後仍可繼續以訪客模式刷題）")) {
+        closeUserProfileModal();
+        firebaseAuth.signOut().then(() => {
+          showToast("🚪 已安全登出 Google 帳號");
+        });
+      }
+    }
+
+    function handleUserSignedIn(user) {
+      currentAuthUser = user;
+      updateAuthUI(true);
+
+      // Trigger Cloud Progress Merge
+      pullAndMergeCloudProgress();
+    }
+
+    function handleUserSignedOut() {
+      currentAuthUser = null;
+      updateAuthUI(false);
+    }
+
+    function updateAuthUI(isLoggedIn) {
+      const btnLogin = document.getElementById('btn-nav-login');
+      const profilePill = document.getElementById('nav-user-profile');
+      const avatarImg = document.getElementById('nav-user-avatar');
+      const nameText = document.getElementById('nav-user-name');
+
+      if (isLoggedIn && currentAuthUser) {
+        if (btnLogin) btnLogin.style.display = 'none';
+        if (profilePill) profilePill.style.display = 'inline-flex';
+        if (avatarImg) avatarImg.src = currentAuthUser.photoURL || 'icon-192.png';
+        if (nameText) nameText.innerText = currentAuthUser.displayName || currentAuthUser.email.split('@')[0];
+      } else {
+        if (btnLogin) btnLogin.style.display = 'inline-flex';
+        if (profilePill) profilePill.style.display = 'none';
+      }
+    }
+
+    function openUserProfileModal() {
+      if (!currentAuthUser) return;
+      const modal = document.getElementById('modal-user-profile');
+      const avatar = document.getElementById('profile-modal-avatar');
+      const name = document.getElementById('profile-modal-name');
+      const email = document.getElementById('profile-modal-email');
+      const mistakesCount = document.getElementById('profile-modal-mistakes');
+      const bookmarksCount = document.getElementById('profile-modal-bookmarks');
+      const practicedCount = document.getElementById('profile-modal-practiced');
+      const lastSyncEl = document.getElementById('profile-modal-last-sync');
+
+      if (avatar) avatar.src = currentAuthUser.photoURL || 'icon-192.png';
+      if (name) name.innerText = currentAuthUser.displayName || '考友';
+      if (email) email.innerText = currentAuthUser.email || '';
+      if (mistakesCount) mistakesCount.innerText = `${persistentMistakes.length} 題`;
+      if (bookmarksCount) bookmarksCount.innerText = `${bookmarkedIdsSet.size} 題`;
+      if (practicedCount) practicedCount.innerText = `${practicedIdsSet.size} 題`;
+      if (lastSyncEl) lastSyncEl.innerText = `上次同步：${lastCloudSyncTimeStr}`;
+
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeUserProfileModal() {
+      const modal = document.getElementById('modal-user-profile');
+      if (modal) modal.style.display = 'none';
+    }
+
+    // Two-way Union Merge with Firestore
+    async function pullAndMergeCloudProgress() {
+      if (!firestoreDb || !currentAuthUser) return;
+
+      try {
+        const userDocRef = firestoreDb.collection('cde_users').doc(currentAuthUser.uid);
+        const docSnap = await userDocRef.get();
+
+        if (docSnap.exists) {
+          const cloudData = docSnap.data();
+
+          // 1. Merge Mistakes (Union by ID, keep highest wrongCount)
+          const mistakeMap = new Map();
+          persistentMistakes.forEach(m => mistakeMap.set(m.id, { ...m }));
+          if (Array.isArray(cloudData.persistentMistakes)) {
+            cloudData.persistentMistakes.forEach(cm => {
+              if (mistakeMap.has(cm.id)) {
+                const localM = mistakeMap.get(cm.id);
+                localM.wrongCount = Math.max(localM.wrongCount || 1, cm.wrongCount || 1);
+                localM.lastWrongAt = (localM.lastWrongAt > cm.lastWrongAt) ? localM.lastWrongAt : cm.lastWrongAt;
+              } else {
+                mistakeMap.set(cm.id, cm);
+              }
+            });
+          }
+          persistentMistakes = Array.from(mistakeMap.values());
+
+          // 2. Merge Bookmarks (Union)
+          if (Array.isArray(cloudData.bookmarkedIds)) {
+            cloudData.bookmarkedIds.forEach(id => bookmarkedIdsSet.add(id));
+          }
+
+          // 3. Merge Practiced Question IDs (Union)
+          if (Array.isArray(cloudData.practicedIds)) {
+            cloudData.practicedIds.forEach(id => practicedIdsSet.add(id));
+          }
+
+          // 4. Target Exam Date (Sync if cloud has custom date)
+          if (cloudData.targetExamDateStr && cloudData.targetExamDateStr !== '2026-11-01') {
+            targetExamDateStr = cloudData.targetExamDateStr;
+          }
+
+          // Save merged data locally
+          saveDashboardState();
+          saveCommunityAndBookmarkState();
+
+          lastCloudSyncTimeStr = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          showToast("☁️ 雲端學習進度已成功雙向同步！");
+
+          // Write back merged union to Firestore
+          syncCloudProgress(false);
+        } else {
+          // Document does not exist yet -> initial upload
+          await syncCloudProgress(false);
+          lastCloudSyncTimeStr = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          showToast("☁️ 初始學習進度已成功備份至雲端！");
+        }
+      } catch (err) {
+        console.warn("Firestore sync notice (Database may need creation in console):", err);
+      }
+    }
+
+    async function syncCloudProgress(isManual) {
+      if (!firestoreDb || !currentAuthUser) {
+        if (isManual) alert("請先登入 Google 帳號！");
+        return;
+      }
+
+      try {
+        const userDocRef = firestoreDb.collection('cde_users').doc(currentAuthUser.uid);
+        const payload = {
+          uid: currentAuthUser.uid,
+          email: currentAuthUser.email,
+          displayName: currentAuthUser.displayName,
+          photoURL: currentAuthUser.photoURL,
+          lastClientSyncAt: new Date().toISOString(),
+          persistentMistakes: persistentMistakes,
+          bookmarkedIds: Array.from(bookmarkedIdsSet),
+          practicedIds: Array.from(practicedIdsSet),
+          dailyGoalCount: dailyGoalCount,
+          targetExamDateStr: targetExamDateStr,
+          todayPracticedCount: todayPracticedCount,
+          todayDateStr: todayDateStr,
+          prefAutoAdvance: prefAutoAdvance,
+          prefPauseWrong: prefPauseWrong
+        };
+
+        await userDocRef.set(payload, { merge: true });
+        lastCloudSyncTimeStr = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        if (isManual) {
+          const lastSyncEl = document.getElementById('profile-modal-last-sync');
+          if (lastSyncEl) lastSyncEl.innerText = `上次同步：${lastCloudSyncTimeStr}`;
+          showToast("✅ 雲端進度手動同步成功！");
+        }
+      } catch (err) {
+        console.warn("Cloud sync error:", err);
+        if (isManual) {
+          alert("雲端同步提醒：Firebase Firestore 資料庫可能尚未於控制台建立，目前進度已妥善保存在本機！");
+        }
+      }
+    }
+
+    // Trigger debounced cloud sync
+    function triggerAutoCloudSync() {
+      if (!currentAuthUser) return;
+      clearTimeout(cloudSyncDebounceTimer);
+      cloudSyncDebounceTimer = setTimeout(() => {
+        syncCloudProgress(false);
+      }, 1500);
     }
 
     // ==================== PRACTICE PREFERENCES (快刷做題節奏與自動跳題偏好) ====================
@@ -38385,6 +38748,7 @@ Minimum version required to store current data is: `+i+`.
     loadDashboardState();
     loadCommunityAndBookmarkState();
     loadPracticePreferences();
+    initFirebase();
     checkIncomingSync();
     window.addEventListener('hashchange', checkIncomingSync);
 
