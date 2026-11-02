@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.4` (2026-11-02 16:52:10)
+- **Commit**: `53ee7d4`
+- **說明**: Clean navbar formatting after removing '手機開題' button
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.4
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.02.3` (2026-11-02 16:51:38)
 - **Commit**: `3ec54f4`
 - **說明**: Remove '手機開題' (copy URL) button from top navbar
