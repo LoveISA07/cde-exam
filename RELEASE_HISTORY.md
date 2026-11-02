@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.6` (2026-11-02 17:14:23)
+- **Commit**: `863e827`
+- **說明**: Move auto-advance preference switches below 10-Q and 20-Q quiz mode cards
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.6
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.02.5` (2026-11-02 17:09:05)
 - **Commit**: `59b76d3`
 - **說明**: Phase 1-3 Complete Upgrade: Minimalist emoji-free UI, RWD overflow fixes, WCAG contrast, deferred SDKs, and XSS/offline hardening
