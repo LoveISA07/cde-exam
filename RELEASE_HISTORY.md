@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.1` (2026-11-02 16:38:58)
+- **Commit**: `1da6709`
+- **說明**: Integrate Google Sign-In with Firebase Auth and Firestore cloud two-way progress sync
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.1
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.01.5` (2026-11-01 12:17:44)
 - **Commit**: `666452d`
 - **說明**: Fix: add modal HTML and controller functions for 30 Chapters, 15 Concepts, Full Exam, and Mistakes
