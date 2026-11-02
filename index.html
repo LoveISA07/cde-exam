@@ -14,7 +14,7 @@
   <!-- LINE / Facebook / 社群分享預覽卡片 (Open Graph) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="🩺 2026 糖尿病衛教學會（CDE）筆試刷題神器">
-  <meta property="og:description" content="1,025 題全真模擬考題、6 碼免登入跨裝置秒同步、同頁免捲動緊湊快刷、答對秒跳下一題、2026 最新核心教材臨床深度解析！">
+  <meta property="og:description" content="1,025 題全真模擬考題、支援 Google 登入跨裝置秒同步、同頁免捲動緊湊快刷、答對秒跳下一題、2026 最新核心教材臨床深度解析！">
   <meta property="og:url" content="https://loveisa07.github.io/cde-exam/">
   <!-- Firebase SDK v10 (Compat version for zero-build static hosting) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -1002,9 +1002,7 @@ Minimum version required to store current data is: `+i+`.
           <button class="nav-btn" onclick="openMistakesModal()" title="歷史錯題消滅挑戰">
             <span>📝</span> 錯題本 <span class="nav-pill-badge badge-danger" id="nav-wrong-badge">0</span>
           </button>
-          <button class="nav-btn" onclick="openSyncModal()" title="跨裝置 6 碼免登入秒同步">
-            <span>📲</span> 跨端同步
-          </button>
+
           <!-- Google Auth Button & Profile Pill -->
           <button class="nav-btn nav-btn-google" id="btn-nav-login" onclick="handleGoogleSignIn()" title="使用 Google 帳號登入，免輸代碼自動跨裝置同步進度">
             <svg style="width: 14px; height: 14px; vertical-align: -2px;" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.8s.7 5.1 1.9 7.5l3.7-2.9z"/><path fill="#34A853" d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16.5C3.7 20.2 7.5 23.5 12 23.5z"/></svg>
@@ -1030,7 +1028,7 @@ Minimum version required to store current data is: `+i+`.
         <h1 style="font-size: 1.75rem; font-weight: 800; color: var(--slate-900); margin-bottom: 4px;">
           🩺 糖尿病共同照護網（CDE）筆試備考系統
         </h1>
-        <p style="color: var(--slate-500); font-size: 0.92rem;">臨床黃金詳解・跨章節靶向特訓・極速快刷自動跳題・考友共筆研討</p>
+        <p style="color: var(--slate-500); font-size: 0.92rem;">✨ 支援 Google 帳號登入跨裝置同步・錯題進度雲端即時保存・換手機電腦不中斷</p>
       </div>
 
       <!-- 1. D-DAY 考期衝刺看板 -->
@@ -1447,77 +1445,6 @@ Minimum version required to store current data is: `+i+`.
       </div>
 
       <div id="community-admin-body"></div>
-    </div>
-  </div>
-
-  <!-- ==================== 6-DIGIT CROSS-DEVICE CLOUD SYNC MODAL ==================== -->
-  <div class="modal-backdrop" id="modal-sync" onclick="if(event.target===this) closeSyncModal()">
-    <div class="modal-card" style="max-width: 520px; width: 95%; max-height: 90vh; overflow-y: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--slate-200); padding-bottom: 10px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 1.4rem;">📲</span>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--slate-900);">跨裝置 6 碼免登入同步</h3>
-            <div style="font-size: 0.8rem; color: var(--slate-500);">手機 ⇄ 電腦 1 秒無縫對齊錯題本與學習進度</div>
-          </div>
-        </div>
-        <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--slate-400);" onclick="closeSyncModal()">✕</button>
-      </div>
-
-      <!-- Tab 切換 -->
-      <div style="display: flex; gap: 8px; margin-bottom: 16px; background: var(--slate-100); padding: 4px; border-radius: 9999px;">
-        <button id="tab-sync-send" class="btn btn-sm" style="flex: 1; border-radius: 9999px; font-weight: 800; background: var(--primary); color: white;" onclick="switchSyncTab('SEND')">
-          📤 產生 6 碼（傳送進度）
-        </button>
-        <button id="tab-sync-receive" class="btn btn-sm" style="flex: 1; border-radius: 9999px; font-weight: 800; background: transparent; color: var(--slate-600);" onclick="switchSyncTab('RECEIVE')">
-          📥 輸入 6 碼（接收進度）
-        </button>
-      </div>
-
-      <!-- 面板 1: 發送進度（產生 6 碼） -->
-      <div id="panel-sync-send" style="display: block;">
-        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius-md); padding: 16px 14px; margin-bottom: 14px; text-align: center;">
-          <div style="font-size: 0.85rem; color: #166534; font-weight: 700; margin-bottom: 6px;">
-            您的專屬 6 碼同步代碼：
-          </div>
-          <div id="sync-code-display" style="font-family: monospace; font-size: 2.3rem; font-weight: 900; letter-spacing: 8px; color: #15803d; margin: 8px 0; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-            ------
-          </div>
-          <div id="sync-status-msg" style="font-size: 0.82rem; color: #15803d; margin-bottom: 12px;">
-            點擊下方按鈕立即產生並加密上傳最新進度
-          </div>
-          <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-primary btn-sm" style="padding: 8px 18px; border-radius: 9999px;" onclick="generateSyncCode()">
-              🔄 產生最新 6 碼並上傳
-            </button>
-            <button class="btn btn-outline btn-sm" id="btn-copy-code" style="padding: 8px 16px; border-radius: 9999px; background: white;" onclick="copySyncCode()">
-              📋 複製 6 碼代碼
-            </button>
-          </div>
-        </div>
-
-
-      </div>
-
-      <!-- 面板 2: 接收進度（輸入 6 碼） -->
-      <div id="panel-sync-receive" style="display: none;">
-        <div style="background: #eff6ff; border: 1.5px solid #93c5fd; border-radius: var(--radius-md); padding: 20px 14px; text-align: center; margin-bottom: 14px;">
-          <div style="font-size: 0.9rem; color: #1e40af; font-weight: 700; margin-bottom: 10px;">
-            請輸入另一台裝置顯示的 6 碼代碼：
-          </div>
-          <input type="text" id="input-sync-code" maxlength="6" placeholder="例如：E86K29" style="width: 220px; font-family: monospace; font-size: 1.8rem; font-weight: 900; letter-spacing: 5px; text-align: center; text-transform: uppercase; padding: 10px; border: 2px solid var(--primary); border-radius: var(--radius-md); outline: none; margin-bottom: 14px; background: white;" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '')" onkeydown="if(event.key==='Enter') executeReceiveSync()">
-          <div>
-            <button class="btn btn-primary" id="btn-do-receive-sync" style="padding: 11px 32px; font-size: 1rem; font-weight: 800; border-radius: 9999px; box-shadow: var(--shadow-sm);" onclick="executeReceiveSync()">
-              ⚡ 立即載入並同步進度
-            </button>
-          </div>
-        </div>
-        <div style="font-size: 0.8rem; color: var(--slate-500); line-height: 1.6; text-align: left; background: var(--slate-50); padding: 10px 14px; border-radius: 8px;">
-          💡 <strong>無痛同步保護：</strong> 同步將採用「聯集合併」技術，自動補齊兩台裝置的錯題、⭐ 收藏題目與精練題數，您原本裝置上的紀錄<strong>絕對不會被抹除覆蓋</strong>。
-        </div>
-      </div>
-
-      </div>
     </div>
   </div>
 
@@ -37664,11 +37591,10 @@ Minimum version required to store current data is: `+i+`.
     }
 
     function openSyncModal() {
-      const modal = document.getElementById('modal-sync');
-      if (modal) {
-        modal.style.display = 'flex';
-        switchSyncTab('SEND');
-        generateSyncCode();
+      if (currentAuthUser) {
+        openUserProfileModal();
+      } else {
+        handleGoogleSignIn();
       }
     }
 
