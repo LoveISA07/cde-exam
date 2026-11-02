@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.2` (2026-11-02 16:49:45)
+- **Commit**: `3a1ba65`
+- **說明**: Remove legacy 6-digit sync, update subtitle to Google Account cross-device sync notice
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.2
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.02.1` (2026-11-02 16:38:58)
 - **Commit**: `1da6709`
 - **說明**: Integrate Google Sign-In with Firebase Auth and Firestore cloud two-way progress sync
