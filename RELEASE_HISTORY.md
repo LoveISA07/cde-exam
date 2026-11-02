@@ -4,6 +4,15 @@
 
 ---
 
+### 🏷️ 版本 `v2026.11.02.3` (2026-11-02 16:51:38)
+- **Commit**: `3ec54f4`
+- **說明**: Remove '手機開題' (copy URL) button from top navbar
+- **一鍵還原指令**:
+  ```bash
+  python3 rollback_version.py v2026.11.02.3
+  ```
+---
+
 ### 🏷️ 版本 `v2026.11.02.2` (2026-11-02 16:49:45)
 - **Commit**: `3a1ba65`
 - **說明**: Remove legacy 6-digit sync, update subtitle to Google Account cross-device sync notice
