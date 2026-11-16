@@ -1106,6 +1106,11 @@
             錯題本 <span class="nav-pill-badge badge-danger" id="nav-wrong-badge">0</span>
           </button>
 
+          <!-- VIP Subscription Button -->
+          <button class="nav-btn" id="btn-nav-vip" onclick="openVipPurchaseModal('1M')" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #b45309; border: 1px solid #f59e0b; font-weight: 800;" title="購買或檢視 VIP 會員方案（1個月100元 / 2個月180元）">
+            <span id="nav-vip-btn-text">購買 VIP</span>
+          </button>
+
           <!-- Google Auth Button & Profile Pill -->
           <button class="nav-btn nav-btn-google" id="btn-nav-login" onclick="handleGoogleSignIn()" title="使用 Google 帳號登入，免輸代碼自動跨裝置同步進度">
             <svg style="width: 14px; height: 14px; vertical-align: -2px;" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.8s.7 5.1 1.9 7.5l3.7-2.9z"/><path fill="#34A853" d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16.5C3.7 20.2 7.5 23.5 12 23.5z"/></svg>
@@ -1132,6 +1137,11 @@
           糖尿病共同照護網（CDE）筆試備考系統
         </h1>
         <p style="color: var(--slate-500); font-size: 0.9rem;">支援 Google 帳號登入跨裝置同步・錯題進度雲端即時保存・換手機電腦不中斷</p>
+      </div>
+
+      <!-- 0. VIP 會員狀態與方案購買看板 (1個月100元 / 2個月180元) -->
+      <div class="card" id="landing-vip-banner" style="border: 1.5px solid #fcd34d; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); box-shadow: var(--shadow-sm); margin-bottom: 16px; padding: 16px 20px;">
+        <!-- Dynamically rendered by updateVipUI() -->
       </div>
 
       <!-- 1. D-DAY 考期衝刺看板 -->
@@ -1533,7 +1543,8 @@
 
       <!-- Modal Tabs -->
       <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-        <button class="btn btn-primary btn-sm" id="comm-tab-issues" onclick="switchCommunityAdminTab('ISSUES')">待處理問題回報 (<span id="modal-issue-tab-count">0</span>)</button>
+        <button class="btn btn-primary btn-sm" id="comm-tab-vip" onclick="switchCommunityAdminTab('VIP')">VIP 會員開通與收款設定</button>
+        <button class="btn btn-outline btn-sm" id="comm-tab-issues" onclick="switchCommunityAdminTab('ISSUES')">待處理問題回報 (<span id="modal-issue-tab-count">0</span>)</button>
         <button class="btn btn-outline btn-sm" id="comm-tab-feed" onclick="switchCommunityAdminTab('FEED')">最新討論串與共筆動態</button>
       </div>
 
@@ -1692,6 +1703,25 @@
         </div>
       </div>
 
+      <!-- VIP Plan Status & Purchase Options inside Profile Modal -->
+      <div id="profile-modal-vip-box" style="background: #fffbeb; border: 1.5px solid #fcd34d; border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.86rem; font-weight: 800; color: #92400e;">會員方案狀態</span>
+          <span class="badge" id="profile-modal-vip-badge" style="background: #fef3c7; color: #b45309; font-weight: 800;">免費體驗版（固定 10 題）</span>
+        </div>
+        <div id="profile-modal-vip-desc" style="font-size: 0.8rem; color: #78350f; margin-bottom: 10px; line-height: 1.5;">
+          升級 VIP 即可解鎖全站 30 章 1,025 題無限刷題、完整詳解搜尋與 100 題全真模擬考：
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <button type="button" class="btn" style="background: #d97706; color: white; font-weight: 800; padding: 9px 10px; border-radius: 8px; font-size: 0.84rem;" onclick="closeUserProfileModal(); openVipPurchaseModal('1M');">
+            購買 1 個月 (100元)
+          </button>
+          <button type="button" class="btn" style="background: #b45309; color: white; font-weight: 800; padding: 9px 10px; border-radius: 8px; font-size: 0.84rem;" onclick="closeUserProfileModal(); openVipPurchaseModal('2M');">
+            購買 2 個月 (180元)
+          </button>
+        </div>
+      </div>
+
       <!-- Actions -->
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <button class="btn btn-primary" style="padding: 11px; font-weight: 700; border-radius: 8px;" onclick="syncCloudProgress(true)">
@@ -1701,6 +1731,47 @@
           登出 Google 帳號
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: VIP SUBSCRIPTION & LINE PAYMENT ==================== -->
+  <div class="modal-backdrop" id="modal-vip-purchase" role="dialog" aria-modal="true" aria-label="購買 VIP 完整題庫方案" onclick="if(event.target===this) closeVipPurchaseModal()">
+    <div class="modal-card" style="max-width: 540px; width: 95%; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 12px; margin-bottom: 14px;">
+        <div>
+          <h3 style="font-size: 1.22rem; font-weight: 800; color: var(--slate-900);">開通 VIP 完整題庫方案</h3>
+          <div style="font-size: 0.8rem; color: var(--slate-500);">解鎖全書 30 章 1,025 題無限刷題、完整題庫搜尋與 100 題全真模擬考</div>
+        </div>
+        <button style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--slate-500);" onclick="closeVipPurchaseModal()" aria-label="關閉視窗">✕</button>
+      </div>
+
+      <!-- Reason Notice Banner (if triggered by locked feature) -->
+      <div id="vip-modal-reason-banner" style="display: none; background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; line-height: 1.5;"></div>
+
+      <!-- Plan Selector Cards (1 Month 100 / 2 Months 180) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        <div id="vip-plan-card-1M" onclick="selectVipPlan('1M')" style="cursor: pointer; border: 2px solid #f59e0b; background: #fffbeb; border-radius: var(--radius-md); padding: 14px; text-align: center; transition: all 0.2s;">
+          <div style="font-size: 0.8rem; font-weight: 800; color: #b45309; margin-bottom: 4px;">單月衝刺方案</div>
+          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">100 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
+          <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 4px;">完整開通 <strong>1 個月（30 天）</strong></div>
+        </div>
+
+        <div id="vip-plan-card-2M" onclick="selectVipPlan('2M')" style="cursor: pointer; border: 2px solid var(--slate-200); background: #ffffff; border-radius: var(--radius-md); padding: 14px; text-align: center; position: relative; transition: all 0.2s;">
+          <span style="position: absolute; top: -10px; right: 10px; background: #dc2626; color: white; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">推薦省 20 元</span>
+          <div style="font-size: 0.8rem; font-weight: 800; color: #0f766e; margin-bottom: 4px;">雙月穩過方案</div>
+          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">180 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
+          <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 4px;">完整開通 <strong>2 個月（60 天）</strong></div>
+        </div>
+      </div>
+
+      <!-- Free vs VIP Comparison Summary -->
+      <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 16px; font-size: 0.83rem; line-height: 1.65; color: var(--slate-700);">
+        <div>・<strong>免費體驗版</strong>：僅開放第一章（流行病學）第 1～10 題固定題目練習與瀏覽。</div>
+        <div>・<strong>VIP 付費版</strong>：全書 30 章節、17 大核心概念共 <strong>1,025 題無限刷題</strong>、全題庫關鍵字詳解搜尋、<strong>100 題全真計時模擬考</strong>與跨裝置雲端同步。</div>
+      </div>
+
+      <!-- Step-by-step Activation Flow (renders based on login state) -->
+      <div id="vip-modal-auth-step"></div>
     </div>
   </div>
 
@@ -35227,6 +35298,10 @@
     // Start Exam Function
     function startExam() {
       closeFullExamModal();
+      if (!isUserVip()) {
+        openVipPurchaseModal('2M', '「全真 100 題計時模擬測驗」為 VIP 會員專用功能！開通 VIP 即可無限次進行大考模擬與弱點診斷。');
+        return;
+      }
       currentQuestions = sampleQuestions();
       userAnswers = {};
       currentPage = 1;
@@ -36119,7 +36194,7 @@
             <div>
               <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px;">
                 <span class="badge" style="background: var(--slate-100); color: var(--slate-700); font-weight: 800;">第 ${idx + 1} 章</span>
-                <span style="font-size: 0.78rem; color: var(--slate-500); font-weight: 600;">共 ${totalInCh} 題</span>
+                <span style="font-size: 0.78rem; color: var(--slate-500); font-weight: 600;">${isUserVip() ? `共 ${totalInCh} 題` : (idx === 0 ? `免費體驗 1~10 題 (共${totalInCh}題)` : `VIP 專屬 (${totalInCh}題)`)}</span>
               </div>
               <div style="font-size: 0.95rem; font-weight: 800; color: var(--slate-900); margin-bottom: 8px; line-height: 1.4;">
                 ${ch}
@@ -36163,12 +36238,34 @@
     }
 
     function startQuickQuiz(count, title) {
+      if (!isUserVip()) {
+        if (count > 10) {
+          openVipPurchaseModal('1M', '「每日精選 20 題特訓」為 VIP 專屬功能！免費體驗僅開放第一章（流行病學）第 1～10 題固定題目。');
+          return;
+        }
+        const trialQs = getFreeTrial10Questions();
+        showToast('免費體驗模式：已載入第一章（流行病學）固定 1～10 題');
+        startUniversalDrill(trialQs, '免費體驗：第一章 流行病學（固定 1～10 題）', false);
+        return;
+      }
       const shuffled = shuffleArray(QUESTIONS_DATA);
       const chosen = shuffled.slice(0, count);
       startUniversalDrill(chosen, title, false);
     }
 
     function startChapterDrill(chapterName, count) {
+      if (!isUserVip()) {
+        if (chapterName === '第一章 糖尿病的疾病生理學及流行病學' && count === 10) {
+          closeChaptersModal();
+          const trialQs = getFreeTrial10Questions();
+          showToast('免費體驗模式：為您載入第一章固定 1～10 題');
+          startUniversalDrill(trialQs, '免費體驗：第一章 流行病學（固定 1～10 題）', false);
+          return;
+        }
+        closeChaptersModal();
+        openVipPurchaseModal('1M', `「${chapterName}」完整專項刷題為 VIP 專屬功能！免費體驗僅開放第一章第 1～10 題。`);
+        return;
+      }
       closeChaptersModal();
       const chQuestions = QUESTIONS_DATA.filter(q => {
         const ch = (q.chapter === '第七章 監測') ? '第七章 血糖監測' : q.chapter;
@@ -36201,9 +36298,14 @@
       persistentMistakes.forEach(m => mistakeMap.set(m.id, m));
 
       const chosen = [];
+      const vipNow = isUserVip();
       QUESTIONS_DATA.forEach(q => {
-        if (mistakeMap.has(q.id)) chosen.push(q);
+        if (mistakeMap.has(q.id) && (vipNow || FREE_TRIAL_10_SET.has(q.id))) chosen.push(q);
       });
+      if (chosen.length === 0 && persistentMistakes.length > 0 && !vipNow) {
+        openVipPurchaseModal('1M', '您的錯題本中包含 VIP 專屬章節題目，請開通 VIP 以解鎖完整錯題挑戰！');
+        return;
+      }
 
       if (chosen.length === 0) {
         alert("題庫中找不到對應的錯題！");
@@ -36338,6 +36440,8 @@
     function handleUserSignedIn(user) {
       currentAuthUser = user;
       updateAuthUI(true);
+      updateVipUI();
+      renderVipModalAuthStep();
 
       // Trigger Cloud Progress Merge
       pullAndMergeCloudProgress();
@@ -36345,7 +36449,13 @@
 
     function handleUserSignedOut() {
       currentAuthUser = null;
+      currentVipUntilMs = 0;
+      currentVipPlan = '';
       updateAuthUI(false);
+      updateVipUI();
+      if (document.getElementById('screen-study-browser')?.classList.contains('active')) {
+        renderBrowserPage();
+      }
     }
 
     function updateAuthUI(isLoggedIn) {
@@ -36434,6 +36544,15 @@
             targetExamDateStr = cloudData.targetExamDateStr;
           }
 
+          // 5. Load VIP Membership Status from cloud user doc
+          if (cloudData.vipUntil) {
+            const parsedVip = new Date(cloudData.vipUntil).getTime();
+            if (!isNaN(parsedVip)) {
+              currentVipUntilMs = Math.max(currentVipUntilMs, parsedVip);
+              currentVipPlan = cloudData.vipPlan || currentVipPlan || 'VIP';
+            }
+          }
+
           // Save merged data locally
           saveDashboardState();
           saveCommunityAndBookmarkState();
@@ -36452,6 +36571,8 @@
       } catch (err) {
         console.warn("Firestore sync notice (Database may need creation in console):", err);
       }
+      await checkEmailVipAndPaymentConfig();
+      updateVipUI();
     }
 
     async function syncCloudProgress(isManual) {
@@ -36835,8 +36956,18 @@
             </div>
           </div>
 
+          ${!isUserVip() ? `
+            <div style="background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: var(--radius-md); padding: 14px 16px; max-width: 520px; margin: 0 auto 20px; text-align: left;">
+              <div style="font-weight: 800; color: #92400e; font-size: 0.95rem; margin-bottom: 4px;">您已完成免費體驗（第一章固定 1～10 題）</div>
+              <div style="font-size: 0.84rem; color: #78350f; margin-bottom: 10px; line-height: 1.5;">升級 VIP 即可解鎖全書 30 章共 1,025 題無限隨機快刷、17 大臨床概念特訓與 100 題全真模擬考！</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('1M')">購買 1 個月 (100元)</button>
+                <button class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('2M')">購買 2 個月 (180元)</button>
+              </div>
+            </div>
+          ` : ''}
           <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem; border-radius: 9999px;" onclick="startUniversalDrill(shuffleArray(currentDrillQuestions), currentDrillTitle, currentDrillIsMistakeMode)">
+            <button class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem; border-radius: 9999px;" onclick="startUniversalDrill(isUserVip() ? shuffleArray(currentDrillQuestions) : currentDrillQuestions, currentDrillTitle, currentDrillIsMistakeMode)">
               再練一輪
             </button>
             <button class="btn btn-outline" style="padding: 12px 28px; font-size: 1rem; border-radius: 9999px;" onclick="exitDrill()">
@@ -37432,8 +37563,13 @@
         alert("您的收藏題目夾目前是空的！\n您可以在測驗中、詳解下方或題庫瀏覽時點擊「收藏題目」將重點題加入收藏夾。");
         return;
       }
-      const chosen = QUESTIONS_DATA.filter(q => bookmarkedIdsSet.has(q.id));
-      startUniversalDrill(shuffleArray(chosen), `收藏題目專屬特訓（共 ${chosen.length} 題）`, false);
+      const vipNow = isUserVip();
+      const chosen = QUESTIONS_DATA.filter(q => bookmarkedIdsSet.has(q.id) && (vipNow || FREE_TRIAL_10_SET.has(q.id)));
+      if (chosen.length === 0 && !vipNow) {
+        openVipPurchaseModal('1M', '您收藏的題目屬於 VIP 完整題庫範圍，請先開通 VIP 以進行收藏特訓！');
+        return;
+      }
+      startUniversalDrill(vipNow ? shuffleArray(chosen) : chosen, `收藏題目專屬特訓（共 ${chosen.length} 題）`, false);
     }
 
     // ==================== 15 CLINICAL CONCEPTS DRILL & BROWSER ====================
@@ -37495,6 +37631,11 @@
     }
 
     function startConceptDrill(conceptName, count) {
+      if (!isUserVip()) {
+        closeConceptsModal();
+        openVipPurchaseModal('1M', `「${cleanDisplayText(conceptName)}」跨章節專項特訓為 VIP 專屬功能！免費體驗僅開放第一章第 1～10 題。`);
+        return;
+      }
       closeConceptsModal();
       const matchingQs = QUESTIONS_DATA.filter(q => (q.concept_tags || []).includes(conceptName));
       if (matchingQs.length === 0) {
@@ -38056,8 +38197,40 @@
       if (topPag) topPag.innerHTML = pagHtml;
       if (botPag) botPag.innerHTML = pagHtml;
 
+      const vipActive = isUserVip();
       container.innerHTML = pageItems.map((q, idx) => {
         const globalNum = startIdx + idx + 1;
+        const isFreeAllowed = vipActive || FREE_TRIAL_10_SET.has(q.id);
+        if (!isFreeAllowed) {
+          return `
+            <div class="question-card" style="margin-bottom: 20px; border: 1.5px dashed #cbd5e1; background: #f8fafc;">
+              <div class="q-header">
+                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                  <span class="q-num">#${globalNum}</span>
+                  <span class="badge badge-primary">${q.id}</span>
+                  <span class="badge badge-slate">${q.chapter}</span>
+                  <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 800;">VIP 專屬題庫</span>
+                </div>
+              </div>
+              <div class="q-stem" style="color: var(--slate-700); margin-bottom: 12px;">
+                ${q.stem.slice(0, 32)}... <span style="color: var(--slate-400); font-size: 0.85rem;">（完整題幹、選項與 2026 核心詳解僅限 VIP 會員檢視）</span>
+              </div>
+              <div style="background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(--radius-md); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div style="font-size: 0.86rem; color: #92400e; font-weight: 700;">
+                  免費體驗僅開放第一章（流行病學）第 1～10 題。開通 VIP 即可解鎖全站 1,025 題完整解析！
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; border-radius: 6px; padding: 6px 12px;" onclick="openVipPurchaseModal('1M')">
+                    購買 1 個月 (100元)
+                  </button>
+                  <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; border-radius: 6px; padding: 6px 12px;" onclick="openVipPurchaseModal('2M')">
+                    購買 2 個月 (180元)
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
         const optsHtml = q.options.map(opt => {
           const letter = opt.trim().charAt(0);
           const isCorr = (letter === q.answer);
@@ -38114,6 +38287,10 @@
     }
 
     function startDrillFromBrowserResults() {
+      if (!isUserVip()) {
+        openVipPurchaseModal('1M', '「自選篩選結果專項刷題」為 VIP 專屬功能！免費體驗僅開放第一章固定 1～10 題。');
+        return;
+      }
       if (browserFilteredQuestions.length === 0) {
         alert("目前篩選結果沒有題目可供測驗！");
         return;
@@ -38128,7 +38305,7 @@
     function openCommunityAdminModal() {
       const modal = document.getElementById('modal-community-admin');
       if (modal) modal.style.display = 'flex';
-      switchCommunityAdminTab('ISSUES');
+      switchCommunityAdminTab('VIP');
     }
 
     function closeCommunityAdminModal() {
@@ -38138,7 +38315,7 @@
 
     function switchCommunityAdminTab(tab) {
       currentAdminTab = tab;
-      ['issues', 'feed'].forEach(t => {
+      ['vip', 'issues', 'feed'].forEach(t => {
         const btn = document.getElementById(`comm-tab-${t}`);
         if (btn) {
           btn.className = (t.toUpperCase() === tab) ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
@@ -38150,6 +38327,11 @@
     function renderCommunityAdminBody() {
       const body = document.getElementById('community-admin-body');
       if (!body) return;
+
+      if (currentAdminTab === 'VIP') {
+        renderVipAdminTab(body);
+        return;
+      }
 
       if (currentAdminTab === 'ISSUES') {
         if (reportedIssuesList.length === 0) {
@@ -38231,11 +38413,690 @@
       renderCommunityAdminBody();
     }
 
+    // ==================== VIP SUBSCRIPTION, FREE TRIAL 10-Q & LINE PAYMENT ENGINE ====================
+    // 免費體驗固定開放第一章（流行病學）前 10 題
+    const FREE_TRIAL_10_IDS = [
+      "CDE-EXAM-0001", "CDE-EXAM-0002", "CDE-EXAM-0003", "CDE-EXAM-0005", "CDE-EXAM-0008",
+      "CDE-EXAM-0012", "CDE-EXAM-0013", "CDE-EXAM-0014", "CDE-EXAM-0015", "CDE-EXAM-0016"
+    ];
+    const FREE_TRIAL_10_SET = new Set(FREE_TRIAL_10_IDS);
+
+    let currentVipUntilMs = 0;
+    let currentVipPlan = '';
+    let selectedVipPlan = '1M';
+    let adminPreviewFreeMode = false;
+
+    // 收款與 LINE 官方帳號設定（可由管理後台隨時更新並同步至雲端 cde_settings/payment）
+    let paymentConfig = {
+      lineUrl: localStorage.getItem('CDE_LINE_URL') || '',
+      lineId: localStorage.getItem('CDE_LINE_ID') || '',
+      paymentNote: localStorage.getItem('CDE_PAYMENT_NOTE') || '請加入官方 LINE 帳號並傳送上方複製的「開通申請訊息」，完成匯款或 LINE Pay 後將立即為您的 Google 帳號開通 VIP 權限！',
+      adminEmails: JSON.parse(localStorage.getItem('CDE_ADMIN_EMAILS') || '[]')
+    };
+
+    let adminUsersCache = [];
+
+    function getFreeTrial10Questions() {
+      return FREE_TRIAL_10_IDS.map(id => QUESTION_MAP.get(id)).filter(Boolean);
+    }
+
+    function isCurrentUserAdmin() {
+      if (!currentAuthUser || !currentAuthUser.email) return false;
+      const email = currentAuthUser.email.toLowerCase();
+      if (Array.isArray(paymentConfig.adminEmails) && paymentConfig.adminEmails.map(x => String(x).toLowerCase()).includes(email)) {
+        return true;
+      }
+      return false;
+    }
+
+    function isUserVip() {
+      if (adminPreviewFreeMode) return false;
+      if (isCurrentUserAdmin()) return true;
+      if (!currentAuthUser) return false;
+      return currentVipUntilMs > Date.now();
+    }
+
+    function getVipRemainingDays() {
+      if (!currentVipUntilMs || currentVipUntilMs <= Date.now()) return 0;
+      return Math.ceil((currentVipUntilMs - Date.now()) / (1000 * 60 * 60 * 24));
+    }
+
+    function formatVipDate(ms) {
+      if (!ms || ms <= 0) return '未開通';
+      const d = new Date(ms);
+      return d.toISOString().slice(0, 10);
+    }
+
+    async function checkEmailVipAndPaymentConfig() {
+      if (!firestoreDb) return;
+      try {
+        // 1. Load global payment config (LINE URL / ID / note / adminEmails)
+        const cfgSnap = await firestoreDb.collection('cde_settings').doc('payment').get();
+        if (cfgSnap.exists) {
+          const d = cfgSnap.data() || {};
+          if (typeof d.lineUrl === 'string') paymentConfig.lineUrl = d.lineUrl;
+          if (typeof d.lineId === 'string') paymentConfig.lineId = d.lineId;
+          if (typeof d.paymentNote === 'string' && d.paymentNote.trim()) paymentConfig.paymentNote = d.paymentNote;
+          if (Array.isArray(d.adminEmails)) paymentConfig.adminEmails = d.adminEmails;
+          localStorage.setItem('CDE_LINE_URL', paymentConfig.lineUrl);
+          localStorage.setItem('CDE_LINE_ID', paymentConfig.lineId);
+          localStorage.setItem('CDE_PAYMENT_NOTE', paymentConfig.paymentNote);
+          localStorage.setItem('CDE_ADMIN_EMAILS', JSON.stringify(paymentConfig.adminEmails));
+        }
+      } catch (e) {
+        console.warn('Payment config fetch notice:', e);
+      }
+
+      if (!currentAuthUser || !currentAuthUser.email) return;
+      try {
+        // 2. Check email-indexed VIP activation doc (cde_vip_emails/{email_lower})
+        const emailKey = currentAuthUser.email.trim().toLowerCase();
+        const vipSnap = await firestoreDb.collection('cde_vip_emails').doc(emailKey).get();
+        if (vipSnap.exists) {
+          const vd = vipSnap.data() || {};
+          if (vd.vipUntil) {
+            const ms = new Date(vd.vipUntil).getTime();
+            if (!isNaN(ms) && ms > currentVipUntilMs) {
+              currentVipUntilMs = ms;
+              currentVipPlan = vd.vipPlan || 'VIP';
+              // Mirror onto cde_users/{uid}
+              await firestoreDb.collection('cde_users').doc(currentAuthUser.uid).set({
+                vipUntil: new Date(ms).toISOString(),
+                vipPlan: currentVipPlan
+              }, { merge: true });
+            } else if (vd.revoked === true && ms <= Date.now()) {
+              currentVipUntilMs = 0;
+              currentVipPlan = '';
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('VIP email lookup notice:', e);
+      }
+    }
+
+    function updateVipUI() {
+      const vip = isUserVip();
+      const remDays = getVipRemainingDays();
+      const expStr = formatVipDate(currentVipUntilMs);
+      const isAdmin = isCurrentUserAdmin();
+
+      // 1. Navbar VIP button
+      const navBtnText = document.getElementById('nav-vip-btn-text');
+      const navBtn = document.getElementById('btn-nav-vip');
+      if (navBtnText && navBtn) {
+        if (vip) {
+          navBtnText.innerText = isAdmin && !adminPreviewFreeMode ? 'VIP 管理員' : `VIP (${remDays}天)`;
+          navBtn.style.background = '#dcfce7';
+          navBtn.style.color = '#15803d';
+          navBtn.style.borderColor = '#86efac';
+        } else {
+          navBtnText.innerText = '購買 VIP';
+          navBtn.style.background = 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)';
+          navBtn.style.color = '#b45309';
+          navBtn.style.borderColor = '#f59e0b';
+        }
+      }
+
+      // 2. Landing Page VIP Banner
+      const banner = document.getElementById('landing-vip-banner');
+      if (banner) {
+        if (!currentAuthUser) {
+          banner.style.borderColor = '#fcd34d';
+          banner.style.background = 'linear-gradient(135deg, #fffbeb 0%, #ffffff 100%)';
+          banner.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                  <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 800;">免費體驗模式（未登入）</span>
+                  <strong style="font-size: 1rem; color: var(--slate-900);">目前開放「第一章 流行病學」固定第 1～10 題免費體驗</strong>
+                </div>
+                <div style="font-size: 0.84rem; color: var(--slate-600);">
+                  使用 Google 帳號登入後，即可選購完整題庫方案（<strong>1 個月 100 元</strong> ／ <strong>2 個月 180 元</strong>），解鎖全書 30 章 1,025 題與 100 題模擬考！
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-primary btn-sm" style="font-weight: 800; padding: 8px 14px; border-radius: 8px;" onclick="handleGoogleSignIn()">
+                  Google 登入以購買方案
+                </button>
+                <button class="btn btn-outline btn-sm" style="font-weight: 700; padding: 8px 14px; border-radius: 8px; border-color: #d97706; color: #b45309;" onclick="openVipPurchaseModal('1M')">
+                  查看收費方案 (100元起)
+                </button>
+              </div>
+            </div>
+          `;
+        } else if (vip) {
+          banner.style.borderColor = '#86efac';
+          banner.style.background = 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)';
+          banner.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                  <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 800;">VIP 完整權限已開通</span>
+                  <strong style="font-size: 1rem; color: var(--slate-900);">歡迎 ${escapeHtml(currentAuthUser.displayName || currentAuthUser.email)}！全站 1,025 題與 100 題全真模考已完全解鎖</strong>
+                </div>
+                <div style="font-size: 0.82rem; color: var(--slate-600);">
+                  ${isAdmin ? '您目前為系統管理員身分（擁有永久完整權限，可於管理後台切換免費體驗預覽）' : `VIP 有效期限至：<strong>${expStr}</strong>（剩餘 <strong>${remDays}</strong> 天）`}
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                ${isAdmin ? `<button class="btn btn-outline btn-sm" style="font-weight: 700; border-radius: 8px;" onclick="openCommunityAdminModal()">開啟 VIP 會員管理後台</button>` : `<button class="btn btn-outline btn-sm" style="font-weight: 700; border-radius: 8px; border-color: #16a34a; color: #15803d;" onclick="openVipPurchaseModal('1M')">續購 / 延長天數</button>`}
+              </div>
+            </div>
+          `;
+        } else {
+          banner.style.borderColor = '#f59e0b';
+          banner.style.background = 'linear-gradient(135deg, #fffbeb 0%, #ffffff 100%)';
+          banner.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                  <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 800;">免費體驗帳號（固定 10 題）</span>
+                  <strong style="font-size: 1rem; color: var(--slate-900);">已登入：${escapeHtml(currentAuthUser.email)}</strong>
+                </div>
+                <div style="font-size: 0.84rem; color: var(--slate-600);">
+                  未付費帳號僅開放「第一章 流行病學」第 1～10 題固定體驗。立即選購方案即可解鎖全站 1,025 題與全真模擬考：
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 9px 14px; border-radius: 8px; font-size: 0.86rem;" onclick="openVipPurchaseModal('1M')">
+                  購買 1 個月 (100元)
+                </button>
+                <button class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 9px 14px; border-radius: 8px; font-size: 0.86rem;" onclick="openVipPurchaseModal('2M')">
+                  購買 2 個月 (180元)
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // 3. Profile Modal VIP Box
+      const pBadge = document.getElementById('profile-modal-vip-badge');
+      const pDesc = document.getElementById('profile-modal-vip-desc');
+      if (pBadge && pDesc) {
+        if (vip) {
+          pBadge.style.background = '#dcfce7';
+          pBadge.style.color = '#15803d';
+          pBadge.innerText = isAdmin ? '管理員永久 VIP' : `VIP 有效（剩 ${remDays} 天）`;
+          pDesc.innerText = isAdmin ? '管理員帳號享有全站完整權限。' : `您的 VIP 將於 ${expStr} 到期，期間可無限刷題與進行模擬考。如需延長可點選下方方案：`;
+        } else {
+          pBadge.style.background = '#fef3c7';
+          pBadge.style.color = '#b45309';
+          pBadge.innerText = '免費體驗版（固定 10 題）';
+          pDesc.innerText = '目前僅開放第一章第 1～10 題體驗。點選下方按鈕即可購買開通完整 1,025 題庫：';
+        }
+      }
+    }
+
+    function openVipPurchaseModal(defaultPlan = '1M', reasonText = '') {
+      selectedVipPlan = (defaultPlan === '2M') ? '2M' : '1M';
+      const modal = document.getElementById('modal-vip-purchase');
+      const reasonBanner = document.getElementById('vip-modal-reason-banner');
+      if (reasonBanner) {
+        if (reasonText) {
+          reasonBanner.style.display = 'block';
+          reasonBanner.innerText = reasonText;
+        } else {
+          reasonBanner.style.display = 'none';
+        }
+      }
+      selectVipPlan(selectedVipPlan);
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeVipPurchaseModal() {
+      const modal = document.getElementById('modal-vip-purchase');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function selectVipPlan(plan) {
+      selectedVipPlan = (plan === '2M') ? '2M' : '1M';
+      const card1 = document.getElementById('vip-plan-card-1M');
+      const card2 = document.getElementById('vip-plan-card-2M');
+      if (card1 && card2) {
+        if (selectedVipPlan === '1M') {
+          card1.style.borderColor = '#d97706';
+          card1.style.background = '#fffbeb';
+          card1.style.boxShadow = '0 0 0 2px rgba(217, 119, 6, 0.2)';
+          card2.style.borderColor = 'var(--slate-200)';
+          card2.style.background = '#ffffff';
+          card2.style.boxShadow = 'none';
+        } else {
+          card2.style.borderColor = '#d97706';
+          card2.style.background = '#fffbeb';
+          card2.style.boxShadow = '0 0 0 2px rgba(217, 119, 6, 0.2)';
+          card1.style.borderColor = 'var(--slate-200)';
+          card1.style.background = '#ffffff';
+          card1.style.boxShadow = 'none';
+        }
+      }
+      renderVipModalAuthStep();
+    }
+
+    function getSelectedPlanLabel() {
+      return selectedVipPlan === '2M' ? '2 個月（60 天）180 元' : '1 個月（30 天）100 元';
+    }
+
+    function copyVipApplyMessage() {
+      if (!currentAuthUser) {
+        alert('請先登入 Google 帳號！');
+        return;
+      }
+      const msg = `您好！我想購買 CDE 筆試題庫 VIP 方案：【${getSelectedPlanLabel()}】
+我的登入 Google 信箱是：${currentAuthUser.email}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(() => {
+          showToast('已複製開通申請訊息！請貼至官方 LINE 傳送給管理員');
+        }).catch(() => {
+          prompt('請複製以下訊息傳送至官方 LINE：', msg);
+        });
+      } else {
+        prompt('請複製以下訊息傳送至官方 LINE：', msg);
+      }
+    }
+
+    async function refreshMyVipStatus() {
+      if (!currentAuthUser) {
+        alert('請先登入 Google 帳號！');
+        return;
+      }
+      showToast('正在向雲端查詢最新開通狀態...');
+      await pullAndMergeCloudProgress();
+      await checkEmailVipAndPaymentConfig();
+      updateVipUI();
+      renderVipModalAuthStep();
+      if (isUserVip()) {
+        closeVipPurchaseModal();
+        if (document.getElementById('screen-study-browser')?.classList.contains('active')) {
+          renderBrowserPage();
+        }
+        alert(`🎉 恭喜！您的 VIP 完整權限已成功開通！
+有效期限至：${formatVipDate(currentVipUntilMs)}（剩餘 ${getVipRemainingDays()} 天）`);
+      } else {
+        alert('目前尚無開通紀錄。若您已透過 LINE 匯款並傳送 Google 信箱，請稍候管理員為您點擊開通後再試一次！');
+      }
+    }
+
+    function renderVipModalAuthStep() {
+      const container = document.getElementById('vip-modal-auth-step');
+      if (!container) return;
+
+      const planLabel = getSelectedPlanLabel();
+      if (!currentAuthUser) {
+        container.innerHTML = `
+          <div style="background: #eff6ff; border: 1.5px solid #93c5fd; border-radius: var(--radius-md); padding: 16px; text-align: center;">
+            <div style="font-weight: 800; color: #1e3a8a; font-size: 0.96rem; margin-bottom: 6px;">
+              請先登入 Google 帳號以綁定購買資格
+            </div>
+            <div style="font-size: 0.83rem; color: #1e40af; margin-bottom: 14px;">
+              VIP 權限將直接綁定您的 Google 信箱，換手機或電腦登入同帳號皆可自動享有 VIP！
+            </div>
+            <button type="button" class="btn btn-primary" style="width: 100%; padding: 11px; font-weight: 800; border-radius: 8px;" onclick="handleGoogleSignIn()">
+              第一步：使用 Google 帳號登入
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const lineBtnHtml = paymentConfig.lineUrl
+        ? `<a href="${escapeHtml(paymentConfig.lineUrl)}" target="_blank" rel="noopener noreferrer" class="btn" style="display: block; text-align: center; background: #06c755; color: white; font-weight: 800; padding: 11px; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">
+             第二步：開啟 LINE 官方帳號付款與傳送訊息
+           </a>`
+        : `<div style="background: #f0fdf4; border: 1px solid #86efac; padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; color: #166534; font-weight: 700; text-align: center;">
+             第二步：請至 LINE 官方帳號 ${paymentConfig.lineId ? `（ID：<strong>${escapeHtml(paymentConfig.lineId)}</strong>）` : ''} 傳送上方訊息並完成付款
+           </div>`;
+
+      container.innerHTML = `
+        <div style="background: #ffffff; border: 1.5px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px;">
+          <div style="font-size: 0.84rem; color: var(--slate-600); margin-bottom: 8px;">
+            已選方案：<strong style="color: #b45309; font-size: 0.95rem;">${planLabel}</strong> ｜ 綁定信箱：<strong style="color: var(--slate-900);">${escapeHtml(currentAuthUser.email)}</strong>
+          </div>
+          <div style="background: var(--slate-50); border: 1px dashed var(--slate-300); border-radius: 6px; padding: 10px 12px; font-size: 0.82rem; color: var(--slate-700); margin-bottom: 10px; line-height: 1.55; white-space: pre-line;">${escapeHtml(paymentConfig.paymentNote)}</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button type="button" class="btn btn-outline" style="width: 100%; padding: 10px; font-weight: 800; border-radius: 8px; border-color: #d97706; color: #b45309;" onclick="copyVipApplyMessage()">
+              第一步：一鍵複製我的開通申請訊息（含信箱與方案）
+            </button>
+            ${lineBtnHtml}
+            <button type="button" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: 800; border-radius: 8px; margin-top: 4px;" onclick="refreshMyVipStatus()">
+              第三步：已完成付款？點此刷新開通狀態
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== ADMIN VIP ACTIVATION & PAYMENT CONFIG PANEL ====================
+    async function loadAdminUsersList() {
+      if (!firestoreDb) return;
+      try {
+        const snap = await firestoreDb.collection('cde_users').limit(200).get();
+        const usersMap = new Map();
+        snap.forEach(doc => {
+          const d = doc.data() || {};
+          if (d.email) {
+            usersMap.set(d.email.toLowerCase(), {
+              uid: doc.id,
+              email: d.email,
+              displayName: d.displayName || '考友',
+              vipUntil: d.vipUntil || '',
+              vipPlan: d.vipPlan || '',
+              lastSync: d.lastClientSyncAt || ''
+            });
+          }
+        });
+
+        const vipSnap = await firestoreDb.collection('cde_vip_emails').limit(200).get();
+        vipSnap.forEach(doc => {
+          const d = doc.data() || {};
+          const em = (d.email || doc.id).toLowerCase();
+          if (usersMap.has(em)) {
+            const existing = usersMap.get(em);
+            const t1 = existing.vipUntil ? new Date(existing.vipUntil).getTime() : 0;
+            const t2 = d.vipUntil ? new Date(d.vipUntil).getTime() : 0;
+            if (t2 > t1 || d.revoked) {
+              existing.vipUntil = d.vipUntil || '';
+              existing.vipPlan = d.vipPlan || '';
+            }
+          } else {
+            usersMap.set(em, {
+              uid: '',
+              email: em,
+              displayName: '（尚未登入，已預先建檔）',
+              vipUntil: d.vipUntil || '',
+              vipPlan: d.vipPlan || '',
+              lastSync: d.updatedAt || ''
+            });
+          }
+        });
+
+        adminUsersCache = Array.from(usersMap.values()).sort((a, b) => String(b.lastSync).localeCompare(String(a.lastSync)));
+      } catch (e) {
+        console.warn('Failed to load users list:', e);
+      }
+    }
+
+    async function grantVipByEmail(emailInput, days, planLabel) {
+      if (!firestoreDb) {
+        alert('請確認網路連線正常！');
+        return;
+      }
+      const email = String(emailInput || '').trim().toLowerCase();
+      if (!email || !email.includes('@')) {
+        alert('請輸入有效的 Google 信箱（Email）！');
+        return;
+      }
+
+      try {
+        let baseMs = Date.now();
+        // Check if user already has active VIP time to extend from
+        const existingVipDoc = await firestoreDb.collection('cde_vip_emails').doc(email).get();
+        if (existingVipDoc.exists) {
+          const ed = existingVipDoc.data() || {};
+          if (ed.vipUntil) {
+            const ems = new Date(ed.vipUntil).getTime();
+            if (!isNaN(ems) && ems > baseMs) baseMs = ems;
+          }
+        }
+
+        const newVipUntilIso = (days > 0)
+          ? new Date(baseMs + days * 24 * 60 * 60 * 1000).toISOString()
+          : new Date(0).toISOString();
+
+        await firestoreDb.collection('cde_vip_emails').doc(email).set({
+          email: email,
+          vipUntil: newVipUntilIso,
+          vipPlan: days > 0 ? planLabel : '',
+          revoked: days <= 0,
+          updatedAt: new Date().toISOString(),
+          updatedBy: currentAuthUser ? currentAuthUser.email : 'admin'
+        }, { merge: true });
+
+        // Also update any matching user doc in cde_users
+        const matchedUser = adminUsersCache.find(u => u.email && u.email.toLowerCase() === email && u.uid);
+        if (matchedUser && matchedUser.uid) {
+          await firestoreDb.collection('cde_users').doc(matchedUser.uid).set({
+            vipUntil: newVipUntilIso,
+            vipPlan: days > 0 ? planLabel : ''
+          }, { merge: true });
+        }
+
+        if (currentAuthUser && currentAuthUser.email && currentAuthUser.email.toLowerCase() === email) {
+          currentVipUntilMs = (days > 0) ? new Date(newVipUntilIso).getTime() : 0;
+          currentVipPlan = days > 0 ? planLabel : '';
+          updateVipUI();
+        }
+
+        await loadAdminUsersList();
+        renderCommunityAdminBody();
+        if (days > 0) {
+          showToast(`已為 ${email} 開通 ${planLabel}（到期日：${newVipUntilIso.slice(0, 10)}）`);
+        } else {
+          showToast(`已取消 ${email} 的 VIP 權限`);
+        }
+      } catch (e) {
+        alert('開通操作失敗：' + e.message);
+      }
+    }
+
+    async function saveAdminPaymentConfig() {
+      const lineUrl = (document.getElementById('admin-cfg-line-url')?.value || '').trim();
+      const lineId = (document.getElementById('admin-cfg-line-id')?.value || '').trim();
+      const note = (document.getElementById('admin-cfg-payment-note')?.value || '').trim();
+
+      paymentConfig.lineUrl = lineUrl;
+      paymentConfig.lineId = lineId;
+      paymentConfig.paymentNote = note || paymentConfig.paymentNote;
+
+      localStorage.setItem('CDE_LINE_URL', paymentConfig.lineUrl);
+      localStorage.setItem('CDE_LINE_ID', paymentConfig.lineId);
+      localStorage.setItem('CDE_PAYMENT_NOTE', paymentConfig.paymentNote);
+
+      if (firestoreDb) {
+        try {
+          await firestoreDb.collection('cde_settings').doc('payment').set({
+            lineUrl: paymentConfig.lineUrl,
+            lineId: paymentConfig.lineId,
+            paymentNote: paymentConfig.paymentNote,
+            adminEmails: paymentConfig.adminEmails,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+          showToast('收款與 LINE 官方帳號設定已儲存並同步至雲端！');
+        } catch (e) {
+          alert('已儲存於本機，但雲端同步失敗：' + e.message);
+        }
+      } else {
+        showToast('收款設定已儲存於本機');
+      }
+    }
+
+    async function bindCurrentAccountAsAdmin() {
+      if (!currentAuthUser || !currentAuthUser.email) {
+        alert('請先在右上角使用您的 Google 帳號登入，再點擊綁定管理員！');
+        return;
+      }
+      const myEmail = currentAuthUser.email.toLowerCase();
+      if (!paymentConfig.adminEmails.map(x => String(x).toLowerCase()).includes(myEmail)) {
+        paymentConfig.adminEmails.push(myEmail);
+      }
+      localStorage.setItem('CDE_ADMIN_EMAILS', JSON.stringify(paymentConfig.adminEmails));
+      if (firestoreDb) {
+        try {
+          await firestoreDb.collection('cde_settings').doc('payment').set({
+            adminEmails: paymentConfig.adminEmails,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+      updateVipUI();
+      renderCommunityAdminBody();
+      showToast(`已將 ${myEmail} 綁定為系統管理員！`);
+    }
+
+    function toggleAdminFreePreview(checked) {
+      adminPreviewFreeMode = Boolean(checked);
+      updateVipUI();
+      if (document.getElementById('screen-study-browser')?.classList.contains('active')) {
+        renderBrowserPage();
+      }
+      showToast(adminPreviewFreeMode ? '已切換為「免費體驗視角」預覽' : '已恢復「管理員 VIP 完整視角」');
+    }
+
+    async function renderVipAdminTab(body) {
+      const hasBoundAdmins = Array.isArray(paymentConfig.adminEmails) && paymentConfig.adminEmails.length > 0;
+      const isAdmin = isCurrentUserAdmin();
+
+      if (hasBoundAdmins && !isAdmin) {
+        body.innerHTML = `
+          <div style="text-align: center; padding: 36px 20px; background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: var(--radius-md); color: #991b1b;">
+            <div style="font-weight: 800; font-size: 1.05rem; margin-bottom: 6px;">此區域僅限系統管理員存取</div>
+            <div style="font-size: 0.86rem;">請先使用管理員 Google 帳號登入後再管理 VIP 會員權限。</div>
+          </div>
+        `;
+        return;
+      }
+
+      if (adminUsersCache.length === 0 && firestoreDb) {
+        await loadAdminUsersList();
+      }
+
+      const searchKw = (document.getElementById('admin-vip-search')?.value || '').trim().toLowerCase();
+      const filteredUsers = adminUsersCache.filter(u => {
+        if (!searchKw) return true;
+        return String(u.email).toLowerCase().includes(searchKw) || String(u.displayName).toLowerCase().includes(searchKw);
+      });
+
+      const usersRowsHtml = filteredUsers.length === 0
+        ? `<tr><td colspan="4" style="text-align: center; padding: 18px; color: var(--slate-500);">目前尚無符合的會員紀錄，您可直接在上方輸入學員 Google Email 進行預先開通！</td></tr>`
+        : filteredUsers.map(u => {
+            const expMs = u.vipUntil ? new Date(u.vipUntil).getTime() : 0;
+            const active = expMs > Date.now();
+            const rem = active ? Math.ceil((expMs - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
+            return `
+              <tr style="border-bottom: 1px solid var(--slate-200);">
+                <td style="padding: 10px 8px;">
+                  <div style="font-weight: 800; color: var(--slate-900); font-size: 0.88rem;">${escapeHtml(u.email)}</div>
+                  <div style="font-size: 0.76rem; color: var(--slate-500);">${escapeHtml(u.displayName)}</div>
+                </td>
+                <td style="padding: 10px 8px;">
+                  ${active
+                    ? `<span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 800;">VIP 有效（剩 ${rem} 天）</span><div style="font-size: 0.74rem; color: var(--slate-500); margin-top: 2px;">到期：${u.vipUntil.slice(0, 10)}</div>`
+                    : `<span class="badge" style="background: var(--slate-100); color: var(--slate-600);">免費體驗 (10題)</span>`
+                  }
+                </td>
+                <td style="padding: 10px 8px; text-align: right; white-space: nowrap;">
+                  <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 30, '1個月VIP(100元)')">
+                    +1個月 (30天)
+                  </button>
+                  <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 60, '2個月VIP(180元)')">
+                    +2個月 (60天)
+                  </button>
+                  ${active ? `<button type="button" class="btn btn-outline btn-sm" style="color: #dc2626; border-color: #fca5a5; padding: 5px 8px; font-size: 0.74rem; border-radius: 6px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 0, '')">取消</button>` : ''}
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+      body.innerHTML = `
+        <!-- 0. 管理員綁定與免費體驗視角切換 -->
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div style="font-size: 0.83rem; color: #1e3a8a;">
+            <strong>管理員權限：</strong>
+            ${hasBoundAdmins ? `已綁定管理員（${escapeHtml(paymentConfig.adminEmails.join(', '))}）` : '尚未綁定管理員信箱，請先登入您的 Google 帳號並點擊右側按鈕完成綁定'}
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 800; color: #1e40af; cursor: pointer;">
+              <input type="checkbox" ${adminPreviewFreeMode ? 'checked' : ''} onchange="toggleAdminFreePreview(this.checked)">
+              <span>以「免費體驗學員視角」預覽網站</span>
+            </label>
+            ${!isAdmin ? `<button type="button" class="btn btn-primary btn-sm" style="font-size: 0.78rem; padding: 5px 10px;" onclick="bindCurrentAccountAsAdmin()">綁定目前 Google 帳號為管理員</button>` : ''}
+          </div>
+        </div>
+
+        <!-- 1. 輸入學員 Google Email 快速開通 -->
+        <div style="background: #fffbeb; border: 1.5px solid #fcd34d; border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+          <div style="font-weight: 800; color: #92400e; font-size: 0.95rem; margin-bottom: 6px;">
+            快速手動開通學員 VIP（輸入學員 Google 信箱）
+          </div>
+          <div style="font-size: 0.8rem; color: #78350f; margin-bottom: 10px;">
+            當學員在 LINE 官方帳號完成匯款並傳送他的 Google 信箱給您時，直接貼在下方即可立即為他開通（若已有剩餘天數會自動累加）：
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="email" id="admin-quick-vip-email" placeholder="貼上學員的 Google 信箱（例如 example@gmail.com）..." style="flex: 1; min-width: 220px; padding: 8px 12px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 0.9rem; background: white;">
+            <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 30, '1個月VIP(100元)')">
+              開通 1 個月 (+30天 / 100元)
+            </button>
+            <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 60, '2個月VIP(180元)')">
+              開通 2 個月 (+60天 / 180元)
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. 已登入會員清單與一鍵開通 -->
+        <div style="background: white; border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+            <div style="font-weight: 800; color: var(--slate-900); font-size: 0.95rem;">
+              Google 登入會員名單（共 ${adminUsersCache.length} 位）
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="admin-vip-search" value="${escapeHtml(searchKw)}" placeholder="搜尋信箱或姓名..." style="padding: 5px 10px; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.82rem;" oninput="renderVipAdminTab(document.getElementById('community-admin-body'))">
+              <button type="button" class="btn btn-outline btn-sm" style="padding: 5px 10px; font-size: 0.78rem;" onclick="loadAdminUsersList().then(() => renderCommunityAdminBody())">重新整理名單</button>
+            </div>
+          </div>
+          <div style="overflow-x: auto; max-height: 260px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.84rem;">
+              <thead>
+                <tr style="background: var(--slate-50); border-bottom: 1px solid var(--slate-200); text-align: left; color: var(--slate-600);">
+                  <th style="padding: 8px;">學員 Google 信箱 / 姓名</th>
+                  <th style="padding: 8px;">目前方案狀態</th>
+                  <th style="padding: 8px; text-align: right;">一鍵開通 / 管理</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${usersRowsHtml}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. LINE 官方帳號與收款說明設定 -->
+        <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px;">
+          <div style="font-weight: 800; color: var(--slate-900); font-size: 0.95rem; margin-bottom: 8px;">
+            LINE 官方帳號與收款資訊設定（全站購買視窗即時連動）
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px;">
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 700; color: var(--slate-600); display: block; margin-bottom: 4px;">LINE 官方帳號加入連結（選填）</label>
+              <input type="text" id="admin-cfg-line-url" value="${escapeHtml(paymentConfig.lineUrl)}" placeholder="例如 https://lin.ee/xxxxxxx" style="width: 100%; padding: 7px 10px; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.84rem; background: white;">
+            </div>
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 700; color: var(--slate-600); display: block; margin-bottom: 4px;">LINE 官方帳號 ID（選填）</label>
+              <input type="text" id="admin-cfg-line-id" value="${escapeHtml(paymentConfig.lineId)}" placeholder="例如 @cde2026" style="width: 100%; padding: 7px 10px; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.84rem; background: white;">
+            </div>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.78rem; font-weight: 700; color: var(--slate-600); display: block; margin-bottom: 4px;">付款與開通引導說明（顯示於學員購買視窗）</label>
+            <textarea id="admin-cfg-payment-note" rows="3" style="width: 100%; padding: 8px 10px; border: 1px solid var(--slate-300); border-radius: 6px; font-size: 0.84rem; background: white;">${escapeHtml(paymentConfig.paymentNote)}</textarea>
+          </div>
+          <div style="text-align: right;">
+            <button type="button" class="btn btn-primary btn-sm" style="font-weight: 800; padding: 7px 16px; border-radius: 6px;" onclick="saveAdminPaymentConfig()">
+              儲存收款設定（同步至雲端）
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
     // Initialize Dashboard on Page Load
     loadDashboardState();
     loadCommunityAndBookmarkState();
     loadPracticePreferences();
+    updateVipUI();
     initFirebase();
+    setTimeout(() => { checkEmailVipAndPaymentConfig().then(updateVipUI); }, 800);
     window.addEventListener('DOMContentLoaded', initFirebase);
     window.addEventListener('load', initFirebase);
     checkIncomingSync();
@@ -38249,6 +39110,7 @@
         closeFullExamModal();
         closeMistakesModal();
         closeUserProfileModal();
+        closeVipPurchaseModal();
         closeCommunityAdminModal();
         closeSubmitModal();
         toggleDrawer(false);
