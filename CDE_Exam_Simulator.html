@@ -38446,9 +38446,14 @@
       return FREE_TRIAL_10_IDS.map(id => QUESTION_MAP.get(id)).filter(Boolean);
     }
 
+    const BUILTIN_ADMIN_EMAILS = ['milkisa@gmail.com'];
+
     function isCurrentUserAdmin() {
       if (!currentAuthUser || !currentAuthUser.email) return false;
       const email = currentAuthUser.email.toLowerCase();
+      if (BUILTIN_ADMIN_EMAILS.includes(email)) {
+        return true;
+      }
       if (Array.isArray(paymentConfig.adminEmails) && paymentConfig.adminEmails.map(x => String(x).toLowerCase()).includes(email)) {
         return true;
       }
