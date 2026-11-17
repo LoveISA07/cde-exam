@@ -1109,7 +1109,7 @@
           </button>
 
           <!-- VIP Subscription Button -->
-          <button class="nav-btn" id="btn-nav-vip" onclick="openVipPurchaseModal('1M')" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #b45309; border: 1px solid #f59e0b; font-weight: 800;" title="購買或檢視 VIP 會員方案（1個月100元 / 2個月180元）">
+          <button class="nav-btn" id="btn-nav-vip" onclick="openVipPurchaseModal('1M')" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #b45309; border: 1px solid #f59e0b; font-weight: 800;" title="購買或檢視 VIP 會員方案（1個月110元 / 2個月200元）">
             <span id="nav-vip-btn-text">購買 VIP</span>
           </button>
 
@@ -1141,7 +1141,7 @@
         <p style="color: var(--slate-500); font-size: 0.9rem;">支援 Google 帳號登入跨裝置同步・錯題進度雲端即時保存・換手機電腦不中斷</p>
       </div>
 
-      <!-- 0. VIP 會員狀態與方案購買看板 (1個月100元 / 2個月180元) -->
+      <!-- 0. VIP 會員狀態與方案購買看板 (1個月110元 / 2個月200元) -->
       <div class="card" id="landing-vip-banner" style="border: 1.5px solid #fcd34d; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); box-shadow: var(--shadow-sm); margin-bottom: 16px; padding: 16px 20px;">
         <!-- Dynamically rendered by updateVipUI() -->
       </div>
@@ -1716,10 +1716,10 @@
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
           <button type="button" class="btn" style="background: #d97706; color: white; font-weight: 800; padding: 9px 10px; border-radius: 8px; font-size: 0.84rem;" onclick="closeUserProfileModal(); openVipPurchaseModal('1M');">
-            購買 1 個月 (100元)
+            購買 1 個月 (110元)
           </button>
           <button type="button" class="btn" style="background: #b45309; color: white; font-weight: 800; padding: 9px 10px; border-radius: 8px; font-size: 0.84rem;" onclick="closeUserProfileModal(); openVipPurchaseModal('2M');">
-            購買 2 個月 (180元)
+            購買 2 個月 (200元)
           </button>
         </div>
       </div>
@@ -1750,18 +1750,18 @@
       <!-- Reason Notice Banner (if triggered by locked feature) -->
       <div id="vip-modal-reason-banner" style="display: none; background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; line-height: 1.5;"></div>
 
-      <!-- Plan Selector Cards (1 Month 100 / 2 Months 180) -->
+      <!-- Plan Selector Cards (1 Month 110 / 2 Months 200) -->
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
         <div id="vip-plan-card-1M" onclick="selectVipPlan('1M')" style="cursor: pointer; border: 2px solid #f59e0b; background: #fffbeb; border-radius: var(--radius-md); padding: 14px; text-align: center; transition: all 0.2s;">
           <div style="font-size: 0.8rem; font-weight: 800; color: #b45309; margin-bottom: 4px;">單月衝刺方案</div>
-          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">100 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
+          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">110 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
           <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 4px;">完整開通 <strong>1 個月（30 天）</strong></div>
         </div>
 
         <div id="vip-plan-card-2M" onclick="selectVipPlan('2M')" style="cursor: pointer; border: 2px solid var(--slate-200); background: #ffffff; border-radius: var(--radius-md); padding: 14px; text-align: center; position: relative; transition: all 0.2s;">
           <span style="position: absolute; top: -10px; right: 10px; background: #dc2626; color: white; font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">推薦省 20 元</span>
           <div style="font-size: 0.8rem; font-weight: 800; color: #0f766e; margin-bottom: 4px;">雙月穩過方案</div>
-          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">180 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
+          <div style="font-size: 1.65rem; font-weight: 900; color: var(--slate-900);">200 <span style="font-size: 0.9rem; font-weight: 700;">元</span></div>
           <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 4px;">完整開通 <strong>2 個月（60 天）</strong></div>
         </div>
       </div>
@@ -1784,7 +1784,7 @@
       <div style="background: #f8fafc; border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 18px; text-align: left; font-size: 0.8rem; color: var(--slate-600); line-height: 1.7;">
         <div style="font-weight: 800; color: var(--slate-800); margin-bottom: 6px; font-size: 0.88rem;">【服務說明、退費政策、隱私權條款與客服聯絡】</div>
         <div><strong>商店名稱：</strong>糖尿病共同照護網（CDE）筆試備考系統</div>
-        <div><strong>數位服務與方案說明：</strong>本站提供純線上數位題庫訂閱開通服務（1 個月 30 天方案 100 元／2 個月 60 天方案 180 元），無須實體物流寄送。付款確認並核對 Google 登入信箱後，即為該帳號開通完整 1,025 題庫與模擬考權限。</div>
+        <div><strong>數位服務與方案說明：</strong>本站提供純線上數位題庫訂閱開通服務（1 個月 30 天方案 110 元／2 個月 60 天方案 200 元），無須實體物流寄送。付款確認並核對 Google 登入信箱後，即為該帳號開通完整 1,025 題庫與模擬考權限。</div>
         <div><strong>退換貨與退費政策：</strong>依《消費者保護法》第 19 條「通訊交易解除權合理例外情事適用準則」第 2 條第 5 款（非以有形媒介提供之數位內容或一經提供即為完成之線上服務），本數位題庫權限一經開通使用，恕不適用七日鑑賞期退費；惟若尚未開通前申請取消或發生重複扣款，請來信客服辦理全額退費。</div>
         <div><strong>隱私權保護條款：</strong>本站僅於使用者主動透過 Google 登入時，蒐集必要之電子郵件與作答進度紀錄，用於跨裝置雲端同步及會員權限驗證，絕不對外販售或揭露個人資料予無關第三方。</div>
         <div><strong>客服聯絡方式：</strong>信箱 <a href="mailto:cde.exam.service@gmail.com" style="color: var(--primary); font-weight: 700; text-decoration: underline;">cde.exam.service@gmail.com</a> ｜ 官方 LINE：<a href="https://lin.ee/RXX3jyB" target="_blank" rel="noopener noreferrer" style="color: #059669; font-weight: 700; text-decoration: underline;">@753ccxmn</a>（服務時間：週一至週日，來信／訊息將於 24 小時內回覆）</div>
@@ -1793,7 +1793,7 @@
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
       <div>本測驗模擬平台由專業醫事人員獨立編寫，旨在提供醫護同仁臨床糖尿病照護知能研討與學術自修使用。試題內容彙整自公開臨床模擬案例與歷屆考生學習回憶。本站所有題解均依我國《著作權法》第 52 條及第 65 條合理引用醫學指引文獻，並依法明示出處。本平台與社團法人中華民國糖尿病衛教學會（TACD）無任何官方商業隸屬或官方授權關係，學會正版教材請逕向官方管道購買。</div>
       <div style="margin-top: 14px; font-size: 0.78rem; color: var(--slate-500); border-top: 1px dashed var(--slate-200); padding-top: 12px;">
-        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.2 (最新標準版)</span> ｜ 
+        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.3 (最新標準版)</span> ｜ 
         永久分享網址：<a href="https://loveisa07.github.io/cde-exam/" style="color: var(--primary); text-decoration: underline; font-weight: 600;">https://loveisa07.github.io/cde-exam/</a>（永遠最新・永不失效）
       </div>
     </div>
@@ -36973,8 +36973,8 @@
               <div style="font-weight: 800; color: #92400e; font-size: 0.95rem; margin-bottom: 4px;">您已完成免費體驗（第一章固定 1～10 題）</div>
               <div style="font-size: 0.84rem; color: #78350f; margin-bottom: 10px; line-height: 1.5;">升級 VIP 即可解鎖全書 30 章共 1,025 題無限隨機快刷、17 大臨床概念特訓與 100 題全真模擬考！</div>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('1M')">購買 1 個月 (100元)</button>
-                <button class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('2M')">購買 2 個月 (180元)</button>
+                <button class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('1M')">購買 1 個月 (110元)</button>
+                <button class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; border-radius: 6px;" onclick="openVipPurchaseModal('2M')">購買 2 個月 (200元)</button>
               </div>
             </div>
           ` : ''}
@@ -38233,10 +38233,10 @@
                 </div>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                   <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; border-radius: 6px; padding: 6px 12px;" onclick="openVipPurchaseModal('1M')">
-                    購買 1 個月 (100元)
+                    購買 1 個月 (110元)
                   </button>
                   <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; border-radius: 6px; padding: 6px 12px;" onclick="openVipPurchaseModal('2M')">
-                    購買 2 個月 (180元)
+                    購買 2 個月 (200元)
                   </button>
                 </div>
               </div>
@@ -38579,7 +38579,7 @@
                   <strong style="font-size: 1rem; color: var(--slate-900);">目前開放「第一章 流行病學」固定第 1～10 題免費體驗</strong>
                 </div>
                 <div style="font-size: 0.84rem; color: var(--slate-600);">
-                  使用 Google 帳號登入後，即可選購完整題庫方案（<strong>1 個月 100 元</strong> ／ <strong>2 個月 180 元</strong>），解鎖全書 30 章 1,025 題與 100 題模擬考！
+                  使用 Google 帳號登入後，即可選購完整題庫方案（<strong>1 個月 110 元</strong> ／ <strong>2 個月 200 元</strong>），解鎖全書 30 章 1,025 題與 100 題模擬考！
                 </div>
               </div>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -38587,7 +38587,7 @@
                   Google 登入以購買方案
                 </button>
                 <button class="btn btn-outline btn-sm" style="font-weight: 700; padding: 8px 14px; border-radius: 8px; border-color: #d97706; color: #b45309;" onclick="openVipPurchaseModal('1M')">
-                  查看收費方案 (100元起)
+                  查看收費方案 (110元起)
                 </button>
               </div>
             </div>
@@ -38627,10 +38627,10 @@
               </div>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <button class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 9px 14px; border-radius: 8px; font-size: 0.86rem;" onclick="openVipPurchaseModal('1M')">
-                  購買 1 個月 (100元)
+                  購買 1 個月 (110元)
                 </button>
                 <button class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 9px 14px; border-radius: 8px; font-size: 0.86rem;" onclick="openVipPurchaseModal('2M')">
-                  購買 2 個月 (180元)
+                  購買 2 個月 (200元)
                 </button>
               </div>
             </div>
@@ -38702,7 +38702,7 @@
     }
 
     function getSelectedPlanLabel() {
-      return selectedVipPlan === '2M' ? '2 個月（60 天）180 元' : '1 個月（30 天）100 元';
+      return selectedVipPlan === '2M' ? '2 個月（60 天）200 元' : '1 個月（30 天）110 元';
     }
 
     function copyVipApplyMessage() {
@@ -39015,10 +39015,10 @@
                   }
                 </td>
                 <td style="padding: 10px 8px; text-align: right; white-space: nowrap;">
-                  <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 30, '1個月VIP(100元)')">
+                  <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 30, '1個月VIP(110元)')">
                     +1個月 (30天)
                   </button>
-                  <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 60, '2個月VIP(180元)')">
+                  <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px; margin-right: 4px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 60, '2個月VIP(200元)')">
                     +2個月 (60天)
                   </button>
                   ${active ? `<button type="button" class="btn btn-outline btn-sm" style="color: #dc2626; border-color: #fca5a5; padding: 5px 8px; font-size: 0.74rem; border-radius: 6px;" onclick="grantVipByEmail('${escapeHtml(u.email)}', 0, '')">取消</button>` : ''}
@@ -39053,11 +39053,11 @@
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <input type="email" id="admin-quick-vip-email" placeholder="貼上學員的 Google 信箱（例如 example@gmail.com）..." style="flex: 1; min-width: 220px; padding: 8px 12px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 0.9rem; background: white;">
-            <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 30, '1個月VIP(100元)')">
-              開通 1 個月 (+30天 / 100元)
+            <button type="button" class="btn btn-sm" style="background: #d97706; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 30, '1個月VIP(110元)')">
+              開通 1 個月 (+30天 / 110元)
             </button>
-            <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 60, '2個月VIP(180元)')">
-              開通 2 個月 (+60天 / 180元)
+            <button type="button" class="btn btn-sm" style="background: #b45309; color: white; font-weight: 800; padding: 8px 14px; border-radius: 6px;" onclick="grantVipByEmail(document.getElementById('admin-quick-vip-email').value, 60, '2個月VIP(200元)')">
+              開通 2 個月 (+60天 / 200元)
             </button>
           </div>
         </div>
