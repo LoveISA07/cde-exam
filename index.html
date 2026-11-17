@@ -1793,7 +1793,7 @@
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
       <div>本測驗模擬平台由專業醫事人員獨立編寫，旨在提供醫護同仁臨床糖尿病照護知能研討與學術自修使用。試題內容彙整自公開臨床模擬案例與歷屆考生學習回憶。本站所有題解均依我國《著作權法》第 52 條及第 65 條合理引用醫學指引文獻，並依法明示出處。本平台與社團法人中華民國糖尿病衛教學會（TACD）無任何官方商業隸屬或官方授權關係，學會正版教材請逕向官方管道購買。</div>
       <div style="margin-top: 14px; font-size: 0.78rem; color: var(--slate-500); border-top: 1px dashed var(--slate-200); padding-top: 12px;">
-        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.3 (最新標準版)</span> ｜ 
+        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.4 (最新標準版)</span> ｜ 
         永久分享網址：<a href="https://loveisa07.github.io/cde-exam/" style="color: var(--primary); text-decoration: underline; font-weight: 600;">https://loveisa07.github.io/cde-exam/</a>（永遠最新・永不失效）
       </div>
     </div>
@@ -38444,6 +38444,7 @@
 
     // 收款與 LINE 官方帳號設定（可由管理後台隨時更新並同步至雲端 cde_settings/payment）
     let paymentConfig = {
+      newebpayWorkerUrl: localStorage.getItem('CDE_NEWEBPAY_WORKER_URL') || '',
       lineUrl: localStorage.getItem('CDE_LINE_URL') || 'https://lin.ee/RXX3jyB',
       lineId: localStorage.getItem('CDE_LINE_ID') || '@753ccxmn',
       paymentNote: localStorage.getItem('CDE_PAYMENT_NOTE') || '請加入官方 LINE 帳號並傳送上方複製的「開通申請訊息」，完成匯款或 LINE Pay 後將立即為您的 Google 帳號開通 VIP 權限！',
@@ -38451,6 +38452,7 @@
     };
 
     let adminUsersCache = [];
+    let vipEmailUnsubscribe = null;
 
     function getFreeTrial10Questions() {
       return FREE_TRIAL_10_IDS.map(id => QUESTION_MAP.get(id)).filter(Boolean);
@@ -38491,14 +38493,16 @@
     async function checkEmailVipAndPaymentConfig() {
       if (!firestoreDb) return;
       try {
-        // 1. Load global payment config (LINE URL / ID / note / adminEmails)
+        // 1. Load global payment config (NewebPay Worker URL / LINE URL / ID / note / adminEmails)
         const cfgSnap = await firestoreDb.collection('cde_settings').doc('payment').get();
         if (cfgSnap.exists) {
           const d = cfgSnap.data() || {};
+          if (typeof d.newebpayWorkerUrl === 'string') paymentConfig.newebpayWorkerUrl = d.newebpayWorkerUrl;
           if (typeof d.lineUrl === 'string') paymentConfig.lineUrl = d.lineUrl;
           if (typeof d.lineId === 'string') paymentConfig.lineId = d.lineId;
           if (typeof d.paymentNote === 'string' && d.paymentNote.trim()) paymentConfig.paymentNote = d.paymentNote;
           if (Array.isArray(d.adminEmails)) paymentConfig.adminEmails = d.adminEmails;
+          localStorage.setItem('CDE_NEWEBPAY_WORKER_URL', paymentConfig.newebpayWorkerUrl);
           localStorage.setItem('CDE_LINE_URL', paymentConfig.lineUrl);
           localStorage.setItem('CDE_LINE_ID', paymentConfig.lineId);
           localStorage.setItem('CDE_PAYMENT_NOTE', paymentConfig.paymentNote);
@@ -38531,6 +38535,32 @@
             }
           }
         }
+
+        // 3. Attach real-time listener on cde_vip_emails/{emailKey} for instant auto-unlock after NewebPay webhook
+        if (vipEmailUnsubscribe) {
+          try { vipEmailUnsubscribe(); } catch (e) {}
+          vipEmailUnsubscribe = null;
+        }
+        vipEmailUnsubscribe = firestoreDb.collection('cde_vip_emails').doc(emailKey).onSnapshot(snap => {
+          if (!snap.exists) return;
+          const sd = snap.data() || {};
+          if (sd.vipUntil) {
+            const sms = new Date(sd.vipUntil).getTime();
+            const wasVip = currentVipUntilMs > Date.now();
+            if (!isNaN(sms) && sms > currentVipUntilMs) {
+              currentVipUntilMs = sms;
+              currentVipPlan = sd.vipPlan || 'VIP';
+              updateVipUI();
+              closeVipPurchaseModal();
+              if (document.getElementById('screen-study-browser')?.classList.contains('active')) {
+                renderBrowserPage();
+              }
+              if (!wasVip && sms > Date.now()) {
+                showToast(`🎉 付款成功！已自動為您開通 VIP（有效至 ${formatVipDate(sms)}）`);
+              }
+            }
+          }
+        }, () => {});
       } catch (e) {
         console.warn('VIP email lookup notice:', e);
       }
@@ -38745,6 +38775,55 @@
       }
     }
 
+    async function startNewebPayCheckout() {
+      if (!currentAuthUser) {
+        alert('請先使用 Google 帳號登入！');
+        return;
+      }
+      const workerUrl = String(paymentConfig.newebpayWorkerUrl || '').trim().replace(/\/+$/, '');
+      if (!workerUrl) {
+        alert('藍新線上金流尚在審核開通中，請先透過下方官方 LINE 聯繫客服開通！');
+        return;
+      }
+      const btn = document.getElementById('btn-newebpay-checkout');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = '正在建立加密訂單並跳轉藍新金流...';
+      }
+      try {
+        const idToken = await currentAuthUser.getIdToken(true);
+        const res = await fetch(`${workerUrl}/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken, plan: selectedVipPlan })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.TradeInfo) {
+          throw new Error(data.error || '建立訂單失敗');
+        }
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = data.gatewayUrl;
+        form.style.display = 'none';
+        ['MerchantID', 'TradeInfo', 'TradeSha', 'Version'].forEach(k => {
+          const inp = document.createElement('input');
+          inp.type = 'hidden';
+          inp.name = k;
+          inp.value = data[k];
+          form.appendChild(inp);
+        });
+        document.body.appendChild(form);
+        form.submit();
+      } catch (err) {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = `立即前往藍新線上付款（${getSelectedPlanLabel()}）`;
+        }
+        alert('無法啟動線上結帳：' + err.message);
+      }
+    }
+
     function renderVipModalAuthStep() {
       const container = document.getElementById('vip-modal-auth-step');
       if (!container) return;
@@ -38762,6 +38841,29 @@
             <button type="button" class="btn btn-primary" style="width: 100%; padding: 11px; font-weight: 800; border-radius: 8px;" onclick="handleGoogleSignIn()">
               第一步：使用 Google 帳號登入
             </button>
+          </div>
+        `;
+        return;
+      }
+
+      const hasAutoGateway = Boolean(String(paymentConfig.newebpayWorkerUrl || '').trim());
+
+      if (hasAutoGateway) {
+        container.innerHTML = `
+          <div style="background: #ffffff; border: 1.5px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 0.84rem; color: var(--slate-600); margin-bottom: 10px;">
+              已選方案：<strong style="color: #b45309; font-size: 0.95rem;">${planLabel}</strong> ｜ 自動綁定信箱：<strong style="color: var(--slate-900);">${escapeHtml(currentAuthUser.email)}</strong>
+            </div>
+            <button type="button" id="btn-newebpay-checkout" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: 800; border-radius: 8px; font-size: 0.98rem; background: #0284c7;" onclick="startNewebPayCheckout()">
+              立即前往藍新線上付款（${planLabel}）
+            </button>
+            <div style="font-size: 0.78rem; color: var(--slate-500); text-align: center; margin-top: 8px; line-height: 1.5;">
+              支援信用卡一次付清、ATM 一次性虛擬帳號轉帳。付款完成後系統將<strong>自動為您的 Google 帳號秒開通 VIP</strong>，無須手動傳訊息！
+            </div>
+            <div style="border-top: 1px dashed var(--slate-200); margin-top: 10px; padding-top: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 0.78rem;">
+              <a href="${escapeHtml(paymentConfig.lineUrl || 'https://lin.ee/RXX3jyB')}" target="_blank" rel="noopener noreferrer" style="color: var(--slate-500); text-decoration: underline;">需人工協助？聯繫官方 LINE 客服（${escapeHtml(paymentConfig.lineId || '@753ccxmn')}）</a>
+              <button type="button" style="background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; font-size: 0.78rem;" onclick="refreshMyVipStatus()">手動刷新開通狀態</button>
+            </div>
           </div>
         `;
         return;
@@ -38908,14 +39010,17 @@
     }
 
     async function saveAdminPaymentConfig() {
+      const workerUrl = (document.getElementById('admin-cfg-worker-url')?.value || '').trim();
       const lineUrl = (document.getElementById('admin-cfg-line-url')?.value || '').trim();
       const lineId = (document.getElementById('admin-cfg-line-id')?.value || '').trim();
       const note = (document.getElementById('admin-cfg-payment-note')?.value || '').trim();
 
+      paymentConfig.newebpayWorkerUrl = workerUrl;
       paymentConfig.lineUrl = lineUrl;
       paymentConfig.lineId = lineId;
       paymentConfig.paymentNote = note || paymentConfig.paymentNote;
 
+      localStorage.setItem('CDE_NEWEBPAY_WORKER_URL', paymentConfig.newebpayWorkerUrl);
       localStorage.setItem('CDE_LINE_URL', paymentConfig.lineUrl);
       localStorage.setItem('CDE_LINE_ID', paymentConfig.lineId);
       localStorage.setItem('CDE_PAYMENT_NOTE', paymentConfig.paymentNote);
@@ -38923,13 +39028,14 @@
       if (firestoreDb) {
         try {
           await firestoreDb.collection('cde_settings').doc('payment').set({
+            newebpayWorkerUrl: paymentConfig.newebpayWorkerUrl,
             lineUrl: paymentConfig.lineUrl,
             lineId: paymentConfig.lineId,
             paymentNote: paymentConfig.paymentNote,
             adminEmails: paymentConfig.adminEmails,
             updatedAt: new Date().toISOString()
           }, { merge: true });
-          showToast('收款與 LINE 官方帳號設定已儲存並同步至雲端！');
+          showToast('藍新自動開通與收款設定已儲存並同步至雲端！');
         } catch (e) {
           alert('已儲存於本機，但雲端同步失敗：' + e.message);
         }
@@ -39089,10 +39195,14 @@
           </div>
         </div>
 
-        <!-- 3. LINE 官方帳號與收款說明設定 -->
+        <!-- 3. 藍新自動開通與 LINE 官方帳號收款設定 -->
         <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px;">
           <div style="font-weight: 800; color: var(--slate-900); font-size: 0.95rem; margin-bottom: 8px;">
-            LINE 官方帳號與收款資訊設定（全站購買視窗即時連動）
+            藍新金流全自動秒開通 ＆ LINE 客服設定（全站購買視窗即時連動）
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.78rem; font-weight: 700; color: #0369a1; display: block; margin-bottom: 4px;">藍新自動開通雲端網址（Cloudflare Worker URL，填入後即啟用全自動線上結帳）</label>
+            <input type="text" id="admin-cfg-worker-url" value="${escapeHtml(paymentConfig.newebpayWorkerUrl || '')}" placeholder="例如 https://cde-newebpay-worker.xxxx.workers.dev（留空則維持 LINE 人工開通）" style="width: 100%; padding: 7px 10px; border: 1px solid #7dd3fc; border-radius: 6px; font-size: 0.84rem; background: white;">
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px;">
             <div>
