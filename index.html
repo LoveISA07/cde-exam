@@ -1787,13 +1787,13 @@
         <div><strong>數位服務與方案說明：</strong>本站提供純線上數位題庫訂閱開通服務（1 個月 30 天方案 100 元／2 個月 60 天方案 180 元），無須實體物流寄送。付款確認並核對 Google 登入信箱後，即為該帳號開通完整 1,025 題庫與模擬考權限。</div>
         <div><strong>退換貨與退費政策：</strong>依《消費者保護法》第 19 條「通訊交易解除權合理例外情事適用準則」第 2 條第 5 款（非以有形媒介提供之數位內容或一經提供即為完成之線上服務），本數位題庫權限一經開通使用，恕不適用七日鑑賞期退費；惟若尚未開通前申請取消或發生重複扣款，請來信客服辦理全額退費。</div>
         <div><strong>隱私權保護條款：</strong>本站僅於使用者主動透過 Google 登入時，蒐集必要之電子郵件與作答進度紀錄，用於跨裝置雲端同步及會員權限驗證，絕不對外販售或揭露個人資料予無關第三方。</div>
-        <div><strong>客服聯絡信箱：</strong><a href="mailto:cde.exam.service@gmail.com" style="color: var(--primary); font-weight: 700; text-decoration: underline;">cde.exam.service@gmail.com</a>（服務時間：週一至週日，來信將於 24 小時內回覆）</div>
+        <div><strong>客服聯絡方式：</strong>信箱 <a href="mailto:cde.exam.service@gmail.com" style="color: var(--primary); font-weight: 700; text-decoration: underline;">cde.exam.service@gmail.com</a> ｜ 官方 LINE：<a href="https://lin.ee/RXX3jyB" target="_blank" rel="noopener noreferrer" style="color: #059669; font-weight: 700; text-decoration: underline;">@753ccxmn</a>（服務時間：週一至週日，來信／訊息將於 24 小時內回覆）</div>
       </div>
 
       <div style="font-weight: 800; color: var(--slate-700); margin-bottom: 8px; font-size: 0.9rem;">【版權與免責聲明】</div>
       <div>本測驗模擬平台由專業醫事人員獨立編寫，旨在提供醫護同仁臨床糖尿病照護知能研討與學術自修使用。試題內容彙整自公開臨床模擬案例與歷屆考生學習回憶。本站所有題解均依我國《著作權法》第 52 條及第 65 條合理引用醫學指引文獻，並依法明示出處。本平台與社團法人中華民國糖尿病衛教學會（TACD）無任何官方商業隸屬或官方授權關係，學會正版教材請逕向官方管道購買。</div>
       <div style="margin-top: 14px; font-size: 0.78rem; color: var(--slate-500); border-top: 1px dashed var(--slate-200); padding-top: 12px;">
-        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.1 (最新標準版)</span> ｜ 
+        系統版本：<span id="app-footer-version" style="font-weight: 700; color: #166534;">v2026.11.17.2 (最新標準版)</span> ｜ 
         永久分享網址：<a href="https://loveisa07.github.io/cde-exam/" style="color: var(--primary); text-decoration: underline; font-weight: 600;">https://loveisa07.github.io/cde-exam/</a>（永遠最新・永不失效）
       </div>
     </div>
@@ -38444,8 +38444,8 @@
 
     // 收款與 LINE 官方帳號設定（可由管理後台隨時更新並同步至雲端 cde_settings/payment）
     let paymentConfig = {
-      lineUrl: localStorage.getItem('CDE_LINE_URL') || '',
-      lineId: localStorage.getItem('CDE_LINE_ID') || '',
+      lineUrl: localStorage.getItem('CDE_LINE_URL') || 'https://lin.ee/RXX3jyB',
+      lineId: localStorage.getItem('CDE_LINE_ID') || '@753ccxmn',
       paymentNote: localStorage.getItem('CDE_PAYMENT_NOTE') || '請加入官方 LINE 帳號並傳送上方複製的「開通申請訊息」，完成匯款或 LINE Pay 後將立即為您的 Google 帳號開通 VIP 權限！',
       adminEmails: JSON.parse(localStorage.getItem('CDE_ADMIN_EMAILS') || '[]')
     };
